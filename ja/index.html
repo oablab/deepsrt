@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSRT — YouTube動画を瞬時にAI要約＆文字起こし、Macネイティブアプリ</title>
+  <meta name="description" content="DeepSRTはYouTube動画を瞬時にAI要約と読みやすい文字起こしに変換。Macネイティブアプリで、ご自身のGemini APIキーを使用。内蔵プレーヤーと無料のChrome拡張機能付き。">
+  <meta property="og:title" content="DeepSRT">
+  <meta property="og:description" content="見る時間を減らして、理解を深める。YouTubeの即時AI要約と文字起こし。Macネイティブ、自分のGeminiキーで。サーバーなし、アカウント不要。">
+  <meta property="og:url" content="https://deepsrt.com">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #D64545;
+      --accent-deep: #8C2B2B;
+      --accent-tint: #F6DFDF;
+      --ink: #2B1D1D;
+      --muted: #7C6666;
+      --bg: #F8F2F1;
+      --card: #F1E7E6;
+      --border: rgba(140, 43, 43, 0.16);
+      --shadow: 0 24px 80px rgba(43, 29, 29, 0.22);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #E06A6A;
+        --accent-deep: #EFA6A6;
+        --accent-tint: #2F1C1C;
+        --ink: #F1E4E4;
+        --muted: #AC9090;
+        --bg: #171010;
+        --card: #231616;
+        --border: rgba(224, 106, 106, 0.2);
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1080px; margin: 0 auto; padding: 0.9rem 1.5rem;
+      backdrop-filter: saturate(180%) blur(16px);
+    }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .links a { color: var(--muted); text-decoration: none; margin-left: 1.4rem; font-size: 0.92rem; }
+    nav .links a:hover { color: var(--accent-deep); }
+    nav .lang { margin-left: 1.4rem; font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    @media (max-width: 720px) {
+      nav { flex-direction: column; gap: 0.45rem; padding: 0.7rem 1rem 0.65rem; }
+      nav .links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.2rem 1rem; }
+      nav .links a { margin-left: 0; font-size: 0.86rem; }
+      nav .lang { margin-left: 0; }
+      .hero { padding-top: 2.6rem; }
+    }
+
+    .hero {
+      max-width: 1080px; margin: 0 auto; padding: 4.5rem 1.5rem 0;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: "New York", Georgia, "Times New Roman", serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      max-width: 820px; margin: 0 auto;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--ink);
+      background: linear-gradient(transparent 58%, rgba(214, 69, 69, 0.45) 58%, rgba(214, 69, 69, 0.45) 94%, transparent 94%);
+      padding: 0 0.06em;
+    }
+    .hero p.sub {
+      color: var(--muted); font-size: 1.18rem; max-width: 760px;
+      margin: 1.2rem auto 0;
+    }
+    @media (max-width: 600px) {
+      .desktop-br { display: none; }
+    }
+    .cta-row { margin-top: 2rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+    .cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--ink); color: var(--bg);
+      padding: 0.85rem 1.5rem; border-radius: 12px;
+      text-decoration: none; font-weight: 600; font-size: 0.98rem;
+      transition: transform 0.15s ease;
+    }
+    .cta:hover { transform: translateY(-1px); }
+    .cta.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .badge {
+      display: inline-block; margin-top: 1.1rem;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--accent-deep); background: var(--accent-tint);
+      border-radius: 999px; padding: 0.3rem 0.9rem;
+    }
+    .soon {
+      display: inline-block; vertical-align: middle; margin-left: 0.45rem;
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; white-space: nowrap;
+      color: var(--muted); background: var(--accent-tint);
+      border-radius: 999px; padding: 0.18rem 0.5rem;
+    }
+
+    .flow {
+      max-width: 760px; margin: 3.5rem auto 0; padding: 0 1.5rem;
+      position: relative;
+    }
+    .flow::before {
+      content: ""; position: absolute; inset: 12% 6% -4%;
+      background: radial-gradient(60% 60% at 50% 40%, rgba(214, 69, 69, 0.28), transparent 70%);
+      filter: blur(40px); z-index: 0;
+    }
+    .flow svg { position: relative; z-index: 1; width: 100%; height: auto; }
+    .flow text {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      fill: var(--ink); font-size: 13px; font-weight: 600;
+    }
+    .flow text.dim { fill: var(--muted); font-weight: 400; font-size: 11.5px; }
+    .flow .box { fill: var(--card); stroke: var(--border); rx: 12; }
+    .flow .arrow { stroke: var(--accent); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+
+    section.features {
+      max-width: 1080px; margin: 0 auto; padding: 5rem 1.5rem 1rem;
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.1rem;
+    }
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.6rem;
+    }
+    .feature .icon {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: var(--accent-tint);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.9rem;
+    }
+    .feature .icon svg { width: 22px; height: 22px; stroke: var(--accent-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .feature h3 { font-size: 1.04rem; letter-spacing: -0.01em; margin-bottom: 0.35rem; }
+    .feature p { font-size: 0.94rem; color: var(--muted); }
+
+    section.how {
+      max-width: 880px; margin: 0 auto; padding: 4.5rem 1.5rem 1rem;
+      text-align: center;
+    }
+    h2.section-title { font-family: "New York", Georgia, "Times New Roman", serif; font-size: 2rem; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+    p.section-sub { color: var(--muted); max-width: 540px; margin: 0 auto 2.4rem; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.6rem; text-align: left; }
+    .step .num {
+      font-size: 0.8rem; font-weight: 700; color: var(--accent-deep);
+      background: var(--accent-tint); border-radius: 999px;
+      width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.7rem;
+    }
+    .step h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .step p { font-size: 0.92rem; color: var(--muted); }
+
+    section.faq { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 2rem; }
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0.2rem;
+    }
+    .faq summary { cursor: pointer; font-weight: 600; font-size: 1rem; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq summary::after { content: "+"; color: var(--accent-deep); font-size: 1.3rem; font-weight: 400; }
+    .faq details[open] summary::after { content: "–"; }
+    .faq details p { color: var(--muted); font-size: 0.95rem; padding-top: 0.6rem; }
+    .faq details a { color: var(--accent-deep); }
+
+    .bottom-cta {
+      text-align: center; padding: 4.5rem 1.5rem;
+      background: linear-gradient(180deg, transparent, var(--accent-tint));
+    }
+    .bottom-cta h2 { font-size: 1.8rem; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.2rem 1.5rem; text-align: center;
+      color: var(--muted); font-size: 0.88rem;
+    }
+    footer a { color: var(--accent-deep); text-decoration: none; margin: 0 0.5rem; }
+  </style>
+  <script>
+    // Remember an explicit language choice; the root page honours it on
+    // future visits instead of re-guessing from the browser locale.
+    document.addEventListener("click", function (event) {
+      var link = event.target.closest(".lang a");
+      if (!link) return;
+      try { localStorage.setItem("deepsrt-lang", link.getAttribute("href")); } catch (e) {}
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <a class="brand" href="/"><img src="/icon.svg" alt="" width="28" height="28">DeepSRT</a>
+    <div class="links">
+      <a href="#features">機能</a>
+      <a href="#how">使い方</a>
+      <a href="#faq">よくある質問</a>
+      <a href="mailto:support@deepsrt.com">サポート</a>
+      <span class="lang"><a href="/zh/">中文</a>|<a class="active" href="/ja/">日本語</a>|<a href="/ko/">한국어</a>|<a href="/?lang=en">EN</a></span>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>見る時間を減らして、<br><em>理解を深める。</em></h1>
+    <p class="sub">DeepSRTはYouTube動画を瞬時にAI要約と、<br class="desktop-br">クリックできる読みやすい文字起こしに変換します。Macネイティブアプリ、自分のGeminiキーで。<br class="desktop-br">見て、ざっと読んで、大事な瞬間へジャンプ。</p>
+    <div class="cta-row">
+      <a class="cta" href="mailto:hello@deepsrt.com?subject=Notify%20me%20about%20DeepSRT%20for%20Mac">リリース通知を受け取る</a>
+      <a class="cta secondary" href="#how">使い方を見る</a>
+    </div>
+    <span class="badge">DEEPSRT V2 · MAC APP STOREに近日登場</span>
+
+    <div class="flow" aria-hidden="true">
+      <svg viewBox="0 0 720 300">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <!-- source -->
+        <rect class="box" x="20" y="110" width="170" height="80" rx="12"/>
+        <text x="105" y="145" text-anchor="middle">YouTubeリンク</text>
+        <text class="dim" x="105" y="166" text-anchor="middle">またはChromeサイドパネル</text>
+        <!-- app -->
+        <rect class="box" x="250" y="95" width="200" height="110" rx="12"/>
+        <text x="350" y="135" text-anchor="middle">DeepSRT for Mac</text>
+        <text class="dim" x="350" y="156" text-anchor="middle">あなたのGeminiキー</text>
+        <text class="dim" x="350" y="173" text-anchor="middle">間にサーバーなし</text>
+        <!-- arrows -->
+        <path class="arrow" d="M200 150 L 240 150"/>
+        <path class="arrow" d="M460 150 C 500 150, 510 40, 560 40"/>
+        <path class="arrow" d="M460 150 C 500 150, 510 113, 560 113"/>
+        <path class="arrow" d="M460 150 C 500 150, 510 187, 560 187"/>
+        <path class="arrow" d="M460 150 C 500 150, 510 260, 560 260"/>
+        <!-- outputs -->
+        <rect class="box" x="570" y="15" width="130" height="50" rx="12"/>
+        <text x="635" y="45" text-anchor="middle">AI要約</text>
+        <rect class="box" x="570" y="88" width="130" height="50" rx="12"/>
+        <text x="635" y="118" text-anchor="middle">文字起こし</text>
+        <rect class="box" x="570" y="162" width="130" height="50" rx="12"/>
+        <text x="635" y="192" text-anchor="middle">SRT書き出し</text>
+        <rect class="box" x="570" y="235" width="130" height="50" rx="12"/>
+        <text x="635" y="265" text-anchor="middle">内蔵プレーヤー</text>
+      </svg>
+    </div>
+  </header>
+
+  <section class="features" id="features">
+    <div class="features-grid">
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+        <h3>好みのスタイルで要約</h3>
+        <p>さっと読める文章形式か、各ポイントにタイムスタンプ付きの箇条書きダイジェスト。要約はあなたの言語で：日本語、English、繁體中文、한국어など。</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h6M16 15h1"/></svg></div>
+        <h3>クリックできる文字起こし</h3>
+        <p>読みやすく区切られた完全な文字起こし。タイムスタンプをクリックすると動画がその瞬間にジャンプ。ワンクリックでSRTファイルとしてコピーも。</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9l5 3-5 3z"/></svg></div>
+        <h3>アプリ内でそのまま視聴</h3>
+        <p>内蔵YouTubeプレーヤーが要約と文字起こしの上に。ダイジェストを読み、気になるポイントのタイムスタンプをクリックすれば、動画がそこへジャンプ。</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 7a5 5 0 1 0-4.9 6H10l1.5-1.5L13 13l1.5-1.5L16 13l2.5-2.5V7z"/><circle cx="9" cy="7" r="1"/></svg></div>
+        <h3>自分のキー、自分のクォータ</h3>
+        <p>ご自身のGemini APIキーを使用。Google AI Studioの無料枠で日常使いには十分です。キーはmacOSキーチェーンにのみ保存され、Googleへの直接呼び出しにのみ使われます。</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>プライバシー第一の設計</h3>
+        <p>DeepSRTのサーバーなし、アカウント不要、トラッキングなし。字幕はYouTubeからMacへ直接、要約はMacからGoogleへ直接。間には何もありません。</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+        <h3>無料のChrome拡張機能</h3>
+        <p>YouTubeを見ながら使うなら、無料のDeepSRT拡張機能がブラウザのサイドパネルに同じ要約と文字起こしを表示。バックグラウンドで動くMacアプリがすべてを処理します。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <h2 class="section-title">3ステップ、あとは一瞬</h2>
+    <p class="section-sub">設定は一度だけ。あとはリンクを貼るだけで要約が手に入ります。</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>DeepSRTを入手</h3>
+        <p>Mac App Storeで買い切り。サブスクリプションなし、アカウント登録も不要。</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Geminiキーを追加</h3>
+        <p>Google AI Studioで無料のAPIキーを取得して設定に貼り付け。キーチェーンに保存されます。</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>リンクを貼る</h3>
+        <p>YouTubeのURLを貼るか、Chromeでサイドパネルを開くだけ。要約、文字起こし、プレーヤーが一緒に表示されます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <h2 class="section-title" style="text-align:center">よくある質問</h2>
+    <details>
+      <summary>自分のAPIキーが必要ですか？</summary>
+      <p>はい。DeepSRTはご自身のGoogle Gemini APIキーで動作します。<a href="https://aistudio.google.com/apikey">Google AI Studio</a>で無料で作成できます。キーはあなたのものなので、DeepSRTへの利用料も月額AIサブスクリプションもなく、リクエストは直接Googleに送られます。</p>
+    </details>
+    <details>
+      <summary>DeepSRTはサブスクリプションですか？</summary>
+      <p>いいえ。Mac App Storeでの買い切りです。Chrome拡張機能は無料です。</p>
+    </details>
+    <details>
+      <summary>視聴データはDeepSRTのサーバーを経由しますか？</summary>
+      <p>一切ありません。DeepSRTのサーバー自体が存在しません。アプリはYouTubeから直接字幕を取得し、あなたのキーでGoogleのGemini APIに直接送信します。アカウントなし、トラッキングなし、仲介なし。</p>
+    </details>
+    <details>
+      <summary>対応言語は？</summary>
+      <p>要約とタイトル翻訳は日本語、繁體中文、简体中文、English、한국어、Español、Français、ไทยに対応。文字起こしは動画に用意されている字幕言語に従います。</p>
+    </details>
+    <details>
+      <summary>Chromeは必須ですか？</summary>
+      <p>いいえ。Macアプリは完全に単体で動作します。リンクを貼れば要約、文字起こし、内蔵プレーヤーが使えます。Chrome拡張機能は、視聴しながらサイドパネルで要約を読みたい方向けのオプションです。</p>
+    </details>
+    <details>
+      <summary>DeepSRT v1はどうなりましたか？</summary>
+      <p>v1はクラウドで動作していました。v2はゼロから書き直し、すべてをMac上に移しました。より速く、よりプライベートに、共有インフラへの依存もなし。拡張機能は健在です——接続先がクラウドからアプリに変わっただけ。</p>
+    </details>
+    <details>
+      <summary>いつリリースされますか？</summary>
+      <p>DeepSRT v2は最終段階、まもなくMac App Storeに登場します。<a href="mailto:hello@deepsrt.com?subject=Notify%20me%20about%20DeepSRT%20for%20Mac">メールをいただければ</a>リリース時にお知らせします。</p>
+    </details>
+  </section>
+
+  <div class="bottom-cta">
+    <h2>どの動画も、もう読んでおきました。</h2>
+    <a class="cta" href="mailto:hello@deepsrt.com?subject=Notify%20me%20about%20DeepSRT%20for%20Mac">リリース通知を受け取る</a>
+  </div>
+
+  <footer>
+    <p>© 2026 DeepSRT · <a href="/privacy/">プライバシー</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a> · From the maker of <a href="https://foldic.app">Foldic</a> and <a href="https://ripplic.app">Ripplic</a></p>
+  </footer>
+</body>
+</html>

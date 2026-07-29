@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — DeepSRT</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #2B1D1D;
+      background: #F8F2F1;
+      line-height: 1.7;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    h1 { font-family: "New York", Georgia, serif; letter-spacing: -0.01em; }
+    h2 { margin-top: 2rem; font-size: 1.2rem; }
+    p, li { color: #55403f; }
+    a { color: #8C2B2B; }
+    .updated { color: #7C6666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <p><a href="/">← DeepSRT</a></p>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: July 29, 2026</p>
+
+  <p>DeepSRT is a Mac application (with an optional Chrome extension
+  companion) that turns YouTube videos into AI summaries and transcripts.
+  It is designed so that your activity stays on your Mac.</p>
+
+  <h2>Data collection</h2>
+  <p><strong>DeepSRT collects no data. Period.</strong></p>
+  <ul>
+    <li>No analytics, telemetry, or crash reporting</li>
+    <li>No account, sign-up, or login with DeepSRT</li>
+    <li>No DeepSRT servers — the app has no backend of its own</li>
+    <li>No advertising or third-party SDKs</li>
+  </ul>
+
+  <h2>How processing works</h2>
+  <p>When you request a summary or transcript, the app fetches the video's
+  caption data directly from YouTube and sends the transcript text directly
+  to Google's Gemini API using your own API key. Both connections go
+  straight from your Mac to those services; nothing is routed through,
+  cached on, or visible to any server operated by us. YouTube and Google
+  handle those requests under their own privacy policies
+  (<a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>,
+  <a href="https://policies.google.com/privacy">Google Privacy Policy</a>).</p>
+
+  <h2>Embedded video playback</h2>
+  <p>The app can play videos using the official YouTube embedded player.
+  When the player loads, YouTube collects and shares some basic data (such
+  as the video being watched) as it would for any embedded player on the
+  web, under Google's privacy policy. DeepSRT does not add tracking of its
+  own and does not autoplay videos.</p>
+
+  <h2>Your API key</h2>
+  <p>Your Gemini API key is stored in the macOS Keychain on your Mac,
+  protected by the system. It is used solely to call Google's Gemini API
+  and is never transmitted anywhere else. Removing the key in Settings
+  deletes it from the Keychain.</p>
+
+  <h2>The Chrome extension</h2>
+  <p>The DeepSRT extension talks only to the DeepSRT app running on your
+  own Mac (via 127.0.0.1). It stores your display preferences (language,
+  theme) locally in your browser profile. It does not track browsing
+  history, does not phone home, and sends nothing to any remote server.</p>
+
+  <h2>Local settings</h2>
+  <p>The app stores its settings and session caches locally on your Mac,
+  inside the app's sandbox container. Deleting the app removes them.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy ever changes, the updated version will be posted at
+  <a href="https://deepsrt.com/privacy/">deepsrt.com/privacy</a> with a new
+  "last updated" date.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about privacy? Email
+  <a href="mailto:support@deepsrt.com">support@deepsrt.com</a>.</p>
+</body>
+</html>
