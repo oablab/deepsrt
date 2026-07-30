@@ -222,7 +222,22 @@
   </nav>
 
   <header class="hero">
-    <h1>把影片，變成<br><em>你的閱讀速度。</em></h1>
+    <h1 id="hero-slogan">十分鐘的影片，<br><em>一眼看完。</em></h1>
+    <script>
+      // Rotate the hero slogan; the static default above stays in the HTML
+      // for crawlers and no-JS visitors.
+      (function () {
+        var slogans = [
+          '十分鐘的影片，<br><em>一眼看完。</em>',
+          '把影片，變成<br><em>你的閱讀速度。</em>',
+          '少看一點，<br><em>懂得更多。</em>',
+          '每部影片，<br><em>先幫你讀好。</em>',
+          '長話，<br><em>短說。</em>'
+        ];
+        document.getElementById('hero-slogan').innerHTML =
+          slogans[Math.floor(Math.random() * slogans.length)];
+      })();
+    </script>
     <p class="sub">DeepSRT 將任何 YouTube 影片變成即時 AI 摘要，<br class="desktop-br">以及乾淨、可點擊的逐字稿——原生 Mac 應用程式，用你自己的 Gemini 金鑰。<br class="desktop-br">邊看、邊略讀、一鍵跳到重點時刻。</p>
     <div class="cta-row">
       <a class="cta" href="mailto:hello@deepsrt.com?subject=Notify%20me%20about%20DeepSRT%20for%20Mac">上市時通知我</a>
