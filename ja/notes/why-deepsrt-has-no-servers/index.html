@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSRT にサーバーがない理由</title>
+  <meta name="description" content="DeepSRT v1 は Cloudflare Workers と AWS Lambda のプロキシプールで動いていた。v2 はそのすべてを捨てた。ユーザー自身の IP がどんなプロキシ群よりも優れたインフラである理由。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DeepSRT にサーバーがない理由">
+  <meta property="og:description" content="DeepSRT v1 は Cloudflare Workers と AWS Lambda のプロキシプールで動いていた。v2 はそのすべてを捨てた。ユーザー自身の IP がどんなプロキシ群よりも優れたインフラである理由。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/why-deepsrt-has-no-servers/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: "New York", Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: "New York", Georgia, serif; font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: "New York", Georgia, serif; font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/why-deepsrt-has-no-servers/">EN</a>｜<a href="/zh/notes/why-deepsrt-has-no-servers/">中文</a>｜<a href="/ja/notes/why-deepsrt-has-no-servers/" class="active">日本語</a>｜<a href="/ko/notes/why-deepsrt-has-no-servers/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>DeepSRT にサーバーがない理由</h1>
+  <p class="meta">2026年7月 · DeepSRT 開発ノート</p>
+  <article>
+
+<p>DeepSRT v1 のアーキテクチャ図を見た人は当然こう聞く。「API としての Cloudflare Workers、プロキシプールを管理する AWS Lambda、YouTube の字幕を取得するローテーションプロキシ——立派なバックエンドがあったのに、なぜ v2 はすべて捨てて Mac アプリにしたのか？」</p>
+<p>短い答え：ユーザー自身の IP は、どんなプロキシ群よりも優れたインフラだから。長い答えは以下。</p>
+<h2>いたちごっこ</h2>
+<p>v1 は「ユーザーの代わりに YouTube のデータを取得する」サービスの常道だった。リクエストは我々のサーバーに入り、サーバーが YouTube から字幕を取得して返す。問題は、YouTube がデータセンター IP に対して構造的に厳しいことだ。1つの IP が千人にサービスすれば、そのリクエストパターンはボットそのものになる。ブロックは事故ではなく定常状態だ。</p>
+<p>そこでプロキシプールを作る。プロキシもブロックされるので、ヘルスチェック、ローテーション、ベンダー乗り換えが必要になる。我々の Lambda のコードの半分はパイプを維持するためだけに存在していた——プロダクトではなく配管だ。ワークアラウンドの層を重ねるたびに、プラットフォームのリスクシステムといたちごっこをする。そして猫は常にこちらより大きい。</p>
+<p><strong>集中型の取得は、全ユーザーに同じ運命を共有させる。</strong>1つの出口 IP がスロットリングされれば全員が同時に壊れる。信頼性の上限は「最もボットに見えた瞬間」で決まる。</p>
+<h2>取得をユーザーの手に返す</h2>
+<p>v2 はパイプラインを逆転させた。アプリはあなたの Mac 上で、あなたの自宅 IP から、一人の人間の視聴量で、YouTube の公開字幕エンドポイントと直接やりとりする。YouTube から見れば、あなたはあなたのまま——動画を見ている一人の人間であり、プロキシプールではない。リスク管理の問題は解決されたのではなく、アーキテクチャによって消滅した。</p>
+<p>AI 要約も同じだ。あなた自身の Google Gemini キー（BYOK）が macOS のキーチェーンに保存され、アプリが直接 Gemini API を呼ぶ。何を見て何が要約されたかは、第三者のサーバーを一切経由しない——我々のサーバーも含めて。存在しないのだから。</p>
+<p>プライバシーは普通、ポリシーの一段落だ：「あなたのデータは見ないと約束します」。DeepSRT のそれはアーキテクチャの性質だ：見ようにも、見る場所がない。</p>
+<h2>コストの誠実さ</h2>
+<p>サーバー代がなければ、転嫁すべき固定費もなく、インフラを養うためのサブスクリプションも要らない。アプリ代は一度きり。AI は Gemini の無料枠がほとんどの人の視聴量を余裕でカバーする。我々は中間でマージンを取らないし、将来の API 値上げでこっそりプランを変える必要もない。</p>
+<h2>正直な限界</h2>
+<p>BYOK には実際のハードルがある。Gemini キーを自分で取得する必要がある（無料だが、一手間ではある）。それが「サーバーゼロ」の代価だ。価値はあると考えているが、摩擦ゼロではない。</p>
+<p>ローカル取得も無敵ではない。開発中に自分たちで踏んだ：短時間に字幕リクエストを打ちすぎれば、誰でも YouTube の 429 を食らう。違いは対処に必要なものだ——一人分の量なら、キャッシュ（メモリ＋ディスク）、リクエストの統合、バックオフ付きリトライでほぼ起きない事象にできる。集中型では、これは永遠に消えない火事だ。</p>
+<p>そして：今のところ macOS のみ。このアーキテクチャの代価は「あなたのマシン」に縛られることだ——マシンがなければ、DeepSRT もない。</p>
+<h2>扉に鍵はかかっていない</h2>
+<p>アプリはローカル API（127.0.0.1）を内蔵し、Chrome 拡張はその上の薄いクライアントだ——ロジックはすべてアプリ側にある。この軽量拡張はまもなくオープンソースになる。プライベート MCP サポートも準備中で、あなたの AI エージェントが DeepSRT と直接会話できるようになる。</p>
+<p>アーキテクチャ上、クライアントを増やすことを妨げるものは何もない。サーバーがないことは閉じていることを意味しない——むしろ逆だ。すべてがあなたのマシンで動くからこそ、すべてがあなたのツールから使える。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

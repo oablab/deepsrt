@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why DeepSRT Has No Servers</title>
+  <meta name="description" content="DeepSRT v1 ran on Cloudflare Workers and an AWS Lambda proxy pool. v2 deleted all of it. Here&#x27;s why your own IP is better infrastructure than any proxy fleet.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why DeepSRT Has No Servers">
+  <meta property="og:description" content="DeepSRT v1 ran on Cloudflare Workers and an AWS Lambda proxy pool. v2 deleted all of it. Here&#x27;s why your own IP is better infrastructure than any proxy fleet.">
+  <meta property="og:url" content="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: "New York", Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: "New York", Georgia, serif; font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: "New York", Georgia, serif; font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/why-deepsrt-has-no-servers/" class="active">EN</a>｜<a href="/zh/notes/why-deepsrt-has-no-servers/">中文</a>｜<a href="/ja/notes/why-deepsrt-has-no-servers/">日本語</a>｜<a href="/ko/notes/why-deepsrt-has-no-servers/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>Why DeepSRT Has No Servers</h1>
+  <p class="meta">July 2026 · DeepSRT development notes</p>
+  <article>
+
+<p>Anyone who saw DeepSRT v1's architecture diagram asks the reasonable question: "You had Cloudflare Workers as an API, an AWS Lambda managing a proxy pool, rotating proxies fetching YouTube captions — a perfectly good backend. Why did v2 throw all of it away for a Mac app?"</p>
+<p>Short answer: because your own IP is better infrastructure than any proxy fleet. Long answer below.</p>
+<h2>Cat and mouse</h2>
+<p>v1 worked like every "we fetch YouTube data for you" service: your request hit our servers, our servers hit YouTube, captions came back. The problem is that YouTube's tolerance for datacenter IPs is structurally low. One IP serving a thousand users has the request pattern of a bot, because it is one. Getting blocked isn't an accident — it's the steady state.</p>
+<p>So you build a proxy pool. Then proxies get blocked too, so you add health checks, rotation, vendor churn. Half of our Lambda code existed to keep the pipe open — not product, plumbing. Every layer of workaround is a round of cat-and-mouse against a platform's risk systems, and the cat is always bigger than you.</p>
+<p><strong>Centralized fetching makes every user share one fate.</strong> One throttled egress IP breaks everyone at once. Your reliability ceiling is your most bot-like moment.</p>
+<h2>Give fetching back to the user</h2>
+<p>v2 inverts the pipeline. The app runs on your Mac, on your home IP, at one human's viewing volume, talking directly to YouTube's public caption endpoints. To YouTube you look like exactly what you are — a person watching videos, not a proxy pool. The risk-control problem isn't solved; it's architected away.</p>
+<p>Same for AI summaries: your own Google Gemini key (BYOK), stored in the macOS Keychain, calling the Gemini API directly. What you watch and what gets summarized never passes through a third-party server — including ours, because there isn't one.</p>
+<p>Privacy is usually a policy paragraph: "we promise not to look at your data." DeepSRT's version is an architectural property: there is nowhere for us to look.</p>
+<h2>Cost honesty</h2>
+<p>No server bill means no fixed cost to pass on to you, which means no subscription needed to feed the infrastructure. You pay for the app once; for AI, Gemini's free tier comfortably covers most people's viewing. We take no margin in the middle, and no future API price hike forces us to quietly restructure a plan.</p>
+<h2>Honest boundaries</h2>
+<p>BYOK has a real cost: you have to get a Gemini key yourself (free, but one extra step). That's the price of zero servers. We think it's worth it — but it isn't zero friction.</p>
+<p>Local fetching isn't immune either. We hit it ourselves during development: too many caption requests in a short window earns you YouTube's 429 like anyone else. The difference is what it takes to handle it — at one person's volume, caching (memory + disk), request coalescing, and backoff retry make it nearly a non-event. In a centralized architecture, it's a fire that never goes out.</p>
+<p>And: macOS only, for now. The cost of this architecture is that it lives on <em>your</em> machine — no machine, no DeepSRT.</p>
+<h2>The door isn't locked</h2>
+<p>The app ships a local API (127.0.0.1); the Chrome extension is a thin client on top of it — all logic lives in the app. That lightweight extension is going open source soon, and private MCP support is on the way, so your AI agents can talk to DeepSRT directly.</p>
+<p>Nothing in the architecture prevents more clients. Having no servers doesn't mean being closed — the opposite: because everything runs on your machine, everything is available to your tools.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

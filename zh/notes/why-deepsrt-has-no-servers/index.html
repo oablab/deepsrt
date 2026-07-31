@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>為什麼 DeepSRT 沒有伺服器</title>
+  <meta name="description" content="DeepSRT v1 有 Cloudflare Workers 和 AWS Lambda 代理池，v2 全部丟掉。為什麼使用者自己的 IP 是比任何代理池都好的基礎設施。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="為什麼 DeepSRT 沒有伺服器">
+  <meta property="og:description" content="DeepSRT v1 有 Cloudflare Workers 和 AWS Lambda 代理池，v2 全部丟掉。為什麼使用者自己的 IP 是比任何代理池都好的基礎設施。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/why-deepsrt-has-no-servers/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/why-deepsrt-has-no-servers/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/why-deepsrt-has-no-servers/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: "New York", Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: "New York", Georgia, serif; font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: "New York", Georgia, serif; font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/why-deepsrt-has-no-servers/">EN</a>｜<a href="/zh/notes/why-deepsrt-has-no-servers/" class="active">中文</a>｜<a href="/ja/notes/why-deepsrt-has-no-servers/">日本語</a>｜<a href="/ko/notes/why-deepsrt-has-no-servers/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>為什麼 DeepSRT 沒有伺服器</h1>
+  <p class="meta">2026 年 7 月 · DeepSRT 開發筆記</p>
+  <article>
+
+<p>看過 DeepSRT v1 架構圖的人都會問一個合理的問題：「你們有 Cloudflare Workers 當 API、有 AWS Lambda 管理代理池、還有輪替代理去抓 YouTube 字幕——好好的後端，為什麼 v2 全部丟掉，改成一個 Mac App？」</p>
+<p>短版答案：因為使用者自己的 IP 是比任何代理池都好的基礎設施。長版答案如下。</p>
+<h2>貓抓老鼠</h2>
+<p>v1 的做法和所有「幫使用者抓 YouTube 資料」的服務一樣：使用者的請求進到我們的伺服器，伺服器去 YouTube 抓字幕，回傳。問題是 YouTube 對資料中心 IP 的容忍度是結構性的低：一個 IP 服務一千個使用者，它的請求模式就是機器人。被擋是常態，不是意外。</p>
+<p>所以你開始建代理池。然後代理也會被擋，所以你需要健康檢查、輪替、換供應商。我們的 AWS Lambda 有一半的程式碼在做這件事——不是產品功能，是維持管道暢通。每一層 workaround 都是在跟平台的風控玩貓抓老鼠，而貓永遠比你大。</p>
+<p><strong>集中式抓取讓所有使用者共享同一個命運。</strong>一個出口 IP 被限流，所有人一起壞。你的可靠性上限，就是你最像機器人的那一刻。</p>
+<h2>把抓取還給使用者</h2>
+<p>v2 把整個管線反過來：App 在你的 Mac 上，用你家的 IP、以一個正常人類的觀看量，直接跟 YouTube 的公開字幕端點拿資料。對 YouTube 來說，你就是你——一個看影片的人，不是一個代理池。風控問題不是被解決了，是被架構消除了。</p>
+<p>AI 摘要也一樣：你自己的 Google Gemini 金鑰（BYOK），存在 macOS Keychain，App 直接呼叫 Gemini API。你看了什麼影片、生成了什麼摘要，不經過任何第三方伺服器——包括我們的，因為我們沒有伺服器。</p>
+<p>隱私通常是一段政策文字：「我們承諾不看你的資料。」DeepSRT 的版本是一個架構性質：「我們想看也沒有地方看。」</p>
+<h2>成本誠實</h2>
+<p>沒有伺服器帳單，就沒有要轉嫁給你的固定成本，也就不需要用訂閱制來養基礎設施。你付一次 App 的錢；AI 的部分，Gemini 的免費額度對絕大多數人的觀看量綽綽有餘。我們不在中間賺差價，也不用擔心哪天 API 漲價要偷偷調整方案。</p>
+<h2>誠實的邊界</h2>
+<p>BYOK 有真實的門檻：你要自己去申請一把 Gemini 金鑰（免費，但多一個步驟）。這是「零伺服器」換來的代價，我們認為值得，但它確實不是零摩擦。</p>
+<p>本機抓取也不是免疫的。我們自己在開發時就踩過：短時間打太多字幕請求，一樣吃 YouTube 的 429。差別在於處理方式——因為量是一個人的量，快取（記憶體＋磁碟）、合併請求、退避重試就足以讓它幾乎不發生；而在集中式架構裡，這是一場永遠燒不完的火。</p>
+<p>還有：目前只有 macOS。這個架構的代價是它綁定在「你自己的機器」上——沒有機器，就沒有 DeepSRT。</p>
+<h2>門沒有上鎖</h2>
+<p>App 內建一個本機 API（127.0.0.1），Chrome 擴充功能靠它變成一個薄客戶端——所有邏輯都在 App 裡。這個輕量版擴充功能即將開源；私有 MCP 支援也在路上，讓你的 AI agent 直接跟 DeepSRT 對話。</p>
+<p>架構裡沒有任何東西阻止更多客戶端。沒有伺服器不代表封閉——恰恰相反：因為一切都在你的機器上，一切都能被你的工具使用。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
