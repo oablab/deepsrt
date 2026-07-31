@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why a Mac App, Not a Browser Extension</title>
+  <meta name="description" content="DeepSRT v1 was a heavy browser extension living inside two platforms&#x27; rulebooks. v2 moved the product into a native Mac app — here&#x27;s what that buys.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why a Mac App, Not a Browser Extension">
+  <meta property="og:description" content="DeepSRT v1 was a heavy browser extension living inside two platforms&#x27; rulebooks. v2 moved the product into a native Mac app — here&#x27;s what that buys.">
+  <meta property="og:url" content="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/why-a-mac-app-not-a-browser-extension/" class="active">EN</a>｜<a href="/zh/notes/why-a-mac-app-not-a-browser-extension/">中文</a>｜<a href="/ja/notes/why-a-mac-app-not-a-browser-extension/">日本語</a>｜<a href="/ko/notes/why-a-mac-app-not-a-browser-extension/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>Why a Mac App, Not a Browser Extension</h1>
+  <p class="meta">July 2026 · DeepSRT development notes</p>
+  <article>
+
+<p><a href="/notes/why-deepsrt-has-no-servers/">The previous note</a> covered why DeepSRT left the cloud. The natural follow-up: why did it land in a Mac app? After all, v1 <em>was</em> a browser extension — a heavy one: content scripts injected into YouTube pages, caption requests intercepted, bilingual subtitles overlaid on someone else's DOM.</p>
+<p>"Someone else's DOM" is exactly the problem.</p>
+<h2>Another game of cat and mouse</h2>
+<p>The previous note called centralized fetching a cat-and-mouse game against platform risk systems. A browser extension plays the same game — against two opponents. YouTube ships a frontend change: selectors break, the caption overlay misaligns, the feature dies overnight. We fixed that more times than we can count. The browser side keeps tightening too: extension background processes no longer stay resident, and the rules about what extensions may do shift every year.</p>
+<p>Your product lives in the intersection of two platforms' rulebooks, and neither owes you anything.</p>
+<h2>Residency is a capability</h2>
+<p>The most underrated thing a native app buys is <em>residency</em>. DeepSRT keeps a local API running on your Mac (127.0.0.1) — an extension simply cannot do this; its background process doesn't survive the platform's reclaim cycle.</p>
+<p>A resident local API is what lets clients be thin. The Chrome extension shrank from v1's bundle of logic into a sidebar that just calls the local API; the upcoming MCP support lets your AI agents talk to DeepSRT through the same contract. Your key lives in the macOS Keychain, not browser localStorage; transcripts and captions cache to disk and survive restarts. All of this is what the operating system grants a native app.</p>
+<h2>Owning the player</h2>
+<p>v2 ships its own player, and the bilingual captions render on our own view: drag to reposition, hotkeys to resize, sentence-merge so ASR captions stop breaking mid-sentence. In your own view these are an afternoon of work; in someone else's DOM they are a war without end. A YouTube redesign can no longer break the overlay, because nothing is overlaid on their pages.</p>
+<h2>First-class citizen of the OS</h2>
+<p>A native app gets the whole OS integration surface: the <code>deepsrt://</code> deep link lets the Safari extension, launchers, or any script hand a video to DeepSRT in one click; a Safari extension can only ship embedded in a native app in the first place; a YouTube link on your clipboard triggers an offer to summarize on launch. And all of it fits in an app of a few megabytes — native SwiftUI, not a browser wearing an app costume.</p>
+<h2>Honest boundaries</h2>
+<p>The cost is plain: macOS only, for now. And the in-browser experience still matters — plenty of people want a sidebar next to the tab they're watching. So the thin-client extension stays, and it's going open source: all the hard parts live in the app, so the extension can be thin enough that anyone can read its entire source.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

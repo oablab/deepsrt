@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>為什麼是 Mac App，而不是瀏覽器擴充功能</title>
+  <meta name="description" content="DeepSRT v1 是一個很重的瀏覽器擴充功能，活在兩個平台的規則交集裡。v2 把產品搬進 native Mac App——這一步換到了什麼。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="為什麼是 Mac App，而不是瀏覽器擴充功能">
+  <meta property="og:description" content="DeepSRT v1 是一個很重的瀏覽器擴充功能，活在兩個平台的規則交集裡。v2 把產品搬進 native Mac App——這一步換到了什麼。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/why-a-mac-app-not-a-browser-extension/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/why-a-mac-app-not-a-browser-extension/">EN</a>｜<a href="/zh/notes/why-a-mac-app-not-a-browser-extension/" class="active">中文</a>｜<a href="/ja/notes/why-a-mac-app-not-a-browser-extension/">日本語</a>｜<a href="/ko/notes/why-a-mac-app-not-a-browser-extension/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>為什麼是 Mac App，而不是瀏覽器擴充功能</h1>
+  <p class="meta">2026 年 7 月 · DeepSRT 開發筆記</p>
+  <article>
+
+<p><a href="/zh/notes/why-deepsrt-has-no-servers/">上一篇</a>講了為什麼 DeepSRT 離開雲端。自然的下一個問題是：離開之後為什麼落腳在 Mac App？畢竟 v1 本來就是一個瀏覽器擴充功能——而且是個很重的擴充：content script 注入 YouTube 頁面、攔截字幕請求、把雙語字幕疊在別人的 DOM 上。</p>
+<p>「別人的 DOM」就是問題所在。</p>
+<h2>另一場貓抓老鼠</h2>
+<p>上一篇說集中式抓取是跟平台風控玩貓抓老鼠；瀏覽器擴充是另一場同構的遊戲，對手變成兩個。YouTube 前端一改版，選擇器失效、字幕疊層錯位，整個功能一夜壞掉——我們修過太多次。瀏覽器這邊也在收緊：擴充功能的背景程序不再常駐，隨時被平台回收；能做什麼、不能做什麼，規則每年都在變。</p>
+<p>你的產品活在兩個平台規則的交集裡，而兩邊都不欠你什麼。</p>
+<h2>常駐是一種能力</h2>
+<p>把邏輯搬進 native app，最被低估的收穫是「常駐」。DeepSRT 在你的 Mac 上開著一個本機 API（127.0.0.1）——擴充功能做不到這件事，它的背景程序活不過平台的回收週期。</p>
+<p>常駐的本機 API 讓客戶端可以很薄：Chrome 擴充從 v1 的一大包邏輯，縮成一個只會呼叫本機 API 的側邊欄；即將到來的 MCP 支援讓你的 AI agent 用同一個 API 跟 DeepSRT 對話。金鑰放在 macOS Keychain，不是瀏覽器的 localStorage；字幕和摘要快取在磁碟，重開即續。這些都是作業系統給 native app 的待遇。</p>
+<h2>播放器是自己的</h2>
+<p>v2 內建播放器，雙語字幕畫在自己的 view 上：拖曳調位置、快捷鍵調字級、句子合併讓 ASR 字幕不再句子斷一半——這些功能在自己的 view 裡是一個下午的工作，在別人的 DOM 裡是一場永遠打不完的仗。YouTube 改版再也影響不到字幕疊層，因為根本沒有東西疊在它的頁面上。</p>
+<h2>系統的一等公民</h2>
+<p>native app 拿到整個作業系統的整合面：<code>deepsrt://</code> deep link 讓 Safari 擴充、launcher、任何腳本一鍵把影片交給 DeepSRT 接手播放；Safari 擴充功能本身也只能由 native app 內嵌發佈；剪貼簿裡有 YouTube 連結，開 App 就問你要不要直接摘要。而這一切裝下來 App 本體只有幾 MB——原生 SwiftUI，不是包了一整個瀏覽器的殼。</p>
+<h2>誠實的邊界</h2>
+<p>代價很清楚：目前只有 macOS。而且瀏覽器內的體驗仍然有價值——很多人就是想在看影片的分頁旁邊開個側欄。所以薄客戶端擴充會繼續存在，而且即將開源：所有難的事都在 App 裡，擴充就該薄到人人可以讀完它的原始碼。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

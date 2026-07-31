@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>なぜブラウザ拡張ではなく Mac アプリなのか</title>
+  <meta name="description" content="DeepSRT v1 は重いブラウザ拡張として、2つのプラットフォームのルールの中で生きていた。v2 はプロダクトをネイティブ Mac アプリに移した——それで何が得られたか。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="なぜブラウザ拡張ではなく Mac アプリなのか">
+  <meta property="og:description" content="DeepSRT v1 は重いブラウザ拡張として、2つのプラットフォームのルールの中で生きていた。v2 はプロダクトをネイティブ Mac アプリに移した——それで何が得られたか。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/why-a-mac-app-not-a-browser-extension/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/why-a-mac-app-not-a-browser-extension/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+      --font-head: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/why-a-mac-app-not-a-browser-extension/">EN</a>｜<a href="/zh/notes/why-a-mac-app-not-a-browser-extension/">中文</a>｜<a href="/ja/notes/why-a-mac-app-not-a-browser-extension/" class="active">日本語</a>｜<a href="/ko/notes/why-a-mac-app-not-a-browser-extension/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>なぜブラウザ拡張ではなく Mac アプリなのか</h1>
+  <p class="meta">2026年7月 · DeepSRT 開発ノート</p>
+  <article>
+
+<p><a href="/ja/notes/why-deepsrt-has-no-servers/">前回のノート</a>では、DeepSRT がクラウドを離れた理由を書いた。自然な次の問いは：なぜ Mac アプリに行き着いたのか？ そもそも v1 はブラウザ拡張<em>だった</em>——それも重い拡張だ。content script を YouTube のページに注入し、字幕リクエストを傍受し、二言語字幕を他人の DOM の上に重ねていた。</p>
+<p>「他人の DOM」——それこそが問題だった。</p>
+<h2>もうひとつのいたちごっこ</h2>
+<p>前回、集中型の取得はプラットフォームのリスクシステムとのいたちごっこだと書いた。ブラウザ拡張は同じゲームを——相手を2つにして——戦っている。YouTube がフロントエンドを更新すれば、セレクタが壊れ、字幕オーバーレイがずれ、機能が一晩で死ぬ。何度直したか数えきれない。ブラウザ側の締め付けも進む：拡張のバックグラウンドプロセスはもう常駐できず、できること・できないことのルールは毎年変わる。</p>
+<p>プロダクトは2つのプラットフォームのルールの交差点に住んでいて、どちらもこちらに何の借りもない。</p>
+<h2>常駐という能力</h2>
+<p>ネイティブアプリが買ってくれる最も過小評価されたものは「常駐」だ。DeepSRT はあなたの Mac 上でローカル API（127.0.0.1）を開き続ける——拡張にはこれができない。バックグラウンドプロセスがプラットフォームの回収サイクルを生き延びられないからだ。</p>
+<p>常駐するローカル API があるからこそ、クライアントは薄くなれる。Chrome 拡張は v1 のロジックの塊から、ローカル API を呼ぶだけのサイドバーに縮んだ。まもなく来る MCP サポートで、AI エージェントも同じ契約で DeepSRT と会話できる。キーはブラウザの localStorage ではなく macOS のキーチェーンに。字幕と要約はディスクにキャッシュされ、再起動しても続きから。すべて、OS がネイティブアプリに与える待遇だ。</p>
+<h2>プレーヤーは自分のもの</h2>
+<p>v2 は自前のプレーヤーを持ち、二言語字幕は自分の view に描画される。ドラッグで位置調整、ホットキーでサイズ変更、文単位のマージで ASR 字幕が文の途中で切れなくなる——自分の view の中ならこれらは午後一つ分の仕事だが、他人の DOM の中では終わらない戦争だ。YouTube のリデザインはもうオーバーレイを壊せない。彼らのページには何も重ねていないのだから。</p>
+<h2>OS の一等市民</h2>
+<p>ネイティブアプリは OS の統合面をまるごと手に入れる。<code>deepsrt://</code> ディープリンクで、Safari 拡張もランチャーもどんなスクリプトも、ワンクリックで動画を DeepSRT に引き継げる。そもそも Safari 拡張はネイティブアプリに埋め込む形でしか配布できない。クリップボードに YouTube のリンクがあれば、起動時に要約するか聞いてくれる。そしてこのすべてが数 MB のアプリに収まる——ネイティブ SwiftUI であり、ブラウザにアプリの衣装を着せたものではない。</p>
+<h2>正直な限界</h2>
+<p>代価は明白だ：今のところ macOS のみ。そしてブラウザ内の体験には今も価値がある——見ているタブの隣にサイドバーが欲しい人は多い。だから薄いクライアントとしての拡張は残り、まもなくオープンソースになる。難しいことはすべてアプリ側にあるからこそ、拡張は誰でもソース全体を読み切れるほど薄くできる。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
