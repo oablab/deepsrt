@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DeepSRT에 서버가 없는 이유</title>
-  <meta name="description" content="DeepSRT v1은 Cloudflare Workers와 AWS Lambda 프록시 풀로 돌아갔다. v2는 그 전부를 버렸다. 사용자 자신의 IP가 어떤 프록시 풀보다 나은 인프라인 이유.">
+  <meta name="description" content="DeepSRT v1은 클라우드에서 프록시 풀과 함께 돌아갔다. v2는 그 전부를 버렸다. 사용자 자신의 IP가 어떤 프록시 풀보다 나은 인프라인 이유.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="DeepSRT에 서버가 없는 이유">
-  <meta property="og:description" content="DeepSRT v1은 Cloudflare Workers와 AWS Lambda 프록시 풀로 돌아갔다. v2는 그 전부를 버렸다. 사용자 자신의 IP가 어떤 프록시 풀보다 나은 인프라인 이유.">
+  <meta property="og:description" content="DeepSRT v1은 클라우드에서 프록시 풀과 함께 돌아갔다. v2는 그 전부를 버렸다. 사용자 자신의 IP가 어떤 프록시 풀보다 나은 인프라인 이유.">
   <meta property="og:url" content="https://deepsrt.com/ko/notes/why-deepsrt-has-no-servers/">
   <meta property="og:image" content="https://deepsrt.com/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -25,6 +25,8 @@
       --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
       --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
       --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+      --font-head: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -34,7 +36,7 @@
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    body { font-family: var(--font-body);
       color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
     nav { display: flex; align-items: center; justify-content: space-between;
       max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
@@ -47,16 +49,16 @@
     main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
     .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
     .backlink:hover { color: var(--accent-deep); }
-    h1 { font-family: "New York", Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
-    article h2 { font-family: "New York", Georgia, serif; font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
     .note-list { list-style: none; margin-top: 2rem; }
     .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
     .note-list a { text-decoration: none; color: var(--ink); }
-    .note-list .t { font-family: "New York", Georgia, serif; font-size: 1.35rem; font-weight: 700; }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
     .note-list .t:hover { color: var(--accent-deep); }
     .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
     .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
@@ -76,11 +78,11 @@
   <p class="meta">2026년 7월 · DeepSRT 개발 노트</p>
   <article>
 
-<p>DeepSRT v1의 아키텍처 다이어그램을 본 사람이라면 당연히 묻는다. "API로 쓰는 Cloudflare Workers, 프록시 풀을 관리하는 AWS Lambda, YouTube 자막을 가져오는 로테이션 프록시——멀쩡한 백엔드가 있었는데, 왜 v2는 전부 버리고 Mac 앱이 됐나?"</p>
+<p>DeepSRT v1의 아키텍처 다이어그램을 본 사람이라면 당연히 묻는다. "클라우드 백엔드와 YouTube 자막을 가져오는 로테이션 프록시 풀——멀쩡한 서비스가 있었는데, 왜 v2는 전부 버리고 Mac 앱이 됐나?"</p>
 <p>짧은 답: 사용자 자신의 IP가 어떤 프록시 풀보다 나은 인프라이기 때문이다. 긴 답은 아래에.</p>
 <h2>고양이와 쥐</h2>
 <p>v1은 "사용자 대신 YouTube 데이터를 가져오는" 서비스의 정석대로였다. 요청이 우리 서버로 들어오고, 서버가 YouTube에서 자막을 가져와 돌려준다. 문제는 YouTube가 데이터센터 IP에 구조적으로 박하다는 것이다. IP 하나가 사용자 천 명을 서비스하면 그 요청 패턴은 봇 그 자체다. 차단은 사고가 아니라 평상시 상태다.</p>
-<p>그래서 프록시 풀을 만든다. 프록시도 차단되니 헬스 체크, 로테이션, 벤더 교체가 필요해진다. 우리 Lambda 코드의 절반은 파이프를 뚫어두는 일에만 존재했다——제품이 아니라 배관이다. 우회책을 한 겹 쌓을 때마다 플랫폼의 리스크 시스템과 고양이-쥐 게임을 하는 것이고, 고양이는 언제나 당신보다 크다.</p>
+<p>그래서 프록시 풀을 만든다. 프록시도 차단되니 헬스 체크, 로테이션, 벤더 교체가 필요해진다. 우리 백엔드 코드의 절반은 파이프를 뚫어두는 일에만 존재했다——제품이 아니라 배관이다. 우회책을 한 겹 쌓을 때마다 플랫폼의 리스크 시스템과 고양이-쥐 게임을 하는 것이고, 고양이는 언제나 당신보다 크다.</p>
 <p><strong>중앙화된 수집은 모든 사용자가 하나의 운명을 공유하게 만든다.</strong> 출구 IP 하나가 제한되면 전원이 동시에 망가진다. 신뢰성의 상한선은 "가장 봇처럼 보였던 순간"이 결정한다.</p>
 <h2>수집을 사용자에게 돌려주다</h2>
 <p>v2는 파이프라인을 뒤집었다. 앱은 당신의 Mac에서, 당신의 집 IP로, 한 사람의 시청량만큼, YouTube의 공개 자막 엔드포인트와 직접 통신한다. YouTube가 보기에 당신은 그냥 당신이다——영상을 보는 한 사람이지, 프록시 풀이 아니다. 리스크 관리 문제는 해결된 게 아니라 아키텍처로 소멸됐다.</p>

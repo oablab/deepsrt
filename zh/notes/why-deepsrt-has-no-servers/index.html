@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>為什麼 DeepSRT 沒有伺服器</title>
-  <meta name="description" content="DeepSRT v1 有 Cloudflare Workers 和 AWS Lambda 代理池，v2 全部丟掉。為什麼使用者自己的 IP 是比任何代理池都好的基礎設施。">
+  <meta name="description" content="DeepSRT v1 跑在雲端、靠一整池輪替代理抓資料，v2 全部丟掉。為什麼使用者自己的 IP 是比任何代理池都好的基礎設施。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="為什麼 DeepSRT 沒有伺服器">
-  <meta property="og:description" content="DeepSRT v1 有 Cloudflare Workers 和 AWS Lambda 代理池，v2 全部丟掉。為什麼使用者自己的 IP 是比任何代理池都好的基礎設施。">
+  <meta property="og:description" content="DeepSRT v1 跑在雲端、靠一整池輪替代理抓資料，v2 全部丟掉。為什麼使用者自己的 IP 是比任何代理池都好的基礎設施。">
   <meta property="og:url" content="https://deepsrt.com/zh/notes/why-deepsrt-has-no-servers/">
   <meta property="og:image" content="https://deepsrt.com/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -25,6 +25,8 @@
       --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
       --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
       --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -34,7 +36,7 @@
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    body { font-family: var(--font-body);
       color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
     nav { display: flex; align-items: center; justify-content: space-between;
       max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
@@ -47,16 +49,16 @@
     main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
     .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
     .backlink:hover { color: var(--accent-deep); }
-    h1 { font-family: "New York", Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
-    article h2 { font-family: "New York", Georgia, serif; font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
     .note-list { list-style: none; margin-top: 2rem; }
     .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
     .note-list a { text-decoration: none; color: var(--ink); }
-    .note-list .t { font-family: "New York", Georgia, serif; font-size: 1.35rem; font-weight: 700; }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
     .note-list .t:hover { color: var(--accent-deep); }
     .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
     .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
@@ -76,11 +78,11 @@
   <p class="meta">2026 年 7 月 · DeepSRT 開發筆記</p>
   <article>
 
-<p>看過 DeepSRT v1 架構圖的人都會問一個合理的問題：「你們有 Cloudflare Workers 當 API、有 AWS Lambda 管理代理池、還有輪替代理去抓 YouTube 字幕——好好的後端，為什麼 v2 全部丟掉，改成一個 Mac App？」</p>
+<p>看過 DeepSRT v1 架構圖的人都會問一個合理的問題：「你們有完整的雲端後端、有一整池輪替代理去抓 YouTube 字幕——好好的服務，為什麼 v2 全部丟掉，改成一個 Mac App？」</p>
 <p>短版答案：因為使用者自己的 IP 是比任何代理池都好的基礎設施。長版答案如下。</p>
 <h2>貓抓老鼠</h2>
 <p>v1 的做法和所有「幫使用者抓 YouTube 資料」的服務一樣：使用者的請求進到我們的伺服器，伺服器去 YouTube 抓字幕，回傳。問題是 YouTube 對資料中心 IP 的容忍度是結構性的低：一個 IP 服務一千個使用者，它的請求模式就是機器人。被擋是常態，不是意外。</p>
-<p>所以你開始建代理池。然後代理也會被擋，所以你需要健康檢查、輪替、換供應商。我們的 AWS Lambda 有一半的程式碼在做這件事——不是產品功能，是維持管道暢通。每一層 workaround 都是在跟平台的風控玩貓抓老鼠，而貓永遠比你大。</p>
+<p>所以你開始建代理池。然後代理也會被擋，所以你需要健康檢查、輪替、換供應商。我們後端有一半的程式碼在做這件事——不是產品功能，是維持管道暢通。每一層 workaround 都是在跟平台的風控玩貓抓老鼠，而貓永遠比你大。</p>
 <p><strong>集中式抓取讓所有使用者共享同一個命運。</strong>一個出口 IP 被限流，所有人一起壞。你的可靠性上限，就是你最像機器人的那一刻。</p>
 <h2>把抓取還給使用者</h2>
 <p>v2 把整個管線反過來：App 在你的 Mac 上，用你家的 IP、以一個正常人類的觀看量，直接跟 YouTube 的公開字幕端點拿資料。對 YouTube 來說，你就是你——一個看影片的人，不是一個代理池。風控問題不是被解決了，是被架構消除了。</p>
