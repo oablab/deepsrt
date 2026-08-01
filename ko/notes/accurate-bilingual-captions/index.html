@@ -54,6 +54,9 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -84,6 +87,11 @@
   <p class="lead">부서진 자막을 온전한 문장으로 꿰매고, 번호를 붙여 LLM에 넘긴 뒤, 번역 한 줄 한 줄을 제 번호 자리에 앉힌다 — 타임라인은 처음부터 끝까지 하나뿐이다.</p>
   <p class="meta">2026년 7월 · DeepSRT 개발 노트</p>
   <article>
+
+<figure>
+  <img src="/notes/accurate-bilingual-captions/bilingual-captions.jpg" alt="DeepSRT에서 SNL 영상 재생: 번역 자막과 원문 자막이 같은 1초에 정렬되고 오른쪽에는 AI 요약 사이드바" width="1600" height="998" loading="lazy">
+  <figcaption>실제 결과: 번역 줄과 원문 줄이 같은 1초에 놓인다 — 영상 전체의 매 순간이 그렇다.</figcaption>
+</figure>
 
 <p>이중 자막은 겉보기에 UI 기능입니다. 위에는 번역, 아래에는 원문. 어려운 것은 「정확」이라는 단어입니다. 번역된 한 줄 한 줄이 지금 말하고 있는 바로 그 문장이어야 합니다. 영상 전체에서, 어디로 탐색하든.</p>
 <p>이중 자막을 출시한 직후 특이한 제보를 받았습니다. 번역 줄은 멀쩡한 문장인데, 내용이 3분 뒤 장면의 것이었습니다. 심할 때는 같은 구절이 8번 반복되어 글자 벽이 되었습니다. 이 노트는 우리가 찾아낸 원인과, 그것을 끝낸 세 가지 설계 결정에 관한 이야기입니다.</p>

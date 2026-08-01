@@ -54,6 +54,9 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -84,6 +87,11 @@
   <p class="lead">把破碎的字幕縫成完整的句子，編上號碼交給 LLM，再讓每一句翻譯對號入座——時間軸自始至終只有一條。</p>
   <p class="meta">2026 年 7 月 · DeepSRT 開發筆記</p>
   <article>
+
+<figure>
+  <img src="/notes/accurate-bilingual-captions/bilingual-captions.jpg" alt="DeepSRT 播放 SNL 影片：中文翻譯字幕與英文原文字幕落在同一秒，右側是 AI 摘要側欄" width="1600" height="998" loading="lazy">
+  <figcaption>實際成果：翻譯行與原文行落在同一秒——整支影片的每一秒都是如此。</figcaption>
+</figure>
 
 <p>雙語字幕看起來是個 UI 功能：上面翻譯、下面原文。真正難的是「精準」這兩個字——每一句翻譯都必須對上正在說的那句話，整支影片如此，不管你怎麼拖進度條都如此。</p>
 <p>雙語字幕上線後不久，我們收到一種很特別的回報：中文那行是通順的中文沒錯，但講的是三分鐘後的劇情。更慘的時候，同一句話連續出現八次，疊成一面字牆。這篇筆記講我們查到了什麼，以及終結這個問題的三個設計決定。</p>

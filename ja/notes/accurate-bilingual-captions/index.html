@@ -54,6 +54,9 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -84,6 +87,11 @@
   <p class="lead">砕けた字幕を完全な文に縫い合わせ、番号を付けて LLM に渡し、訳文を一つずつ番号の席に戻す——タイムラインは最初から最後まで一本だけ。</p>
   <p class="meta">2026年7月 · DeepSRT 開発ノート</p>
   <article>
+
+<figure>
+  <img src="/notes/accurate-bilingual-captions/bilingual-captions.jpg" alt="DeepSRT で SNL の動画を再生：翻訳字幕と原文字幕が同じ一秒に揃い、右側に AI 要約サイドバー" width="1600" height="998" loading="lazy">
+  <figcaption>実際の結果：訳文の行と原文の行が同じ一秒に揃う——動画全体のすべての秒で。</figcaption>
+</figure>
 
 <p>バイリンガル字幕は一見 UI の機能に見えます。上に翻訳、下に原文。難しいのは「正確」という一語です。翻訳の一行一行が、いま話されているその一行と一致していなければならない。動画全体を通して、どこへシークしても。</p>
 <p>バイリンガル字幕のリリース直後、奇妙な報告が届きました。翻訳行は自然な文章なのに、内容が 3 分先のシーンのものだったのです。ひどいときは同じフレーズが 8 回繰り返され、文字の壁になりました。このノートでは、原因として突き止めたことと、それを終わらせた 3 つの設計判断を書きます。</p>

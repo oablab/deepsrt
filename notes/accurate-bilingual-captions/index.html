@@ -54,6 +54,9 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -84,6 +87,11 @@
   <p class="lead">Sew the broken fragments into whole sentences, number them, hand them to an LLM — then let every translation take exactly its numbered seat. One timeline, start to finish.</p>
   <p class="meta">July 2026 · DeepSRT development notes</p>
   <article>
+
+<figure>
+  <img src="/notes/accurate-bilingual-captions/bilingual-captions.jpg" alt="DeepSRT playing an SNL video: the Chinese translated caption and the English native caption land on the same second, with the AI summary sidebar on the right" width="1600" height="998" loading="lazy">
+  <figcaption>The result in practice: the translated line and the native line land on the same second — every second, for the whole video.</figcaption>
+</figure>
 
 <p>Bilingual captions look like a UI feature: translation on top, original at the bottom. The hard part is the word doing all the work in that sentence — <em>accurate</em>. Every translated line has to be the line being spoken, for the whole video, no matter how you seek.</p>
 <p>Shortly after we shipped bilingual captions, we got a peculiar bug report: the Chinese line was perfectly good Chinese — for a scene three minutes away. Worse, one phrase would sometimes repeat eight times and stack into a wall of text. This note covers what we found, and the three design decisions that ended it.</p>
