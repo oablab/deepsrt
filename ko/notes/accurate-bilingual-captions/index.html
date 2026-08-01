@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DeepSRT가 정확한 이중 자막을 구현하는 방법</title>
-  <meta name="description" content="3분 늦게 나타나는 번역은 번역이 아니다. 단일 타임라인, ID 기반 배치 번역, 어긋날 수 없는 결합 — 드리프트 없는 자막의 설계.">
+  <meta name="description" content="부서진 자막을 온전한 문장으로 꿰매고, 번호를 붙여 LLM에 넘긴 뒤, 번역 한 줄 한 줄을 제 번호 자리에 앉힌다 — 타임라인은 처음부터 끝까지 하나뿐이다.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="DeepSRT가 정확한 이중 자막을 구현하는 방법">
-  <meta property="og:description" content="3분 늦게 나타나는 번역은 번역이 아니다. 단일 타임라인, ID 기반 배치 번역, 어긋날 수 없는 결합 — 드리프트 없는 자막의 설계.">
+  <meta property="og:description" content="부서진 자막을 온전한 문장으로 꿰매고, 번호를 붙여 LLM에 넘긴 뒤, 번역 한 줄 한 줄을 제 번호 자리에 앉힌다 — 타임라인은 처음부터 끝까지 하나뿐이다.">
   <meta property="og:url" content="https://deepsrt.com/ko/notes/accurate-bilingual-captions/">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://deepsrt.com/ko/notes/accurate-bilingual-captions/og-card.png">
@@ -52,7 +52,8 @@
     .backlink:hover { color: var(--accent-deep); }
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
-    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -80,6 +81,7 @@
 <main>
   <a class="backlink" href="/ko/notes/">← 노트</a>
   <h1>DeepSRT가 정확한 이중 자막을 구현하는 방법</h1>
+  <p class="lead">부서진 자막을 온전한 문장으로 꿰매고, 번호를 붙여 LLM에 넘긴 뒤, 번역 한 줄 한 줄을 제 번호 자리에 앉힌다 — 타임라인은 처음부터 끝까지 하나뿐이다.</p>
   <p class="meta">2026년 7월 · DeepSRT 개발 노트</p>
   <article>
 

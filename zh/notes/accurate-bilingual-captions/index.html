@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DeepSRT 如何實作精準的雙語字幕</title>
-  <meta name="description" content="晚了三分鐘才出現的翻譯，不叫翻譯。單一時間軸、帶編號的批次翻譯、一個不可能滑動的配對——DeepSRT 雙語字幕不會漂移的工程原理。">
+  <meta name="description" content="把破碎的字幕縫成完整的句子，編上號碼交給 LLM，再讓每一句翻譯對號入座——時間軸自始至終只有一條。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="DeepSRT 如何實作精準的雙語字幕">
-  <meta property="og:description" content="晚了三分鐘才出現的翻譯，不叫翻譯。單一時間軸、帶編號的批次翻譯、一個不可能滑動的配對——DeepSRT 雙語字幕不會漂移的工程原理。">
+  <meta property="og:description" content="把破碎的字幕縫成完整的句子，編上號碼交給 LLM，再讓每一句翻譯對號入座——時間軸自始至終只有一條。">
   <meta property="og:url" content="https://deepsrt.com/zh/notes/accurate-bilingual-captions/">
   <meta property="og:locale" content="zh_TW">
   <meta property="og:image" content="https://deepsrt.com/zh/notes/accurate-bilingual-captions/og-card.png">
@@ -52,7 +52,8 @@
     .backlink:hover { color: var(--accent-deep); }
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
-    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -80,6 +81,7 @@
 <main>
   <a class="backlink" href="/zh/notes/">← 筆記</a>
   <h1>DeepSRT 如何實作精準的雙語字幕</h1>
+  <p class="lead">把破碎的字幕縫成完整的句子，編上號碼交給 LLM，再讓每一句翻譯對號入座——時間軸自始至終只有一條。</p>
   <p class="meta">2026 年 7 月 · DeepSRT 開發筆記</p>
   <article>
 

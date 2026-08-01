@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DeepSRT が正確なバイリンガル字幕を実現する方法</title>
-  <meta name="description" content="3分遅れて表示される翻訳は、翻訳とは呼べない。単一のタイムライン、ID付きバッチ翻訳、ずれることのない結合——ドリフトしない字幕の設計。">
+  <meta name="description" content="砕けた字幕を完全な文に縫い合わせ、番号を付けて LLM に渡し、訳文を一つずつ番号の席に戻す——タイムラインは最初から最後まで一本だけ。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="DeepSRT が正確なバイリンガル字幕を実現する方法">
-  <meta property="og:description" content="3分遅れて表示される翻訳は、翻訳とは呼べない。単一のタイムライン、ID付きバッチ翻訳、ずれることのない結合——ドリフトしない字幕の設計。">
+  <meta property="og:description" content="砕けた字幕を完全な文に縫い合わせ、番号を付けて LLM に渡し、訳文を一つずつ番号の席に戻す——タイムラインは最初から最後まで一本だけ。">
   <meta property="og:url" content="https://deepsrt.com/ja/notes/accurate-bilingual-captions/">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:image" content="https://deepsrt.com/ja/notes/accurate-bilingual-captions/og-card.png">
@@ -52,7 +52,8 @@
     .backlink:hover { color: var(--accent-deep); }
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
-    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -80,6 +81,7 @@
 <main>
   <a class="backlink" href="/ja/notes/">← ノート</a>
   <h1>DeepSRT が正確なバイリンガル字幕を実現する方法</h1>
+  <p class="lead">砕けた字幕を完全な文に縫い合わせ、番号を付けて LLM に渡し、訳文を一つずつ番号の席に戻す——タイムラインは最初から最後まで一本だけ。</p>
   <p class="meta">2026年7月 · DeepSRT 開発ノート</p>
   <article>
 
