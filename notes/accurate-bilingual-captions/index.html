@@ -167,8 +167,8 @@ after it, forever                   one native line, nothing else</pre>
 <p>The left side is every ordering- or alignment-based join: one hole shifts everything after it, and the error compounds — exactly the behaviour we measured on the platform's translated track. On the right, the join key is the id itself, written into the request and required back in the response. A wrong id doesn't shift anything; it fails validation and gets retried. There is no state in which a misaligned translation is <em>accepted</em>.</p>
 <p><strong>We didn't fix drift. We removed the assumption it needs.</strong> Drift requires translations that carry their own time. Ours carry none.</p>
 <figure>
-  <img src="/notes/accurate-bilingual-captions/lyrics-aligned.jpg" alt="DeepSRT playing a JENNIE music video: translated lyric line and the original English lyric — including the sound annotation — land on the same second" width="1600" height="998" loading="lazy">
-  <figcaption>Same guarantee, different genre: lyrics and even the sound annotation — &quot;(Splashing on the water)&quot; — land on the same second.</figcaption>
+  <img src="/notes/accurate-bilingual-captions/live-stage-aligned.jpg" alt="DeepSRT playing KARINA live at WATERBOMB Seoul: rapid live-stage lyrics with inline [music] markers — the translated line and the original land on the same second" width="1600" height="998" loading="lazy">
+  <figcaption>The hardest case: a live festival stage — rapid lyrics, crowd noise, inline sound markers — and the pair still lands on the same second.</figcaption>
 </figure>
 
 <h2>What you get</h2>
