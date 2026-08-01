@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSRT 如何實作精準的雙語字幕</title>
+  <meta name="description" content="晚了三分鐘才出現的翻譯，不叫翻譯。單一時間軸、帶編號的批次翻譯、一個不可能滑動的配對——DeepSRT 雙語字幕不會漂移的工程原理。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DeepSRT 如何實作精準的雙語字幕">
+  <meta property="og:description" content="晚了三分鐘才出現的翻譯，不叫翻譯。單一時間軸、帶編號的批次翻譯、一個不可能滑動的配對——DeepSRT 雙語字幕不會漂移的工程原理。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/accurate-bilingual-captions/">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/accurate-bilingual-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/accurate-bilingual-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    article pre { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.2rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.55; margin: 1.3rem 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+    article em { font-style: italic; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/accurate-bilingual-captions/">EN</a>｜<a href="/zh/notes/accurate-bilingual-captions/" class="active">中文</a>｜<a href="/ja/notes/accurate-bilingual-captions/">日本語</a>｜<a href="/ko/notes/accurate-bilingual-captions/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>DeepSRT 如何實作精準的雙語字幕</h1>
+  <p class="meta">2026 年 7 月 · DeepSRT 開發筆記</p>
+  <article>
+
+<p>雙語字幕看起來是個 UI 功能：上面翻譯、下面原文。真正難的是「精準」這兩個字——每一句翻譯都必須對上正在說的那句話，整支影片如此，不管你怎麼拖進度條都如此。</p>
+<p>雙語字幕上線後不久，我們收到一種很特別的回報：中文那行是通順的中文沒錯，但講的是三分鐘後的劇情。更慘的時候，同一句話連續出現八次，疊成一面字牆。這篇筆記講我們查到了什麼，以及終結這個問題的三個設計決定。</p>
+<h2>免費的午餐有毒</h2>
+<p>影片平台本身就提供機器翻譯字幕軌。免費、即時、一個請求就拿到——做字幕產品的人第一個想到的都是它，我們也一樣。直到我們拿它和原文軌逐格比對，結論是：文字勉強能用，<strong>時間完全不可信</strong>。翻譯與語音的偏差不是一個固定值，而是隨著播放不斷累積。會累積的誤差代表沒有「校正」這回事：它不是偏了多少的問題，是從來就沒有對齊過。</p>
+<p>要用整個產品的可靠性來付帳的免費午餐，不是免費的。</p>
+<h2>從碎片到句子</h2>
+<p>跟平台要原文字幕軌，拿回來的其實不是句子，是幾百個按「語音停頓」切開的碎片，每個帶毫秒級時間：</p>
+<pre>RAW FRAGMENTS (split by speech pauses)
+  382.1s  "I guess heterosexual women"
+  383.3s  "aren't allowed to have hair anymore."
+  385.7s  "They have to shave their heads instead..."
+        |
+        |  deterministic sentence merge
+        v
+SPINE CUES (split by sentences)
+  #153   382.1s - 385.0s   "I guess heterosexual women
+                            aren't allowed to have hair anymore."
+  #154   385.7s - ...      "They have to shave their heads..."
+
+timing = exact union of the fragments, never invented</pre>
+<p>前兩個碎片其實是同一句話。自動字幕到處都長這樣——一個念頭被切成兩三段是常態，不是例外。</p>
+<p>這種東西不能直接餵給翻譯：半句話翻出來就是瞎猜，單獨一個 &quot;I guess heterosexual women&quot; 可以翻去任何地方。也不能直接上畫面：碎片閃得太快，根本來不及讀。所以第一步是一道確定性的合併，把碎片縫成句子形狀的 cue：一路往下併，直到句子結束才切，同時設幾個安全閥——塊太長、會在畫面上掛太久、或跨過一段明顯的靜默（停頓就是天然的斷點），都強制切開。合併也認得文字系統：中日韓不用空格連接，長度預算也比拉丁字母更緊。</p>
+<p>其中一條規則比其他都重要：<strong>合併只發生在碎片的邊界上。</strong>合併後每個 cue 的起訖就是成員碎片時間的精確聯集——沒有任何一句戴著編出來的時間戳。</p>
+<p>而因為這道合併是確定性的——同樣的輸入，永遠切出同樣的句子、同樣的編號——後面兩件事才成立：編號穩定到可以當配對鍵；翻譯完成後可以按「這條軌的精確形狀」來快取。這兩點馬上就會用到。</p>
+<h2>決定一：只有一條時間軸</h2>
+<p>我們把翻譯軌整個丟掉，重寫時只立一條規則：<strong>系統裡只能存在一條時間軸。</strong>原文字幕軌——抓一次、按句意合併——成為我們內部稱作 spine（脊椎）的結構。每一句有編號、起始時間、長度、原文：</p>
+<pre>YouTube native caption track        &lt;-- the only source of time
+        |
+        |  parse -&gt; merge into sentences
+        v
+SPINE
+  #0    0.0s -  4.5s   "Apple is releasing eight new..."
+  #1    4.5s -  8.2s   "Here to comment are the most..."
+  #2    8.2s - 11.9s   "Red Heart and Aerial Tramway."
+  ...
+        |
+        v  pushed to screen immediately (native text)
+
+translations attach later, keyed by id -- never by time</pre>
+<p>這條規則的牙齒在這裡：<strong>翻譯不攜帶任何時間。</strong>翻譯是掛在編號上的註記，不是第二條軌。畫面上任何一秒該顯示什麼，由 spine 獨自決定；翻譯永遠只回答「#21 的中文是什麼」，從不回答「現在該顯示什麼」。</p>
+<h2>決定二：帶編號送出去，按編號收回來</h2>
+<p>spine 就緒後，我們把句子分批送給 LLM，每句帶著編號，並附上前後幾句當語境（標明不用翻），讓慣用語和連續的哏不會斷掉：</p>
+<pre>SEND                                RECEIVE
+  context    #18, #19 (do not translate)
+  translate  #20 "They have to..."      #20 -&gt; translated
+             #21 "Under what..."        #21 -&gt; translated
+             #22 "Let me think..."      #23 -&gt; translated
+             #23 "[Laughs] I..."
+                                        set check: #22 missing
+                                                   |
+                                        next round: resend #22 ONLY</pre>
+<p>LLM 的輸出在結構上是不可信的：它可能漏句、把兩句併成一句、甚至捏造編號。所以每批收回時做<strong>集合驗證</strong>——回來的編號集合必須等於送出的編號集合。多出來的丟棄；缺席的下一輪用更小的批次單獨補送；補幾次仍失敗就放棄那一句，讓它顯示原文。錯誤從結構上就被隔離了。</p>
+<p>排程跟著播放位置走：你正在看的那一批最先翻，下一批預先翻好，其餘在背景填滿。拖進度條只是換一個優先目標——翻好的永不重翻，翻完的影片永久快取在你的 Mac 上。</p>
+<h2>決定三：為什麼保證不會漂移</h2>
+<pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
+
+native      translated              native        translations
+[0] ------- [0]                     #0 --lookup-- {#0: "..."}
+[1] ------- [1]                     #1 --lookup-- {#1: "..."}
+[2] --+     (blank -- dropped)      #2 --lookup-- missing -&gt; native
+[3]   +---- [2]   &lt;- off by one     #3 --lookup-- {#3: "..."}
+[4] --+
+[5]   +---- [3]   &lt;- drift grows
+
+one hole shifts every line          a hole stays a hole:
+after it, forever                   one native line, nothing else</pre>
+<p>左邊是所有依賴「順序」或「時間對齊」的配對的通病：一個空洞讓後面每一句都位移，而且誤差複利成長——這正是我們在平台翻譯軌上量到的行為。右邊的配對鍵是編號本身：明確寫在請求裡，也要求原樣寫回回應裡。錯的編號不會讓任何東西位移，它只會通不過驗證、被重送。<em>不存在「錯位但被接受」的狀態。</em></p>
+<p><strong>我們沒有修好漂移，我們刪掉了漂移成立的前提。</strong>漂移需要「翻譯自帶時間」這個假設，而我們的翻譯什麼時間都不帶。</p>
+<h2>你拿到的東西</h2>
+<p>影片一開，原文字幕就在。翻譯幾秒內逐段跟上，一分鐘內整支影片翻完，之後永久快取。因為 LLM 看得到前後文，口語和玩笑翻出來是人話，不是逐字機翻。一如既往地沒有伺服器：翻譯用你自己的 Gemini key 從你的 Mac 直連——我們沒有任何地方可以看到你在看什麼。</p>
+<p>做字幕產品有一課要學兩次才記得住：<strong>平台給的資料，先驗證它的時鐘，再相信它的內容。</strong>這筆學費我們付過了，這篇筆記就是收據。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

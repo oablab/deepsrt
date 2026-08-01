@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How DeepSRT Implements Accurate Bilingual Captions</title>
+  <meta name="description" content="A translation that shows up three minutes late isn't a translation. One timeline, id-keyed batches, and a join that cannot slip — the engineering behind DeepSRT's drift-proof bilingual captions.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How DeepSRT Implements Accurate Bilingual Captions">
+  <meta property="og:description" content="A translation that shows up three minutes late isn't a translation. One timeline, id-keyed batches, and a join that cannot slip — the engineering behind DeepSRT's drift-proof bilingual captions.">
+  <meta property="og:url" content="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://deepsrt.com/notes/accurate-bilingual-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/accurate-bilingual-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    article pre { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.2rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.55; margin: 1.3rem 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+    article em { font-style: italic; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/accurate-bilingual-captions/" class="active">EN</a>｜<a href="/zh/notes/accurate-bilingual-captions/">中文</a>｜<a href="/ja/notes/accurate-bilingual-captions/">日本語</a>｜<a href="/ko/notes/accurate-bilingual-captions/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>How DeepSRT Implements Accurate Bilingual Captions</h1>
+  <p class="meta">July 2026 · DeepSRT development notes</p>
+  <article>
+
+<p>Bilingual captions look like a UI feature: translation on top, original at the bottom. The hard part is the word doing all the work in that sentence — <em>accurate</em>. Every translated line has to be the line being spoken, for the whole video, no matter how you seek.</p>
+<p>Shortly after we shipped bilingual captions, we got a peculiar bug report: the Chinese line was perfectly good Chinese — for a scene three minutes away. Worse, one phrase would sometimes repeat eight times and stack into a wall of text. This note covers what we found, and the three design decisions that ended it.</p>
+<h2>The free lunch is poisoned</h2>
+<p>Video platforms ship machine-translated caption tracks. Free, instant, one request away — every caption product reaches for them first, and so did we. Then we measured them against the original track. Verdict: the text is passable, <strong>the timing is not trustworthy</strong>. The offset between translation and speech isn't constant — it accumulates as the video plays. Accumulating error means there is no calibration to apply: the track isn't misaligned by some amount, it was never aligned at all.</p>
+<p>A free lunch that charges your product's reliability is not free.</p>
+<h2>From fragments to sentences</h2>
+<p>What actually comes back from the platform when you ask for the original track is not sentences. It&#x27;s a few hundred fragments, cut by speech pauses, each with millisecond timing:</p>
+<pre>RAW FRAGMENTS (split by speech pauses)
+  382.1s  "I guess heterosexual women"
+  383.3s  "aren't allowed to have hair anymore."
+  385.7s  "They have to shave their heads instead..."
+        |
+        |  deterministic sentence merge
+        v
+SPINE CUES (split by sentences)
+  #153   382.1s - 385.0s   "I guess heterosexual women
+                            aren't allowed to have hair anymore."
+  #154   385.7s - ...      "They have to shave their heads..."
+
+timing = exact union of the fragments, never invented</pre>
+<p>The first two fragments are one sentence. Auto-generated captions are like this everywhere — a thought split across two or three cues is the norm, not the exception.</p>
+<p>You can&#x27;t feed these to a translator as-is: half a thought translates into anything — &quot;I guess heterosexual women&quot;, alone, can go anywhere. And you can&#x27;t display them as-is either — fragments flash by too fast to read. So the first pass is a deterministic merge that sews fragments into sentence-shaped cues: keep merging until a sentence ends, with safety valves that force a cut when a cue grows too long, would sit on screen too long, or straddles a clear silence (a pause is a natural break). The merge is script-aware — CJK text joins without spaces and gets a tighter length budget than Latin text.</p>
+<p>One rule in that pass matters more than the rest: <strong>merging only ever happens at fragment boundaries.</strong> A merged cue&#x27;s start and end are the exact union of its fragments&#x27; timing — no cue ever wears an invented timestamp.</p>
+<p>And because the merge is deterministic — same input, same cues, same numbering, every time — two things become possible downstream: cue ids are stable enough to serve as join keys, and a finished translation can be cached against the exact shape of the track it translated. Both are about to matter.</p>
+<h2>Decision 1: one timeline</h2>
+<p>We threw the translated track away and rebuilt around a single rule: <strong>there is exactly one timeline in the system.</strong> The native caption track — fetched once, merged into sentences — becomes what we internally call the spine. Every cue has an id, a start time, a duration, and the original text:</p>
+<pre>YouTube native caption track        &lt;-- the only source of time
+        |
+        |  parse -&gt; merge into sentences
+        v
+SPINE
+  #0    0.0s -  4.5s   "Apple is releasing eight new..."
+  #1    4.5s -  8.2s   "Here to comment are the most..."
+  #2    8.2s - 11.9s   "Red Heart and Aerial Tramway."
+  ...
+        |
+        v  pushed to screen immediately (native text)
+
+translations attach later, keyed by id -- never by time</pre>
+<p>The rule's teeth: <strong>translations carry no time.</strong> A translation is an annotation on an id, never a second track. What appears on screen at any given second is decided by the spine alone; a translation only ever answers &quot;what is cue #21 in Chinese&quot; — never &quot;what should be on screen now&quot;.</p>
+<h2>Decision 2: ids out, ids back</h2>
+<p>Once the spine exists, we batch its sentences to an LLM with their ids attached, plus a few neighbouring lines as context (marked do-not-translate) so idioms and running jokes survive:</p>
+<pre>SEND                                RECEIVE
+  context    #18, #19 (do not translate)
+  translate  #20 "They have to..."      #20 -&gt; translated
+             #21 "Under what..."        #21 -&gt; translated
+             #22 "Let me think..."      #23 -&gt; translated
+             #23 "[Laughs] I..."
+                                        set check: #22 missing
+                                                   |
+                                        next round: resend #22 ONLY</pre>
+<p>LLM output is not to be trusted structurally: it may skip a line, merge two, or invent ids. So every batch is <strong>set-validated</strong> on return — the id set coming back must equal the id set sent. Extras are discarded. Missing ids go out again in a smaller batch; if one keeps failing, we give up on that id and that single line shows the original. Failure is contained by construction.</p>
+<p>Scheduling follows the playhead: the batch you are watching translates first, the next one is prefetched, and the rest backfill in the background. Seeking just changes which batch goes next — finished work is never redone, and a finished video is cached on your Mac permanently.</p>
+<h2>Decision 3: why it cannot drift</h2>
+<pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
+
+native      translated              native        translations
+[0] ------- [0]                     #0 --lookup-- {#0: "..."}
+[1] ------- [1]                     #1 --lookup-- {#1: "..."}
+[2] --+     (blank -- dropped)      #2 --lookup-- missing -&gt; native
+[3]   +---- [2]   &lt;- off by one     #3 --lookup-- {#3: "..."}
+[4] --+
+[5]   +---- [3]   &lt;- drift grows
+
+one hole shifts every line          a hole stays a hole:
+after it, forever                   one native line, nothing else</pre>
+<p>The left side is every ordering- or alignment-based join: one hole shifts everything after it, and the error compounds — exactly the behaviour we measured on the platform's translated track. On the right, the join key is the id itself, written into the request and required back in the response. A wrong id doesn't shift anything; it fails validation and gets retried. There is no state in which a misaligned translation is <em>accepted</em>.</p>
+<p><strong>We didn't fix drift. We removed the assumption it needs.</strong> Drift requires translations that carry their own time. Ours carry none.</p>
+<h2>What you get</h2>
+<p>Native captions appear the moment the video does. Translations catch up within seconds and the whole video finishes inside a minute, cached forever after. Because the LLM sees surrounding dialogue, colloquialisms and jokes come out as language rather than word-by-word MT output. And as always: no servers — translation runs on your own Gemini key, straight from your Mac. There is nowhere for us to see what you watch.</p>
+<p>Caption products learn one lesson twice: <strong>with platform data, verify the clock before you trust the words.</strong> We've paid this tuition; this note is the receipt.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

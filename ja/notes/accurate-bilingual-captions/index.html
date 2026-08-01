@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSRT が正確なバイリンガル字幕を実現する方法</title>
+  <meta name="description" content="3分遅れて表示される翻訳は、翻訳とは呼べない。単一のタイムライン、ID付きバッチ翻訳、ずれることのない結合——ドリフトしない字幕の設計。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DeepSRT が正確なバイリンガル字幕を実現する方法">
+  <meta property="og:description" content="3分遅れて表示される翻訳は、翻訳とは呼べない。単一のタイムライン、ID付きバッチ翻訳、ずれることのない結合——ドリフトしない字幕の設計。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/accurate-bilingual-captions/">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://deepsrt.com/ja/notes/accurate-bilingual-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ja/notes/accurate-bilingual-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/accurate-bilingual-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/accurate-bilingual-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+      --font-head: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    article pre { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.2rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.55; margin: 1.3rem 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+    article em { font-style: italic; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/accurate-bilingual-captions/">EN</a>｜<a href="/zh/notes/accurate-bilingual-captions/">中文</a>｜<a href="/ja/notes/accurate-bilingual-captions/" class="active">日本語</a>｜<a href="/ko/notes/accurate-bilingual-captions/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>DeepSRT が正確なバイリンガル字幕を実現する方法</h1>
+  <p class="meta">2026年7月 · DeepSRT 開発ノート</p>
+  <article>
+
+<p>バイリンガル字幕は一見 UI の機能に見えます。上に翻訳、下に原文。難しいのは「正確」という一語です。翻訳の一行一行が、いま話されているその一行と一致していなければならない。動画全体を通して、どこへシークしても。</p>
+<p>バイリンガル字幕のリリース直後、奇妙な報告が届きました。翻訳行は自然な文章なのに、内容が 3 分先のシーンのものだったのです。ひどいときは同じフレーズが 8 回繰り返され、文字の壁になりました。このノートでは、原因として突き止めたことと、それを終わらせた 3 つの設計判断を書きます。</p>
+<h2>タダ飯には毒がある</h2>
+<p>動画プラットフォームは機械翻訳の字幕トラックを提供しています。無料で即時、リクエスト一つ。字幕プロダクトを作る人が最初に手を伸ばすのはこれで、私たちも例外ではありませんでした。しかし原文トラックと突き合わせて計測した結論は——テキストはまあ使える、<strong>タイミングは信用できない</strong>。翻訳と音声のずれは一定ではなく、再生とともに蓄積していきます。蓄積する誤差に「補正」は存在しません。ある量だけずれているのではなく、そもそも一度も整列していなかったのです。</p>
+<p>プロダクトの信頼性で支払うタダ飯は、タダではありません。</p>
+<h2>断片から文へ</h2>
+<p>プラットフォームに原文トラックを要求して返ってくるのは、文ではありません。発話の切れ目で刻まれた数百の断片で、それぞれにミリ秒単位の時刻が付いています：</p>
+<pre>RAW FRAGMENTS (split by speech pauses)
+  382.1s  "I guess heterosexual women"
+  383.3s  "aren't allowed to have hair anymore."
+  385.7s  "They have to shave their heads instead..."
+        |
+        |  deterministic sentence merge
+        v
+SPINE CUES (split by sentences)
+  #153   382.1s - 385.0s   "I guess heterosexual women
+                            aren't allowed to have hair anymore."
+  #154   385.7s - ...      "They have to shave their heads..."
+
+timing = exact union of the fragments, never invented</pre>
+<p>最初の二つの断片は実は一つの文です。自動字幕はどこでもこうで、一つの思考が二、三個のキューに割れているのが常態です。</p>
+<p>これをそのまま翻訳に渡すことはできません。半分の思考はどうとでも訳せてしまう——&quot;I guess heterosexual women&quot; 単体ではどこへでも行けます。そのまま表示することもできません。断片は速すぎて読み切れない。そこで最初の処理として、断片を文の形のキューに縫い合わせる決定的なマージを通します。文が終わるまでマージを続け、同時にいくつかの安全弁を置く——長くなりすぎるキュー、画面に居座りすぎるキュー、明確な沈黙をまたぐキュー（間は天然の区切りです）は強制的に切ります。マージは文字体系も認識します。CJK はスペースなしで結合し、長さの予算もラテン文字より厳しくなります。</p>
+<p>その中で一つ、他より重要なルールがあります。<strong>マージは断片の境界でしか起こらない。</strong>マージ後の各キューの開始・終了は、構成断片の時刻の正確な合併です——でっち上げのタイムスタンプを持つキューは一つもありません。</p>
+<p>そしてこのマージが決定的である——同じ入力からは常に同じ文、同じ番号が出る——からこそ、後段の二つが成立します。ID が結合キーとして使えるほど安定すること。完成した翻訳を「そのトラックの正確な形」に対してキャッシュできること。どちらもすぐ後で効いてきます。</p>
+<h2>判断 1：タイムラインは一本だけ</h2>
+<p>翻訳トラックを丸ごと捨て、一つのルールで作り直しました。<strong>システムに存在するタイムラインは正確に一本。</strong>原文字幕トラック——一度だけ取得し、文単位にマージしたもの——が、内部で spine（背骨）と呼ぶ構造になります。各行に ID、開始時刻、長さ、原文：</p>
+<pre>YouTube native caption track        &lt;-- the only source of time
+        |
+        |  parse -&gt; merge into sentences
+        v
+SPINE
+  #0    0.0s -  4.5s   "Apple is releasing eight new..."
+  #1    4.5s -  8.2s   "Here to comment are the most..."
+  #2    8.2s - 11.9s   "Red Heart and Aerial Tramway."
+  ...
+        |
+        v  pushed to screen immediately (native text)
+
+translations attach later, keyed by id -- never by time</pre>
+<p>このルールの牙はここです。<strong>翻訳は時間情報を一切持たない。</strong>翻訳は ID に付く注釈であり、第二のトラックではありません。ある瞬間に画面へ出すものは spine だけが決める。翻訳が答えるのは「#21 は日本語で何か」だけで、「いま何を表示すべきか」には決して答えません。</p>
+<h2>判断 2：ID を付けて送り、ID で受け取る</h2>
+<p>spine ができたら、文を ID 付きのバッチで LLM に送ります。慣用句や続き物のジョークが切れないよう、前後数行を文脈として添えます（翻訳対象外と明記）：</p>
+<pre>SEND                                RECEIVE
+  context    #18, #19 (do not translate)
+  translate  #20 "They have to..."      #20 -&gt; translated
+             #21 "Under what..."        #21 -&gt; translated
+             #22 "Let me think..."      #23 -&gt; translated
+             #23 "[Laughs] I..."
+                                        set check: #22 missing
+                                                   |
+                                        next round: resend #22 ONLY</pre>
+<p>LLM の出力は構造的に信用できません。行を飛ばす、二行を結合する、存在しない ID を作る。だから各バッチは受信時に<strong>集合検証</strong>します——返ってきた ID の集合は送った集合と一致しなければならない。余分は破棄。欠けた ID はより小さいバッチで再送し、それでも失敗し続けるならその一行だけ諦めて原文を表示します。失敗は構造として隔離されます。</p>
+<p>スケジューリングは再生位置に従います。いま見ているバッチが最優先、次のバッチは先読み、残りはバックグラウンドで埋める。シークは「次にどのバッチか」を変えるだけ——完了した翻訳は二度とやり直さず、翻訳し終えた動画はあなたの Mac に永続キャッシュされます。</p>
+<h2>判断 3：なぜドリフトが起こり得ないのか</h2>
+<pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
+
+native      translated              native        translations
+[0] ------- [0]                     #0 --lookup-- {#0: "..."}
+[1] ------- [1]                     #1 --lookup-- {#1: "..."}
+[2] --+     (blank -- dropped)      #2 --lookup-- missing -&gt; native
+[3]   +---- [2]   &lt;- off by one     #3 --lookup-- {#3: "..."}
+[4] --+
+[5]   +---- [3]   &lt;- drift grows
+
+one hole shifts every line          a hole stays a hole:
+after it, forever                   one native line, nothing else</pre>
+<p>左は順序や時刻の整列に依存するすべての結合の持病です。穴が一つ空くと以降のすべての行がずれ、誤差は複利で育つ——まさにプラットフォームの翻訳トラックで計測した挙動です。右では結合キーが ID そのもの。リクエストに明記し、レスポンスにもそのまま返すことを要求します。間違った ID は何もずらしません。検証に落ちて再送されるだけ。<em>「ずれているのに受理される」状態が存在しない</em>のです。</p>
+<p><strong>私たちはドリフトを直したのではありません。ドリフトが成立するための前提を消したのです。</strong>ドリフトには「翻訳が自前の時間を持つ」という仮定が必要ですが、私たちの翻訳は時間を一切持ちません。</p>
+<h2>手に入るもの</h2>
+<p>動画が始まった瞬間に原文字幕が出ます。翻訳は数秒で追いつき、1 分以内に動画全体が完了、以後は永続キャッシュ。LLM は前後の会話が見えるので、口語もジョークも逐語訳ではなく言葉として出てきます。そしていつも通りサーバーはありません。翻訳はあなた自身の Gemini キーで Mac から直接実行され、あなたが何を観ているかを私たちが見る場所は存在しません。</p>
+<p>字幕プロダクトは同じ教訓を二度学びます。<strong>プラットフォームのデータは、言葉を信じる前に時計を検証せよ。</strong>この授業料は支払い済みです。このノートがその領収書です。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
