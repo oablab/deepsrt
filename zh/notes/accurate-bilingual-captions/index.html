@@ -146,6 +146,11 @@ translations attach later, keyed by id -- never by time</pre>
                                         next round: resend #22 ONLY</pre>
 <p>LLM 的輸出在結構上是不可信的：它可能漏句、把兩句併成一句、甚至捏造編號。所以每批收回時做<strong>集合驗證</strong>——回來的編號集合必須等於送出的編號集合。多出來的丟棄；缺席的下一輪用更小的批次單獨補送；補幾次仍失敗就放棄那一句，讓它顯示原文。錯誤從結構上就被隔離了。</p>
 <p>排程跟著播放位置走：你正在看的那一批最先翻，下一批預先翻好，其餘在背景填滿。拖進度條只是換一個優先目標——翻好的永不重翻，翻完的影片永久快取在你的 Mac 上。</p>
+<figure>
+  <img src="/notes/accurate-bilingual-captions/instant-at-0-04.jpg" alt="DeepSRT 播放 Jimmy O. Yang 站立喜劇，時間軸停在 0:04——開播四秒，中文翻譯和英文原文已經同時在畫面上" width="1600" height="998" loading="lazy">
+  <figcaption>播放頭優先排程的實際效果：影片開播四秒，雙語字幕已經就位。</figcaption>
+</figure>
+
 <h2>決定三：為什麼保證不會漂移</h2>
 <pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
 

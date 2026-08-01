@@ -146,6 +146,11 @@ translations attach later, keyed by id -- never by time</pre>
                                         next round: resend #22 ONLY</pre>
 <p>LLM의 출력은 구조적으로 신뢰할 수 없습니다. 줄을 건너뛰고, 두 줄을 합치고, 없는 ID를 만들어냅니다. 그래서 모든 배치는 수신 시 <strong>집합 검증</strong>을 거칩니다 — 돌아온 ID 집합은 보낸 집합과 같아야 합니다. 남는 것은 버리고, 빠진 ID는 더 작은 배치로 다시 보내며, 계속 실패하면 그 한 줄만 포기하고 원문을 표시합니다. 실패는 구조적으로 격리됩니다.</p>
 <p>스케줄링은 재생 위치를 따릅니다. 지금 보고 있는 배치가 최우선, 다음 배치는 미리 번역, 나머지는 백그라운드에서 채웁니다. 탐색은 「다음 배치가 무엇인가」를 바꿀 뿐 — 끝난 번역은 다시 하지 않으며, 번역이 끝난 영상은 당신의 Mac에 영구 캐시됩니다.</p>
+<figure>
+  <img src="/notes/accurate-bilingual-captions/instant-at-0-04.jpg" alt="DeepSRT에서 Jimmy O. Yang 스탠드업 재생, 타임라인 0:04 — 재생 4초 만에 번역과 원문이 이미 화면에 함께 있다" width="1600" height="998" loading="lazy">
+  <figcaption>재생 위치 우선 스케줄링의 실제: 영상 시작 4초 만에 이중 자막이 이미 자리에 있다.</figcaption>
+</figure>
+
 <h2>결정 3: 왜 드리프트가 불가능한가</h2>
 <pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
 

@@ -146,6 +146,11 @@ translations attach later, keyed by id -- never by time</pre>
                                         next round: resend #22 ONLY</pre>
 <p>LLM の出力は構造的に信用できません。行を飛ばす、二行を結合する、存在しない ID を作る。だから各バッチは受信時に<strong>集合検証</strong>します——返ってきた ID の集合は送った集合と一致しなければならない。余分は破棄。欠けた ID はより小さいバッチで再送し、それでも失敗し続けるならその一行だけ諦めて原文を表示します。失敗は構造として隔離されます。</p>
 <p>スケジューリングは再生位置に従います。いま見ているバッチが最優先、次のバッチは先読み、残りはバックグラウンドで埋める。シークは「次にどのバッチか」を変えるだけ——完了した翻訳は二度とやり直さず、翻訳し終えた動画はあなたの Mac に永続キャッシュされます。</p>
+<figure>
+  <img src="/notes/accurate-bilingual-captions/instant-at-0-04.jpg" alt="DeepSRT で Jimmy O. Yang のスタンドアップを再生、タイムラインは 0:04——再生 4 秒で翻訳と原文の両方が既に画面上にある" width="1600" height="998" loading="lazy">
+  <figcaption>再生位置優先スケジューリングの実際：再生開始から 4 秒で、バイリンガル字幕はもう画面にある。</figcaption>
+</figure>
+
 <h2>判断 3：なぜドリフトが起こり得ないのか</h2>
 <pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
 

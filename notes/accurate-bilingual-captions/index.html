@@ -146,6 +146,11 @@ translations attach later, keyed by id -- never by time</pre>
                                         next round: resend #22 ONLY</pre>
 <p>LLM output is not to be trusted structurally: it may skip a line, merge two, or invent ids. So every batch is <strong>set-validated</strong> on return — the id set coming back must equal the id set sent. Extras are discarded. Missing ids go out again in a smaller batch; if one keeps failing, we give up on that id and that single line shows the original. Failure is contained by construction.</p>
 <p>Scheduling follows the playhead: the batch you are watching translates first, the next one is prefetched, and the rest backfill in the background. Seeking just changes which batch goes next — finished work is never redone, and a finished video is cached on your Mac permanently.</p>
+<figure>
+  <img src="/notes/accurate-bilingual-captions/instant-at-0-04.jpg" alt="DeepSRT playing a Jimmy O. Yang stand-up video at 0:04 — four seconds in, both the Chinese translation and the English native caption are already on screen" width="1600" height="998" loading="lazy">
+  <figcaption>Playhead-first scheduling in practice: four seconds into the video, the bilingual pair is already on screen.</figcaption>
+</figure>
+
 <h2>Decision 3: why it cannot drift</h2>
 <pre>JOIN BY POSITION (fragile)          JOIN BY ID (cannot slip)
 
