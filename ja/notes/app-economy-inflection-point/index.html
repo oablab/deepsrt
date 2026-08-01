@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>アプリ経済は決定的な転換点に来た</title>
+  <meta name="description" content="コードを書くことはもう安い。評判とセンス、そしてメンテナンスというマラソンこそがプロダクトだ——小銭価格の時代は終わった。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="アプリ経済は決定的な転換点に来た">
+  <meta property="og:description" content="コードを書くことはもう安い。評判とセンス、そしてメンテナンスというマラソンこそがプロダクトだ——小銭価格の時代は終わった。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/app-economy-inflection-point/">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://deepsrt.com/ja/notes/app-economy-inflection-point/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ja/notes/app-economy-inflection-point/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/app-economy-inflection-point/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+      --font-head: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/app-economy-inflection-point/">EN</a>｜<a href="/zh/notes/app-economy-inflection-point/">中文</a>｜<a href="/ja/notes/app-economy-inflection-point/" class="active">日本語</a>｜<a href="/ko/notes/app-economy-inflection-point/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>アプリ経済は決定的な転換点に来た</h1>
+  <p class="lead">コードを書くことはもう安い。評判とセンス、そしてメンテナンスというマラソンこそがプロダクトだ——小銭価格の時代は終わった。</p>
+  <p class="meta">2026年8月 · DeepSRT 開発ノート</p>
+  <article>
+
+<p>この一年 DeepSRT を作りながら、確信が深まっていったことがある。アプリ経済はいま転換点を通過していて、大半の人はまだその形に気づいていない。いくつかの見方を、記録として書き残しておく。</p>
+<h2>アプリを作れる人が、突然「全員」になった</h2>
+<p>誰でも、claude-fable-5 や gpt-5.6-sol クラスのフロンティアモデルを使えば、動くアプリを書ける。おもちゃではない。動いて、リリースできて、課金できるアプリだ。二年前ならジョークだったこの一文が、今日では常識になった。</p>
+<p>この先に来るのは、文字通りの百花繚乱だ。Apple Developer Program の $99 のチケットが、道に残された唯一の関門になる。払えば提出できる。App Store に向かう供給の波は、過去のあらゆる「個人開発の黄金時代」をウォームアップに見せるだろう。</p>
+<h2>誰でも作れるなら、価値はアプリの中にはない</h2>
+<p>これが転換点の本当の形だ。<strong>機能そのものが誰にでも複製できるなら、機能はもう価値の在り処ではない。</strong>価値は引っ越した——開発者自身へ。</p>
+<p>かつての個人開発者はコミュニティを完全に無視できた。$0.99 のアプリを出して、消える。その道は閉じつつある。次の時代の開発者は Threads や X、LinkedIn で進捗を共有し続け、視点のある開発ノートを書き、GitHub で進行を追わせ、Discord でユーザーの隣に立つ。マーケティング講座がそう教えるからではない。<strong>評判と語る力だけが、ユーザーが自分で vibe できない唯一のものだから</strong>だ。</p>
+<h2>小銭価格よ、さらば</h2>
+<p>だから良いアプリの値段は、もう $2.99 ではない。健全な買い切り価格は <strong>$50〜$100</strong> に落ち着くと私は考えている。</p>
+<p>この数字は機能の値札ではない——機能は安い、上で述べた通りだ。これは<strong>長期コミットメントの値札</strong>だ。コードを書くのは週末ひとつの仕事。その後に続く反復、互換性の維持、ユーザーへの返信、特定のマシンでしか起きないバグの修正——このマラソンこそが過酷な部分だ。$50 が買うのは今日のアプリではなく、このチームがマラソンを一緒に走り切るというシグナルだ。</p>
+<figure>
+  <img src="/notes/app-economy-inflection-point/foldic-listing.jpg" alt="Mac App Store 上の Foldic——私たち自身が開発する買い切りユーティリティ、継続的にメンテナンス中" width="1600" height="936" loading="lazy">
+  <figcaption>私たち自身の実践:Foldic——買い切り、小銭価格ではなく、継続的にメンテナンス。この記事が描く道を、私たちは実際に歩いている。</figcaption>
+</figure>
+<h2>「自分で vibe したら割に合わない」というスイートスポット</h2>
+<p>この価格帯には正確な定義がある。<strong>自分で作るのが割に合わなくなる、ちょうどその位置</strong>だ。</p>
+<p>安くはない。そして正直、自分でも書ける——そこがまさに絶妙なところだ。だが実際に手を動かし、週末をいくつか失い、エッジケースの修正に自分のトークン残高を燃やした後、あなたは皆と同じ結論に達する。割に合わない。時間でも、トークンでも。何より割に合わないのは、それを<em>永遠に</em>メンテし続けなければならないという事実だ。</p>
+<p>メンテナンスを約束した誰かのバージョンを買うことが、突然合理的な選択になる。この理屈は $0.99 の時代には成立しなかった——アプリが安すぎて、自作を考えることすらなかったからだ。新しい時代には再び成立する。アプリがようやく、一度考える価値のある値段になったからだ。</p>
+<h2>本当の希少性——センスと「気づくこと」</h2>
+<p>最後に、最も重要な点。プロダクトの価値は「書き上げる」という行為の中には一度もなかった。それは<strong>センス</strong>の中にある——「こう作れるのか」と、誰も思いつかなかったやり方に気づくその瞬間の中に。</p>
+<p>モデルは、あなたが記述できるものなら何でも書いてくれる。だが「記述できること」自体が関門なのだ。何を作るべきか、何を作らないべきか、ユーザーがまだ口にしていないニーズがどんな形をしているか。それが価値だ。ずっとそうだった——「コードが書けるか」という関門の陰に隠れていただけだ。関門は消えた。希少性がついに露出した。</p>
+<h2>さあ、作ろう</h2>
+<p>だから、もしあなたの頭の中にプロダクトがあるなら——何年も欲しくて、似たものを見るたびに「違う、そうじゃない」と呟いてしまうあのプロダクトがあるなら——今こそそれを書くときだ。チケットは $99、道具は手の中にある。残るのはあなたのセンスと、マラソンを走る覚悟だけだ。</p>
+<p>そして価格曲線がさらに上を向く理由がもう一つある。フロンティアモデルでの開発コストは上がり続けている。良いアプリはより良い買い切り価格に値する——そしてあなたの一回一回の購入は、まさに開発者やチームへの直接的な支援であり、彼らが AI を使ってより良いプロダクトを維持し、創り続けるための力になる。</p>
+<p>書き上げよう。そして維持し続けよう。<strong>後半こそがプロダクトだ。</strong></p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

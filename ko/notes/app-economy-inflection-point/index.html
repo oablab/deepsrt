@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>앱 경제는 결정적 변곡점에 도달했다</title>
+  <meta name="description" content="코드를 쓰는 일은 이제 값싸다. 평판과 안목, 그리고 유지보수라는 마라톤이 곧 제품이다 — 동전 가격의 시대는 끝났다.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="앱 경제는 결정적 변곡점에 도달했다">
+  <meta property="og:description" content="코드를 쓰는 일은 이제 값싸다. 평판과 안목, 그리고 유지보수라는 마라톤이 곧 제품이다 — 동전 가격의 시대는 끝났다.">
+  <meta property="og:url" content="https://deepsrt.com/ko/notes/app-economy-inflection-point/">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://deepsrt.com/ko/notes/app-economy-inflection-point/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ko/notes/app-economy-inflection-point/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/app-economy-inflection-point/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/app-economy-inflection-point/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+      --font-head: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ko/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/app-economy-inflection-point/">EN</a>｜<a href="/zh/notes/app-economy-inflection-point/">中文</a>｜<a href="/ja/notes/app-economy-inflection-point/">日本語</a>｜<a href="/ko/notes/app-economy-inflection-point/" class="active">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ko/notes/">← 노트</a>
+  <h1>앱 경제는 결정적 변곡점에 도달했다</h1>
+  <p class="lead">코드를 쓰는 일은 이제 값싸다. 평판과 안목, 그리고 유지보수라는 마라톤이 곧 제품이다 — 동전 가격의 시대는 끝났다.</p>
+  <p class="meta">2026년 8월 · DeepSRT 개발 노트</p>
+  <article>
+
+<p>지난 1년간 DeepSRT를 만들면서 점점 확신하게 된 것이 있다. 앱 경제는 지금 변곡점을 지나고 있고, 대부분의 사람들은 아직 그 모양을 알아차리지 못했다. 몇 가지 관점을 기록으로 남긴다.</p>
+<h2>갑자기 모두가 앱을 만들 수 있게 되었다</h2>
+<p>누구든 claude-fable-5나 gpt-5.6-sol급 프론티어 모델이 있으면 돌아가는 앱을 만들 수 있다. 장난감이 아니라 실행되고, 출시되고, 돈을 받을 수 있는 앱이다. 2년 전이라면 농담이었을 이 문장이 오늘은 상식이다.</p>
+<p>다음에 올 것은 문자 그대로의 백화제방이다. Apple Developer Program의 $99 티켓이 길에 남은 유일한 관문이다. 내면 제출할 수 있다. App Store로 향하는 공급의 물결은 과거의 모든 「인디 개발 황금기」를 몸풀기로 보이게 만들 것이다.</p>
+<h2>누구나 만들 수 있다면, 가치는 앱 안에 없다</h2>
+<p>이것이 변곡점의 진짜 모양이다. <strong>기능 자체를 누구나 복제할 수 있다면, 기능은 더 이상 가치가 머무는 곳이 아니다.</strong> 가치는 이사했다 — 개발자에게로.</p>
+<p>과거의 인디 개발자는 커뮤니티를 완전히 무시할 수 있었다. $0.99짜리 앱을 올리고 사라지면 됐다. 그 길은 닫히고 있다. 다음 시대의 개발자는 Threads, X, LinkedIn에서 진행 상황을 계속 공유하고, 관점이 담긴 개발 노트를 쓰고, GitHub로 진행을 지켜보게 하고, Discord에서 사용자 곁에 선다. 마케팅 강의가 그렇게 가르쳐서가 아니라, <strong>평판과 서사 능력만이 사용자가 스스로 vibe해낼 수 없는 유일한 것이기 때문</strong>이다.</p>
+<h2>동전 가격이여, 안녕</h2>
+<p>그래서 좋은 앱의 가격은 더 이상 $2.99가 아닐 것이다. 건강한 일시불 가격은 <strong>$50–$100</strong> 사이에 자리 잡으리라 본다.</p>
+<p>이 숫자는 기능의 가격표가 아니다 — 기능은 싸다, 위에서 말했듯이. 이것은 <strong>장기적 헌신의 가격표</strong>다. 코드를 쓰는 것은 주말 하나면 되는 일이다. 그 뒤에 이어지는 반복, 호환성 유지, 사용자 응대, 특정 기기에서만 나타나는 버그 수정 — 이 마라톤이야말로 고된 부분이다. $50가 사는 것은 오늘의 앱이 아니라, 이 팀이 당신과 함께 마라톤을 완주하리라는 신호다.</p>
+<figure>
+  <img src="/notes/app-economy-inflection-point/foldic-listing.jpg" alt="Mac App Store의 Foldic — 우리가 직접 개발하는 일시불 구매 유틸리티, 지속적으로 유지보수 중" width="1600" height="936" loading="lazy">
+  <figcaption>우리 자신의 실천: Foldic — 일시불 구매, 동전 가격이 아닌 가격, 지속적인 유지보수. 이 글이 그리는 길을 우리가 직접 걷고 있다.</figcaption>
+</figure>
+<h2>「직접 vibe하면 수지가 안 맞는」 스위트 스폿</h2>
+<p>이 가격대에는 정확한 정의가 있다. <strong>직접 만드는 것이 수지가 안 맞게 되는 바로 그 지점</strong>이다.</p>
+<p>싸지 않다. 그리고 솔직히 당신도 만들 수 있다 — 바로 그 점이 절묘하다. 하지만 실제로 손을 대서 주말 몇 개를 잃고, 엣지 케이스를 고치느라 자기 토큰 잔고를 태우고 나면, 모두와 같은 결론에 도달한다. 수지가 안 맞는다. 시간도, 토큰도. 가장 수지가 안 맞는 것은 그것을 <em>영원히</em> 유지보수해야 한다는 사실이다.</p>
+<p>유지보수를 약속한 누군가의 버전을 사는 것이 갑자기 합리적 선택이 된다. 이 논리는 $0.99 시대에는 성립하지 않았다 — 앱이 너무 싸서 직접 만들 생각조차 하지 않았으니까. 새 시대에는 다시 성립한다. 앱이 마침내 한 번 고민할 만한 가격이 되었기 때문이다.</p>
+<h2>진짜 희소성: 안목, 그리고 「알아차림」</h2>
+<p>마지막으로 가장 중요한 것. 제품의 가치는 「써낸다」는 행위 안에 있었던 적이 없다. 그것은 <strong>안목</strong> 안에 있다 — 「이렇게 만들 수 있구나」를 남들이 생각조차 못했을 때 알아차리는 그 순간 안에.</p>
+<p>모델은 당신이 묘사할 수 있는 것이라면 무엇이든 써준다. 하지만 「묘사할 수 있다」는 것 자체가 문턱이다. 무엇을 만들지 아는 것, 무엇을 만들지 않을지 아는 것, 사용자가 아직 입 밖에 내지 않은 필요가 어떤 모양인지 아는 것. 그것이 가치다. 늘 그랬다 — 「코딩할 줄 아는가」라는 문턱에 가려져 있었을 뿐. 문턱은 사라졌다. 희소성이 마침내 드러났다.</p>
+<h2>이제 만들어라</h2>
+<p>그러니 머릿속에 제품이 하나 있다면 — 몇 년째 원해왔고, 비슷한 것을 볼 때마다 「아니, 그게 아니야」라고 중얼거리게 되는 그 제품이 있다면 — 지금이 그것을 써낼 때다. 티켓은 $99, 도구는 손안에 있다. 남은 것은 당신의 안목과 마라톤을 뛸 각오뿐이다.</p>
+<p>그리고 가격 곡선이 더 위로 향할 이유가 하나 더 있다. 프론티어 모델로 개발하는 비용은 계속 오르고 있다. 좋은 앱은 더 나은 일시불 가격을 받을 자격이 있다 — 그리고 당신의 구매 한 번 한 번은 곧 개발자와 팀에 대한 직접적인 지지이며, 그들이 계속 AI로 더 나은 제품을 유지하고 만들어가게 하는 힘이다.</p>
+<p>써내라. 그리고 꾸준히 유지보수하라. <strong>뒷부분이야말로 제품이다.</strong></p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
