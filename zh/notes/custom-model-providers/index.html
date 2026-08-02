@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>模型自由：即將支持自訂 Model Providers</title>
+  <meta name="description" content="初衷沒有變——品質可靠。變的是，可靠不再只有一種形狀。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="模型自由：即將支持自訂 Model Providers">
+  <meta property="og:description" content="初衷沒有變——品質可靠。變的是，可靠不再只有一種形狀。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/custom-model-providers/">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/custom-model-providers/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/custom-model-providers/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/custom-model-providers/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; font-size: 0.95rem; }
+    article th, article td { text-align: left; padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); }
+    article th { color: var(--ink); }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/custom-model-providers/">EN</a>｜<a href="/zh/notes/custom-model-providers/" class="active">中文</a>｜<a href="/ja/notes/custom-model-providers/">日本語</a>｜<a href="/ko/notes/custom-model-providers/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>模型自由：即將支持自訂 Model Providers</h1>
+  <p class="lead">初衷沒有變——品質可靠。變的是，可靠不再只有一種形狀。</p>
+  <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
+  <article>
+
+<h2>我們的初衷</h2>
+<p>DeepSRT 從第一天起的原則就是：使用者不該為了看個影片研究模型排行榜。我們要的是<strong>單一、品質可靠的預設</strong>——你貼上 key，其他交給我們。2025 年，Gemini 成為這個答案：品質穩、有免費額度、BYOK 直連不經過我們的手。這個選擇到今天依然成立，Gemini 仍然是預設。</p>
+<p>但 2026 年的地景變了。Native app 之後，我們看著 open weights 模型一路追上來：有免費的雲端模型、有便宜到不可思議的 API、甚至有跑在你自己 Mac 上的本地模型。當「可靠」不再稀缺，堅持只給一種選擇就從保護變成了限制。所以我們決定打開它。</p>
+<p>下個版本，DeepSRT 支援任何 OpenAI 相容端點：OpenCode Zen、OpenRouter、DeepSeek 一鍵配置，Ollama、LM Studio 填個 URL 就接上。字幕和摘要可以各用各的——字幕跑便宜的，摘要留給旗艦。</p>
+<figure>
+  <img src="/notes/custom-model-providers/picker.jpg" alt="DeepSRT 的模型選單開在播放中的影片上：Gemini 附價格標示，OpenCode Zen 與 OpenRouter 的免費模型，以及 DeepSeek" width="1600" height="855" loading="lazy">
+  <figcaption>一個選單，看見所有已配置的提供者：Gemini 附價格、免費模型標「免費」、DeepSeek 官方目錄。</figcaption>
+</figure>
+<h2>怎麼評估：速度和價格，但兩個任務要的不一樣</h2>
+<p>打開選擇的前提，是我們自己先搞清楚怎麼選。DeepSRT 有兩種 AI 任務，它們對模型的要求幾乎相反：</p>
+<p><strong>即時字幕</strong>是一場追逐——你在看 3 分鐘處，那一段的翻譯<strong>幾秒內</strong>就要到位。它是高頻、機械性的任務：一支 40 分鐘影片切成十幾批、每批 20 句。這裡延遲就是一切，品質「夠好」即可。</p>
+<p><strong>影片摘要</strong>一支影片只做一次，你願意等它十秒換一篇好摘要。這裡品質就是一切，延遲幾乎無感。</p>
+<p>所以評估從來不是「哪個模型最好」，而是「哪個模型放在哪個位置」。</p>
+<h2>Thinking：藏在延遲裡的稅</h2>
+<p>測試中我們撞上一個典型陷阱：新一代 hybrid reasoning 模型<strong>預設開啟思考</strong>。翻譯一句 23 個 token 的話，模型先燒掉 <strong>151 個 reasoning token</strong> 思考人生——品質沒有變好（翻譯不需要哲學），但一批字幕的延遲從幾秒變成 40 秒，而且思考的 token 照價收費。</p>
+<p>我們的處理：<strong>字幕批次一律關閉思考</strong>（延遲直接砍到原來的十分之一），<strong>摘要保留模型預設</strong>——理解一支影片的敘事，思考是值得付的成本。這個判斷已經內建，你選任何模型都不用自己操心。</p>
+<h2>實測：DeepSeek v4-flash vs Gemini Flash-Lite</h2>
+<p>以字幕翻譯為例，這是我們自己跑出來的數字（20 句一批的真實 batch）：</p>
+<table>
+<tr><th></th><th>DeepSeek v4-flash</th><th>Gemini 3.5 Flash-Lite</th></tr>
+<tr><td>Input / 1M tokens</td><td>$0.14</td><td>$0.30</td></tr>
+<tr><td>Output / 1M tokens</td><td><strong>$0.28</strong></td><td><strong>$2.50</strong></td></tr>
+<tr><td>20 句 batch 延遲</td><td>~3.7s</td><td>~1–2s</td></tr>
+<tr><td>一支 40 分鐘影片</td><td><strong>≈ $0.009</strong></td><td>≈ $0.05</td></tr>
+</table>
+<p>字幕翻譯是 output 為主的任務，所以 output 那 9 倍價差才是重點：換算下來<strong>一支影片約 6 倍便宜</strong>。DeepSeek 還會自動快取重複的 prompt 前綴（我們每批的規則段完全相同），命中時 input 幾乎免費。Gemini Flash-Lite 則勝在延遲更低、行為最穩——這就是為什麼它仍是預設。</p>
+<p>而這正是新架構最好的部分：<strong>你不用二選一。</strong>主要模型和備用模型可以來自不同提供者——字幕主力跑 DeepSeek，備用掛 Gemini；第三方限流或掛掉的瞬間，Gemini 自動接手，你的字幕連一格都不會漏。</p>
+<figure>
+  <img src="/notes/custom-model-providers/providers.jpg" alt="DeepSRT 設定頁：Gemini API key 之外，OpenCode Zen、OpenRouter、DeepSeek 各自配置 key，加一欄自訂 Base URL" width="1600" height="1268" loading="lazy">
+  <figcaption>每家提供者一把 key、各自保管；最下面那欄 Base URL，接得上任何講 OpenAI 方言的東西。</figcaption>
+</figure>
+<h2>選擇權</h2>
+<p>有人會問：這不就是把「研究模型排行榜」的負擔還給使用者嗎？不是。預設依然是我們調校好的 Gemini 組合，你什麼都不動，體驗和今天一模一樣。</p>
+<p>但如果你想省——免費模型一分錢不用花。如果你想快——留在 Gemini。如果你在乎隱私到極致——Ollama 讓每一個字都留在你的 Mac 上，連模型供應商都看不到。</p>
+<p>DeepSRT 沒有伺服器，不抽你的 API 費用，現在連模型都不綁定。<strong>我們賣的從來不是某個模型的門票，是把這一切組裝起來、調校到位、持續維護的那雙手。</strong>端點是誰不重要，選擇權是你的——這才是 BYOK 的完全體。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

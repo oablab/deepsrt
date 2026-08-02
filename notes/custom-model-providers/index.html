@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model Freedom: Custom Model Providers Are Coming</title>
+  <meta name="description" content="The founding goal hasn't changed — dependable quality. What changed is that dependable no longer comes in only one shape.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Model Freedom: Custom Model Providers Are Coming">
+  <meta property="og:description" content="The founding goal hasn't changed — dependable quality. What changed is that dependable no longer comes in only one shape.">
+  <meta property="og:url" content="https://deepsrt.com/notes/custom-model-providers/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://deepsrt.com/notes/custom-model-providers/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/custom-model-providers/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/custom-model-providers/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/custom-model-providers/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; font-size: 0.95rem; }
+    article th, article td { text-align: left; padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); }
+    article th { color: var(--ink); }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/custom-model-providers/" class="active">EN</a>｜<a href="/zh/notes/custom-model-providers/">中文</a>｜<a href="/ja/notes/custom-model-providers/">日本語</a>｜<a href="/ko/notes/custom-model-providers/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>Model Freedom: Custom Model Providers Are Coming</h1>
+  <p class="lead">The founding goal hasn't changed — dependable quality. What changed is that dependable no longer comes in only one shape.</p>
+  <p class="meta">August 2026 · DeepSRT development notes</p>
+  <article>
+
+<h2>Where we started</h2>
+<p>DeepSRT's rule from day one: you shouldn't have to study a model leaderboard to watch a video. We wanted <strong>one dependable, well-tuned default</strong> — paste a key, we handle the rest. In 2025, Gemini became that answer: steady quality, a free tier, and BYOK calls that never pass through our hands. That choice still stands — Gemini remains the default.</p>
+<p>But the 2026 landscape has shifted. Since going native, we've watched open-weights models close the gap: free cloud models, APIs priced almost absurdly low, even models running locally on your own Mac. When &quot;dependable&quot; is no longer scarce, offering only one choice stops being protection and starts being a limitation. So we're opening it up.</p>
+<p>In the next release, DeepSRT speaks to any OpenAI-compatible endpoint: OpenCode Zen, OpenRouter, and DeepSeek as one-tap presets; Ollama or LM Studio with a single URL. Captions and summaries choose independently — run captions on the cheap one, keep the flagship for summaries.</p>
+<figure>
+  <img src="/notes/custom-model-providers/picker.jpg" alt="DeepSRT's model picker open over a playing video: Gemini with pricing, free models from OpenCode Zen and OpenRouter, and DeepSeek" width="1600" height="855" loading="lazy">
+  <figcaption>One picker, every configured provider: Gemini with prices, free tiers tagged &quot;free&quot;, DeepSeek's official catalog.</figcaption>
+</figure>
+<h2>How we evaluate: speed and price — but the two tasks want opposite things</h2>
+<p>Opening up choice required us to get precise about how to choose. DeepSRT runs two AI tasks with almost opposite demands:</p>
+<p><strong>Live captions</strong> are a chase — you're at minute three, and that segment's translation must land <strong>within seconds</strong>. It's high-frequency, mechanical work: a 40-minute video becomes a dozen batches of twenty lines. Latency is everything; quality merely has to be good enough.</p>
+<p><strong>Summaries</strong> happen once per video, and you'll gladly wait ten seconds for a good one. Quality is everything; latency barely registers.</p>
+<p>So the question was never &quot;which model is best&quot; — it's &quot;which model belongs in which seat&quot;.</p>
+<h2>Thinking: the tax hidden inside latency</h2>
+<p>Testing walked us straight into a classic trap: the new generation of hybrid-reasoning models <strong>think by default</strong>. Translating a 23-token line, the model first burned <strong>151 reasoning tokens</strong> contemplating life. Quality didn't improve — translation doesn't need philosophy — but a caption batch went from seconds to forty, and every thinking token bills at full price.</p>
+<p>Our handling: <strong>caption batches always disable thinking</strong> (latency dropped to a tenth), <strong>summaries keep the model's default</strong> — understanding a video's narrative is worth paying for thought. This judgment is built in; pick any model and you never have to think about thinking.</p>
+<h2>Measured: DeepSeek v4-flash vs Gemini Flash-Lite</h2>
+<p>For caption translation, these are our own numbers (real 20-line batches):</p>
+<table>
+<tr><th></th><th>DeepSeek v4-flash</th><th>Gemini 3.5 Flash-Lite</th></tr>
+<tr><td>Input / 1M tokens</td><td>$0.14</td><td>$0.30</td></tr>
+<tr><td>Output / 1M tokens</td><td><strong>$0.28</strong></td><td><strong>$2.50</strong></td></tr>
+<tr><td>20-line batch latency</td><td>~3.7s</td><td>~1–2s</td></tr>
+<tr><td>One 40-minute video</td><td><strong>≈ $0.009</strong></td><td>≈ $0.05</td></tr>
+</table>
+<p>Caption translation is output-heavy, so the 9x output gap is what matters: <strong>roughly 6x cheaper per video</strong>. DeepSeek also auto-caches repeated prompt prefixes (our per-batch rules are identical), making cache-hit input nearly free. Gemini Flash-Lite wins on latency and steadiness — which is exactly why it stays the default.</p>
+<p>And here's the best part of the new architecture: <strong>you don't have to choose.</strong> Primary and fallback may come from different providers — captions on DeepSeek with Gemini on standby. The moment a third party throttles or goes down, Gemini takes over and your captions never miss a beat.</p>
+<figure>
+  <img src="/notes/custom-model-providers/providers.jpg" alt="DeepSRT settings: alongside the Gemini API key, OpenCode Zen, OpenRouter and DeepSeek each hold their own key, plus a custom Base URL field" width="1600" height="1268" loading="lazy">
+  <figcaption>One key per provider, each kept separately; the Base URL row at the bottom connects anything that speaks the OpenAI dialect.</figcaption>
+</figure>
+<h2>The point is choice</h2>
+<p>You might ask: doesn't this hand the leaderboard homework back to the user? No. The default is still our tuned Gemini pairing — touch nothing and the experience is exactly today's.</p>
+<p>But if you want cheap — the free models cost nothing at all. If you want fast — stay on Gemini. If you want privacy taken to its logical end — Ollama keeps every word on your Mac, invisible even to a model vendor.</p>
+<p>DeepSRT has no servers, takes no cut of your API spend, and now binds you to no model. <strong>What we sell was never a ticket to some model — it's the pair of hands that assembles all of this, tunes it, and keeps maintaining it.</strong> The endpoint doesn't matter; the choice is yours. This is BYOK, completed.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
