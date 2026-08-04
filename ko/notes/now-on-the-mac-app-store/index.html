@@ -54,6 +54,12 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article .timeline { list-style: none; margin: 1.3rem 0; padding: 0; }
+    article .timeline li { padding: 0.4rem 0 0.4rem 5.8rem; position: relative; }
+    article .timeline .when { position: absolute; left: 0; color: var(--accent-deep); font-variant-numeric: tabular-nums; font-size: 0.92rem; font-weight: 700; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -82,9 +88,30 @@
   <article>
 
 <p>오늘 아침, App Store Connect의 상태 표시가 초록색 「Ready for Distribution」으로 바뀌었다. 그 한 줄을 한참 바라봤다. 이 노트에서는 아키텍처도 가격표도 이야기하지 않는다 — 딱 한 번만, 이 길에 대해 말하게 해달라.</p>
-<h2>「겸사겸사 만든」 확장 프로그램에서 시작됐다</h2>
-<p>DeepSRT는 처음에 Chrome 확장 프로그램이었다. YouTube를 볼 때 실시간 자막과 요약이 필요해서 만들었다. 그때는 API 키를 제공할 필요조차 없었다 — AI 비용은 전부 서버, 프록시 풀, 캐시 레이어 뒤에서 우리가 조용히 부담했다. 사용자에게 보이는 것은 제때 도착하는 자막뿐이었다.</p>
-<p>돌아갔다. 쓰는 사람이 있었다. 고맙다는 사람도 있었다. 하지만 우리는 알고 있었다. 그 클라우드 구조는 플랫폼의 리스크 시스템과 쫓고 쫓기는 게임을 하고 있었고, 고양이는 언제나 우리보다 크다. 고칠 때마다 다음 고장이 머지않았음을 알았다.</p>
+<h2>크리스마스 휴가의 장난감에서 시작됐다</h2>
+<p>2024년 크리스마스 전, 나는 2주 휴가를 내고 Cloudflare와 온갖 AI 도구를 진지하게 만지작거린 끝에 YouTube 자막·요약 확장 프로그램을 만들어냈다. 2025년 1월 16일, 그것을 처음 공개하며 「새해 작은 선물」이라고 불렀다. 그때 설치 수는 <strong>22</strong> — 전부 내가 주변에서 억지로 설치시킨 친구들이었다.</p>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/first-post-2025.jpg" alt="2025년 1월 16일 첫 공개 게시물: 갓 만든 DeepSRT Chrome 확장 프로그램 공유" width="1400" height="1162" loading="lazy">
+  <figcaption>2025년 1월 16일: 첫 공개. 「이 새해 선물을 마음에 들어 하셨으면」</figcaption>
+</figure>
+<p>그리고 움직이기 시작했다.</p>
+<ul class="timeline">
+  <li><span class="when">2025.1.16</span>첫 공개. 설치 22, 전부 친구</li>
+  <li><span class="when">2025.2.24</span>GitHub에 public roadmap 공개 — 사용자가 올린 이슈를 모두 추적하고, 라이브 자막의 기술 세부를 공개하고, 향후 계획은 RFC로 논의</li>
+  <li><span class="when">2025.2.26</span>유명 경제 방송인 유팅하오가 라이브 방송에서 「내가 가장 자주 쓰는 소프트웨어 — DeepSRT」라고 언급</li>
+  <li><span class="when">2025.3.12</span>두 달이 채 안 되어 설치 수 1만 돌파. 리뷰 48개, 거의 전부 별 다섯</li>
+</ul>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/endorsement-2025.jpg" alt="2025년 2월 26일, 유명 경제 방송인이 라이브 방송에서 DeepSRT를 가장 자주 쓰는 소프트웨어로 소개" width="1400" height="935" loading="lazy">
+  <figcaption>2025년 2월 26일: <a href="https://www.youtube.com/live/vulWlFRePKM?t=539">유명 경제 방송인의 라이브 방송 중 이 대목</a> — 「내가 가장 자주 쓰는 소프트웨어」. 이것이 친구들의 울타리를 넘었다는 것을 처음 알게 된 순간이었다.</figcaption>
+</figure>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/milestone-10k-2025.jpg" alt="2025년 3월 12일 게시물: DeepSRT 사용자 1만 돌파, 22명에서의 여정을 회고" width="1400" height="1341" loading="lazy">
+  <figcaption>2025년 3월 12일: 1만 명. 그 게시물의 마지막 줄은 「2만을 넘을 때 다시 만나요」였다.</figcaption>
+</figure>
+<p>돌아보면 그 2월의 roadmap이 분수령이었다. 그날부터 이 제품은 공개된 시선 속에서 자랐다. 지금 읽고 있는 이 노트도 같은 습관의 연속이다.</p>
+<p>그때는 API 키를 제공할 필요조차 없었다 — AI 비용은 전부 서버, 프록시 풀, 캐시 레이어 뒤에서 우리가 조용히 부담했다. 사용자에게 보이는 것은 제때 도착하는 자막뿐이었다.</p>
+<p>돌아갔다. 많은 사람이 썼다. 고맙다는 사람도 많았다. 하지만 우리는 알고 있었다. 그 클라우드 구조는 플랫폼의 리스크 시스템과 쫓고 쫓기는 게임을 하고 있었고, 고양이는 언제나 우리보다 크다. 고칠 때마다 다음 고장이 머지않았음을 알았다.</p>
 <h2>갈아엎기로 한 결정</h2>
 <p>올해 그 결정을 내렸다. 서버를 전부 지우고 제품 전체를 Mac 네이티브 앱으로 옮긴다. 당신의 IP, 당신의 키, 당신의 기계 — 중개자가 없으면 중개자의 취약함도 없다.</p>
 <p>다시 쓰는 과정은 생각보다 정직했다. 자막이 어긋나면 타임라인의 전제부터 부수고 다시 지었다. 모델의 세계가 백화제방이면 선택권을 통째로 당신에게 넘겼다. 인터페이스는 일곱 개의 언어를 말한다. 외국어 영상을 보는 사람들은 원래 갖가지 언어를 쓰니까. 이 이야기들은 모두 앞선 노트에 있다 — 이 앱은 공개된 시선 속에서 자랐다.</p>

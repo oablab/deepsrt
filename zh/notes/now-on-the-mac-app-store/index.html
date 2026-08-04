@@ -54,6 +54,12 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article .timeline { list-style: none; margin: 1.3rem 0; padding: 0; }
+    article .timeline li { padding: 0.4rem 0 0.4rem 5.8rem; position: relative; }
+    article .timeline .when { position: absolute; left: 0; color: var(--accent-deep); font-variant-numeric: tabular-nums; font-size: 0.92rem; font-weight: 700; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -82,9 +88,30 @@
   <article>
 
 <p>今天早上，App Store Connect 的狀態欄跳成了綠色的「Ready for Distribution」。我盯著那行字看了一會兒。這篇筆記不講架構、不放數據表——就這麼一次，讓我講講這條路。</p>
-<h2>從一個「順手做的」擴充功能開始</h2>
-<p>DeepSRT 最初是個 Chrome 擴充功能：看 YouTube 的時候想要即時的字幕和摘要，就做了一個。那時候你甚至不用提供 API key——每一筆 AI 費用我們在雲端背後默默吸收，伺服器、代理池、快取層，全部我們扛。使用者只看到字幕準時出現。</p>
-<p>它跑起來了，有人用了，有人說謝謝。但我們心裡清楚：那套雲端架構是在跟平台的風控系統玩貓抓老鼠，而貓永遠比我們大。每修好一次，就知道離下一次不遠。</p>
+<h2>從一個聖誕假期的小玩具開始</h2>
+<p>2024 年聖誕節前，我請了兩週假在家休息，很認真地玩了 Cloudflare 和各種 AI 工具，做出一個 YouTube 字幕摘要的擴充功能。2025 年 1 月 16 日，我第一次把它公開分享出來，稱它是「新年小禮物」。那時候有 <strong>22 個安裝</strong>——全都是我身邊被我強迫安裝的好友。</p>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/first-post-2025.jpg" alt="2025 年 1 月 16 日的第一篇公開貼文：分享剛做好的 DeepSRT Chrome 擴充功能" width="1400" height="1162" loading="lazy">
+  <figcaption>2025 年 1 月 16 日：第一次對外分享。「希望大家喜歡這個新年禮物！」</figcaption>
+</figure>
+<p>然後事情開始跑起來。</p>
+<ul class="timeline">
+  <li><span class="when">2025.1.16</span>第一次公開，22 個安裝，都是朋友</li>
+  <li><span class="when">2025.2.24</span>GitHub 上開了 public roadmap——每一個使用者提的 issue 都追蹤，Live 字幕的技術細節公開，未來計畫用 RFC 討論</li>
+  <li><span class="when">2025.2.26</span>知名財經博主游庭皓在直播中提到：「我最常使用的軟體——DeepSRT」</li>
+  <li><span class="when">2025.3.12</span>不到兩個月，安裝數破一萬。48 個評價幾乎全是五星</li>
+</ul>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/endorsement-2025.jpg" alt="2025 年 2 月 26 日，知名財經博主游庭皓在直播中把 DeepSRT 列為他最常使用的軟體" width="1400" height="935" loading="lazy">
+  <figcaption>2025 年 2 月 26 日：<a href="https://www.youtube.com/live/vulWlFRePKM?t=539">知名財經博主游庭皓在直播中的這一段</a>——「我最常使用的軟體」。那是第一次，我們知道這東西已經走出朋友圈了。</figcaption>
+</figure>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/milestone-10k-2025.jpg" alt="2025 年 3 月 12 日的貼文：DeepSRT 使用者正式破一萬，並回顧從 22 人到一萬的時間軸" width="1400" height="1341" loading="lazy">
+  <figcaption>2025 年 3 月 12 日：破一萬。那篇貼文的最後一句是「我們破兩萬的時候再見」。</figcaption>
+</figure>
+<p>回頭看，2025 年 2 月那個 public roadmap 是整件事的分水嶺——從那天起，這個產品就是在公開的目光下長大的。你現在讀的這些筆記，是同一件事的延續。</p>
+<p>那時候你甚至不用提供 API key——每一筆 AI 費用我們在雲端背後默默吸收，伺服器、代理池、快取層，全部我們扛。使用者只看到字幕準時出現。</p>
+<p>它跑起來了，很多人用了，很多人說謝謝。但我們心裡清楚：那套雲端架構是在跟平台的風控系統玩貓抓老鼠，而貓永遠比我們大。每修好一次，就知道離下一次不遠。</p>
 <h2>砍掉重練的決定</h2>
 <p>今年我們做了那個決定：把伺服器全部刪掉，把整個產品搬進一個 Mac 原生應用。你的 IP、你的 key、你的機器——沒有中間人，也就沒有中間人的脆弱。</p>
 <p>重寫的過程比想像中誠實。字幕會漂移，我們就把整條時間軸的假設拆掉重蓋；模型世界百花齊放，我們就把選擇權整個交給你；介面說七種語言，因為看外語影片的人本來就說著各種語言。這些故事都寫在前面幾篇筆記裡——這個 app 是在公開的目光下長大的。</p>

@@ -54,6 +54,12 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article .timeline { list-style: none; margin: 1.3rem 0; padding: 0; }
+    article .timeline li { padding: 0.4rem 0 0.4rem 5.8rem; position: relative; }
+    article .timeline .when { position: absolute; left: 0; color: var(--accent-deep); font-variant-numeric: tabular-nums; font-size: 0.92rem; font-weight: 700; }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -82,9 +88,30 @@
   <article>
 
 <p>This morning, the status field in App Store Connect flipped to a green &quot;Ready for Distribution&quot;. I stared at that line for a while. This note skips the architecture and the pricing tables — just this once, let me tell you about the road.</p>
-<h2>It started as a side project extension</h2>
-<p>DeepSRT began as a Chrome extension: we wanted live captions and summaries while watching YouTube, so we built one. Back then you didn't even provide an API key — every AI call was quietly paid for by us, behind a cloud of servers, proxy pools, and cache layers. All users saw was captions arriving on time.</p>
-<p>It worked. People used it. Some said thank you. But we knew: that cloud architecture was playing cat-and-mouse with a platform's risk systems, and the cat is always bigger. Every fix carried the knowledge that the next break was coming.</p>
+<h2>It started as a Christmas-break toy</h2>
+<p>Before Christmas 2024 I took two weeks off, spent them seriously playing with Cloudflare and every AI tool I could reach, and came out with a YouTube caption-and-summary extension. On January 16, 2025 I shared it publicly for the first time, calling it a &quot;little new year gift&quot;. It had <strong>22 installs</strong> — every one of them a friend I had personally strong-armed into installing it.</p>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/first-post-2025.jpg" alt="The first public post, January 16, 2025, sharing the newly built DeepSRT Chrome extension" width="1400" height="1162" loading="lazy">
+  <figcaption>January 16, 2025: the first public share. &quot;Hope you like this new year gift!&quot;</figcaption>
+</figure>
+<p>Then things started moving.</p>
+<ul class="timeline">
+  <li><span class="when">2025.1.16</span>First public post — 22 installs, all friends</li>
+  <li><span class="when">2025.2.24</span>A public roadmap on GitHub: every user-reported issue tracked, the live-caption internals documented, future plans opened up as RFCs</li>
+  <li><span class="when">2025.2.26</span>Well-known finance commentator Yu Ting-hao, live on air: &quot;the software I use most — DeepSRT&quot;</li>
+  <li><span class="when">2025.3.12</span>Under two months later, installs passed ten thousand. 48 reviews, nearly all five stars</li>
+</ul>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/endorsement-2025.jpg" alt="February 26, 2025: well-known finance commentator Yu Ting-hao naming DeepSRT the software he uses most, during a livestream" width="1400" height="935" loading="lazy">
+  <figcaption>February 26, 2025: <a href="https://www.youtube.com/live/vulWlFRePKM?t=539">this moment in a well-known finance commentator's livestream</a> — &quot;the software I use most&quot;. That was the first time we knew this thing had walked out of our circle of friends.</figcaption>
+</figure>
+<figure>
+  <img src="/notes/now-on-the-mac-app-store/milestone-10k-2025.jpg" alt="The March 12, 2025 post announcing DeepSRT passing ten thousand users, with the timeline from 22 installs" width="1400" height="1341" loading="lazy">
+  <figcaption>March 12, 2025: ten thousand users. That post ended with &quot;see you when we hit twenty thousand&quot;.</figcaption>
+</figure>
+<p>Looking back, that February roadmap was the watershed — from that day on, this product grew up in public. The notes you're reading now are the same habit, continued.</p>
+<p>Back then you didn't even provide an API key — every AI call was quietly paid for by us, behind a cloud of servers, proxy pools, and cache layers. All users saw was captions arriving on time.</p>
+<p>It worked. Lots of people used it. Lots of people said thank you. But we knew: that cloud architecture was playing cat-and-mouse with a platform's risk systems, and the cat is always bigger. Every fix carried the knowledge that the next break was coming.</p>
 <h2>The decision to tear it down</h2>
 <p>This year we made the call: delete every server and move the whole product into a native Mac app. Your IP, your key, your machine — no middleman, and therefore none of a middleman's fragility.</p>
 <p>The rewrite was more honest than we expected. Captions drifted, so we tore out the timeline assumptions and rebuilt them. The model world bloomed, so we handed the whole choice to you. The interface speaks seven languages, because people who watch foreign-language videos speak all kinds of languages themselves. Those stories are all in the earlier notes — this app grew up in public.</p>
