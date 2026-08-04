@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>全新 DeepSRT Mac 原生應用，正式審核通過</title>
+  <meta name="description" content="從一個瀏覽器擴充功能，到你 Mac 上的原生應用——今天，它正式上架了。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="全新 DeepSRT Mac 原生應用，正式審核通過">
+  <meta property="og:description" content="從一個瀏覽器擴充功能，到你 Mac 上的原生應用——今天，它正式上架了。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/now-on-the-mac-app-store/">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/now-on-the-mac-app-store/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/now-on-the-mac-app-store/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/now-on-the-mac-app-store/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/now-on-the-mac-app-store/">EN</a>｜<a href="/zh/notes/now-on-the-mac-app-store/" class="active">中文</a>｜<a href="/ja/notes/now-on-the-mac-app-store/">日本語</a>｜<a href="/ko/notes/now-on-the-mac-app-store/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>全新 DeepSRT Mac 原生應用，正式審核通過</h1>
+  <p class="lead">從一個瀏覽器擴充功能，到你 Mac 上的原生應用——今天，它正式上架了。</p>
+  <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
+  <article>
+
+<p>今天早上，App Store Connect 的狀態欄跳成了綠色的「Ready for Distribution」。我盯著那行字看了一會兒。這篇筆記不講架構、不放數據表——就這麼一次，讓我講講這條路。</p>
+<h2>從一個「順手做的」擴充功能開始</h2>
+<p>DeepSRT 最初是個 Chrome 擴充功能：看 YouTube 的時候想要即時的字幕和摘要，就做了一個。那時候你甚至不用提供 API key——每一筆 AI 費用我們在雲端背後默默吸收，伺服器、代理池、快取層，全部我們扛。使用者只看到字幕準時出現。</p>
+<p>它跑起來了，有人用了，有人說謝謝。但我們心裡清楚：那套雲端架構是在跟平台的風控系統玩貓抓老鼠，而貓永遠比我們大。每修好一次，就知道離下一次不遠。</p>
+<h2>砍掉重練的決定</h2>
+<p>今年我們做了那個決定：把伺服器全部刪掉，把整個產品搬進一個 Mac 原生應用。你的 IP、你的 key、你的機器——沒有中間人，也就沒有中間人的脆弱。</p>
+<p>重寫的過程比想像中誠實。字幕會漂移，我們就把整條時間軸的假設拆掉重蓋；模型世界百花齊放，我們就把選擇權整個交給你；介面說七種語言，因為看外語影片的人本來就說著各種語言。這些故事都寫在前面幾篇筆記裡——這個 app 是在公開的目光下長大的。</p>
+<h2>審核這一關</h2>
+<p>上架前的最後一哩是 App Review。機器人先攔下我們：「你的 app 為什麼要監聽網路端口？」——因為那正是它的靈魂，一個只綁 127.0.0.1 的本機 API，免費的 Chrome 擴充功能靠它活著。我們解釋了，它放行了。</p>
+<p>然後是一位人類 reviewer，關掉了主視窗，發現叫不回來。他說得對。我們修了——現在視窗會從選單回來、從 Dock 回來、從任何一個 deep link 回來。審核有時候像一面誠實的鏡子：它照出的每一個問題，最後都變成使用者少踩的一個坑。</p>
+<p>三個回合，四天，通過。</p>
+<h2>給你的</h2>
+<p>所以今天上架的 DeepSRT for Mac 是這樣一個東西：AI 摘要、逐字稿、不會漂移的雙語即時字幕；你自己的 key、你自己選的模型、你自己畫的預算上限；沒有訂閱、沒有帳號、沒有伺服器。買斷一次，擁有它。</p>
+<p>我們在〈App 經濟的拐點〉裡寫過：寫出來只是上半句，持之以恆地維護才是產品。今天是上半句的句點，也是下半句的第一個字。</p>
+<p>謝謝每一個從擴充功能時代就在的你。馬拉松，正式開跑。</p>
+<p><strong><a href="https://apps.apple.com/app/id6796562729">在 Mac App Store 取得 DeepSRT →</a></strong></p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

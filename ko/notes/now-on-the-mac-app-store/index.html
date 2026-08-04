@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>새로운 DeepSRT Mac 네이티브 앱, 심사 통과</title>
+  <meta name="description" content="브라우저 확장 프로그램에서 당신의 Mac 네이티브 앱으로 — 오늘, 정식으로 스토어에 올랐다.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="새로운 DeepSRT Mac 네이티브 앱, 심사 통과">
+  <meta property="og:description" content="브라우저 확장 프로그램에서 당신의 Mac 네이티브 앱으로 — 오늘, 정식으로 스토어에 올랐다.">
+  <meta property="og:url" content="https://deepsrt.com/ko/notes/now-on-the-mac-app-store/">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://deepsrt.com/ko/notes/now-on-the-mac-app-store/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ko/notes/now-on-the-mac-app-store/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/now-on-the-mac-app-store/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/now-on-the-mac-app-store/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+      --font-head: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ko/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/now-on-the-mac-app-store/">EN</a>｜<a href="/zh/notes/now-on-the-mac-app-store/">中文</a>｜<a href="/ja/notes/now-on-the-mac-app-store/">日本語</a>｜<a href="/ko/notes/now-on-the-mac-app-store/" class="active">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ko/notes/">← 노트</a>
+  <h1>새로운 DeepSRT Mac 네이티브 앱, 심사 통과</h1>
+  <p class="lead">브라우저 확장 프로그램에서 당신의 Mac 네이티브 앱으로 — 오늘, 정식으로 스토어에 올랐다.</p>
+  <p class="meta">2026년 8월 · DeepSRT 개발 노트</p>
+  <article>
+
+<p>오늘 아침, App Store Connect의 상태 표시가 초록색 「Ready for Distribution」으로 바뀌었다. 그 한 줄을 한참 바라봤다. 이 노트에서는 아키텍처도 가격표도 이야기하지 않는다 — 딱 한 번만, 이 길에 대해 말하게 해달라.</p>
+<h2>「겸사겸사 만든」 확장 프로그램에서 시작됐다</h2>
+<p>DeepSRT는 처음에 Chrome 확장 프로그램이었다. YouTube를 볼 때 실시간 자막과 요약이 필요해서 만들었다. 그때는 API 키를 제공할 필요조차 없었다 — AI 비용은 전부 서버, 프록시 풀, 캐시 레이어 뒤에서 우리가 조용히 부담했다. 사용자에게 보이는 것은 제때 도착하는 자막뿐이었다.</p>
+<p>돌아갔다. 쓰는 사람이 있었다. 고맙다는 사람도 있었다. 하지만 우리는 알고 있었다. 그 클라우드 구조는 플랫폼의 리스크 시스템과 쫓고 쫓기는 게임을 하고 있었고, 고양이는 언제나 우리보다 크다. 고칠 때마다 다음 고장이 머지않았음을 알았다.</p>
+<h2>갈아엎기로 한 결정</h2>
+<p>올해 그 결정을 내렸다. 서버를 전부 지우고 제품 전체를 Mac 네이티브 앱으로 옮긴다. 당신의 IP, 당신의 키, 당신의 기계 — 중개자가 없으면 중개자의 취약함도 없다.</p>
+<p>다시 쓰는 과정은 생각보다 정직했다. 자막이 어긋나면 타임라인의 전제부터 부수고 다시 지었다. 모델의 세계가 백화제방이면 선택권을 통째로 당신에게 넘겼다. 인터페이스는 일곱 개의 언어를 말한다. 외국어 영상을 보는 사람들은 원래 갖가지 언어를 쓰니까. 이 이야기들은 모두 앞선 노트에 있다 — 이 앱은 공개된 시선 속에서 자랐다.</p>
+<h2>심사라는 관문</h2>
+<p>출시 전 마지막 구간은 App Review였다. 먼저 로봇이 우리를 막았다. 「왜 네트워크 포트를 여는가?」 — 그것이 이 앱의 영혼이기 때문이다. 127.0.0.1에만 묶인 로컬 API 위에서 무료 Chrome 확장 프로그램이 살아간다. 설명했다. 통과시켜 줬다.</p>
+<p>다음은 인간 리뷰어였다. 메인 윈도우를 닫고는 되돌릴 방법이 없다는 것을 발견했다. 그가 옳았다. 고쳤다 — 이제 윈도우는 메뉴에서도, Dock에서도, 어떤 딥링크에서도 돌아온다. 심사는 때로 정직한 거울이다. 거울에 비친 문제 하나하나가 사용자가 밟지 않아도 될 구덩이가 된다.</p>
+<p>세 라운드, 나흘, 승인.</p>
+<h2>당신에게</h2>
+<p>그래서 오늘 스토어에 오른 DeepSRT for Mac은 이런 것이다. AI 요약, 스크립트, 어긋나지 않는 이중 실시간 자막. 당신의 키, 당신이 고른 모델, 당신이 그은 예산 상한. 구독 없음, 계정 없음, 서버 없음. 한 번 사면, 당신의 것.</p>
+<p>「앱 경제의 변곡점」에서 이렇게 썼다. 써내는 것은 문장의 앞부분일 뿐, 꾸준히 유지보수하는 것이 제품이라고. 오늘은 앞부분의 마침표이자, 뒷부분의 첫 글자다.</p>
+<p>확장 프로그램 시절부터 함께해 준 모든 분들께 감사드린다. 마라톤이, 정식으로 시작된다.</p>
+<p><strong><a href="https://apps.apple.com/app/id6796562729">Mac App Store에서 DeepSRT 받기 →</a></strong></p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
