@@ -110,9 +110,9 @@
     <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code> (1–50, default 20)</td><td>Search YouTube by keyword. Free and fast. Returns video id, title, channel, duration.</td></tr>
     <tr><td>list_channel_videos</td><td><code>channel</code><br>(URL, @handle, or UC… id)</td><td><code>limit</code> (1–50, default 30)</td><td>A channel's recent uploads. Returns the resolved channel title — check it, handles can mislead.</td></tr>
     <tr><td>get_video_info</td><td><code>video</code><br>(URL or 11-char id)</td><td>—</td><td>Title, channel, and which caption languages exist, without downloading any captions. Free.</td></tr>
-    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code> (default zh-tw)</td><td>Full timed transcript as sentence-merged blocks, each with start time and duration.</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code></td><td>Full timed transcript as sentence-merged blocks, each with start time and duration.</td></tr>
     <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code> (start seconds, default 0)</td><td>Opens the video in the DeepSRT window and brings the app to the front.</td></tr>
-    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code> (default zh-tw), <code>mode</code> (narrative / bullet)</td><td>AI summary from the captions; bullet mode carries [MM:SS] timestamps. Uses your AI key, 10–30s on long videos.</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>, <code>mode</code> (narrative / bullet)</td><td>AI summary from the captions; bullet mode carries [MM:SS] timestamps. Uses your AI key, 10–30s on long videos.</td></tr>
     </tbody>
   </table>
 </div>

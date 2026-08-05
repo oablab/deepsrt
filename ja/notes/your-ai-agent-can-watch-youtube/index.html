@@ -110,9 +110,9 @@
     <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code>(1–50、既定 20)</td><td>キーワードで YouTube を検索。無料で高速。video id、タイトル、チャンネル、長さを返す。</td></tr>
     <tr><td>list_channel_videos</td><td><code>channel</code><br>(URL、@handle、UC… id)</td><td><code>limit</code>(1–50、既定 30)</td><td>チャンネルの最近の投稿。解決されたチャンネル名を返す——ハンドルは当てにならないので必ず確認する。</td></tr>
     <tr><td>get_video_info</td><td><code>video</code><br>(URL または11文字の id)</td><td>—</td><td>タイトル、チャンネル、そしてどの言語の字幕が存在するか。字幕自体はダウンロードしない。無料。</td></tr>
-    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code>(既定 zh-tw)</td><td>文単位に整えたブロックごとの全文。各ブロックに開始時刻と長さが付く。</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code></td><td>文単位に整えたブロックごとの全文。各ブロックに開始時刻と長さが付く。</td></tr>
     <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code>(開始秒、既定 0)</td><td>DeepSRT のウィンドウで動画を開き、アプリを前面に出す。</td></tr>
-    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>(既定 zh-tw)、<code>mode</code>(narrative / bullet)</td><td>字幕から AI 要約。bullet モードは [MM:SS] のタイムスタンプ付き。あなたの AI キーを使い、長い動画では10〜30秒。</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>、<code>mode</code>(narrative / bullet)</td><td>字幕から AI 要約。bullet モードは [MM:SS] のタイムスタンプ付き。あなたの AI キーを使い、長い動画では10〜30秒。</td></tr>
     </tbody>
   </table>
 </div>

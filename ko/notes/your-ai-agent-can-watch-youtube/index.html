@@ -110,9 +110,9 @@
     <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code>(1–50, 기본 20)</td><td>키워드로 YouTube 검색. 무료이고 빠름. video id, 제목, 채널, 길이를 반환.</td></tr>
     <tr><td>list_channel_videos</td><td><code>channel</code><br>(URL, @handle, UC… id)</td><td><code>limit</code>(1–50, 기본 30)</td><td>채널의 최근 업로드. 해석된 채널 제목을 반환 — 핸들은 오해를 부를 수 있으니 반드시 확인.</td></tr>
     <tr><td>get_video_info</td><td><code>video</code><br>(URL 또는 11자 id)</td><td>—</td><td>제목, 채널, 그리고 어떤 언어의 자막이 존재하는지. 자막은 내려받지 않음. 무료.</td></tr>
-    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code>(기본 zh-tw)</td><td>문장 단위로 합쳐진 블록의 자막 전문. 각 블록에 시작 시간과 길이.</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code></td><td>문장 단위로 합쳐진 블록의 자막 전문. 각 블록에 시작 시간과 길이.</td></tr>
     <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code>(시작 초, 기본 0)</td><td>DeepSRT 창에서 영상을 열고 앱을 앞으로 가져온다.</td></tr>
-    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>(기본 zh-tw), <code>mode</code>(narrative / bullet)</td><td>자막으로 AI 요약; bullet 모드는 [MM:SS] 타임스탬프 포함. 당신의 AI 키를 사용, 긴 영상은 10–30초.</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>, <code>mode</code>(narrative / bullet)</td><td>자막으로 AI 요약; bullet 모드는 [MM:SS] 타임스탬프 포함. 당신의 AI 키를 사용, 긴 영상은 10–30초.</td></tr>
     </tbody>
   </table>
 </div>

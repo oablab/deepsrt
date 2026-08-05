@@ -110,9 +110,9 @@
     <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code>（1–50，預設 20）</td><td>關鍵字搜尋 YouTube。免費且快。回傳 video id、標題、頻道、時長。</td></tr>
     <tr><td>list_channel_videos</td><td><code>channel</code><br>（URL、@handle 或 UC… id）</td><td><code>limit</code>（1–50，預設 30）</td><td>某個頻道最近的上傳。會回傳解析到的頻道標題——請確認它，handle 可能誤導。</td></tr>
     <tr><td>get_video_info</td><td><code>video</code><br>（URL 或 11 碼 id）</td><td>—</td><td>標題、頻道，以及有哪些字幕語言，而且不下載任何字幕。免費。</td></tr>
-    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code>（預設 zh-tw）</td><td>完整逐字稿，句子已合併的區塊，每塊帶起始時間與長度。</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code></td><td>完整逐字稿，句子已合併的區塊，每塊帶起始時間與長度。</td></tr>
     <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code>（起始秒數，預設 0）</td><td>在 DeepSRT 視窗中打開影片，並把 app 帶到前景。</td></tr>
-    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>（預設 zh-tw）、<code>mode</code>（narrative / bullet）</td><td>用字幕做 AI 摘要；bullet 模式帶 [MM:SS] 時間戳。使用你自己的 AI 金鑰，長片約 10–30 秒。</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>、<code>mode</code>（narrative / bullet）</td><td>用字幕做 AI 摘要；bullet 模式帶 [MM:SS] 時間戳。使用你自己的 AI 金鑰，長片約 10–30 秒。</td></tr>
     </tbody>
   </table>
 </div>
