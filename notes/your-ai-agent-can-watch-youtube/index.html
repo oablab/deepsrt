@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your AI Agent Can Now Watch YouTube</title>
+  <meta name="description" content="Built-in MCP support is coming to DeepSRT: six tools that let an agent search YouTube, read captions, summarize, and put a video in front of you — all on your Mac, on your own key.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Your AI Agent Can Now Watch YouTube">
+  <meta property="og:description" content="Built-in MCP support is coming to DeepSRT: six tools that let an agent search YouTube, read captions, summarize, and put a video in front of you — all on your Mac, on your own key.">
+  <meta property="og:url" content="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <meta property="og:image" content="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article ul { margin: 1rem 0 1rem 1.4rem; }
+    article li { margin: 0.4rem 0; }
+    article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/your-ai-agent-can-watch-youtube/" class="active">EN</a>｜<a href="/zh/notes/your-ai-agent-can-watch-youtube/">中文</a>｜<a href="/ja/notes/your-ai-agent-can-watch-youtube/">日本語</a>｜<a href="/ko/notes/your-ai-agent-can-watch-youtube/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>Your AI Agent Can Now Watch YouTube</h1>
+  <p class="meta">August 2026 · DeepSRT development notes</p>
+  <p class="lead">Built-in MCP support is coming to DeepSRT. Your agent gets six tools — search, channel listings, caption info, transcripts, summaries, playback — and none of it leaves your Mac.</p>
+  <article>
+<p>At the end of <a href="/notes/why-deepsrt-has-no-servers/">the note about having no servers</a> we wrote one line that was really a promise: <em>private MCP support is on the way, so your AI agents can talk to DeepSRT directly.</em></p>
+<p>It's built. It arrives in the next version.</p>
+<h2>What it actually looks like</h2>
+<p>You add DeepSRT to your agent's MCP configuration once. After that, the agent can do this:</p>
+<blockquote>Search YouTube for "swift 6 strict concurrency", pick the most relevant result, check whether it has captions, and if it does, summarize it in bullet mode.</blockquote>
+<p>Three tool calls, thirty-six seconds, and a summary whose bullets carry timestamps that point at the exact moment in the video. Or, more bluntly:</p>
+<blockquote>Play the latest video from that channel.</blockquote>
+<p>The agent lists the channel's uploads, takes the newest one, and the video opens on your screen. Nothing about that request mentions a URL.</p>
+<h2>Six tools</h2>
+<ul>
+  <li><strong>search_videos</strong> — keyword search</li>
+  <li><strong>list_channel_videos</strong> — a channel's recent uploads</li>
+  <li><strong>get_video_info</strong> — title, channel, and which caption languages exist, without downloading any of them</li>
+  <li><strong>get_transcript</strong> — the full transcript as timed blocks, with sentence boundaries repaired</li>
+  <li><strong>summarize_video</strong> — narrative prose or timestamped bullets, in eight languages</li>
+  <li><strong>open_in_app</strong> — put a video on your screen, optionally at a specific second</li>
+</ul>
+<p>Five of those are free and fast. One of them spends your AI credits. That asymmetry turned out to be the most important design decision in the whole feature.</p>
+<h2>Teaching a model to be cheap</h2>
+<p>Left to its own instincts, a model asked to "find videos about X and tell me what they say" will call the expensive summarizer on every single search hit. That's your money.</p>
+<p>So the server ships explicit guidance for the model: work cheap-to-expensive, narrow down with the free tools first, and summarize only what survived. <code>get_video_info</code> exists largely so an agent can ask "does this video even have captions, and in what language?" before committing to read them. In practice the agents do exactly that — one of them volunteered "this video has no captions, so a summary would fail" before we asked.</p>
+<h2>The endpoint is authenticated from day one</h2>
+<p>DeepSRT already ran a small local API on the loopback interface for its browser extension. Adding agent tools to it changes the stakes: these tools spend your AI credits, so an unauthenticated endpoint would let any program on your Mac bill you.</p>
+<p>So the MCP endpoint requires a bearer token, minted into your macOS Keychain, from the very first request. Settings shows it with a one-click copy of the whole configuration block, so nobody has to hand-assemble JSON.</p>
+<p>There's a second rule that costs nothing and closes a real hole: <strong>the endpoint refuses any request that carries an <code>Origin</code> header at all.</strong> Real MCP clients are not browsers and never send one. A request that does is a web page probing your loopback port — the DNS-rebinding attack the MCP specification explicitly tells servers to defend against. Rejecting the whole class is cleaner than maintaining a list of exceptions.</p>
+<h2>The specification moved six days before we shipped</h2>
+<p>MCP's <code>2026-07-28</code> revision landed a week before this work: it makes the protocol stateless, deletes the <code>initialize</code> handshake, deletes protocol-level sessions, and deletes the long-lived server stream. Good news for an implementer — much less to hold.</p>
+<p>The specification's own compatibility guidance suggests telling the eras apart by whether a request carries the <code>MCP-Protocol-Version</code> header. We built it that way. It was wrong, and the way it failed is worth writing down.</p>
+<p>That header has existed since <code>2025-06-18</code>. So a client from the 2025 era sends it <em>and</em> still uses the old handshake, and still omits the per-request metadata the 2026 rules require. We tested against a real agent that opens with an unheadered <code>initialize</code> and then stamps <code>MCP-Protocol-Version: 2025-11-25</code> on everything afterwards. Our server classified those requests as modern, rejected them for missing fields — and the client reported <strong>zero tools, with no error message anywhere.</strong> It connected successfully and simply had nothing.</p>
+<p>The fix is one line of judgement: the era follows the version <em>value</em>, never the presence of the header. Both eras are served, and unknown versions are refused before an era is chosen at all — otherwise they quietly fall through to the legacy path. Regression tests now replay that exact client sequence.</p>
+<p>We would not have found this by reading. We found it by pointing a real client at it and reading our own log.</p>
+<h2>Reality is messier than handles</h2>
+<p>One more thing the agents taught us. Ask for "that creator's latest video" and a model will guess the channel handle from the creator's display name. That guess is often wrong in a way nobody notices: one handle we tried belongs to an entirely different channel with no videos at all, and the obvious second guess turned out to be the creator's secondary channel.</p>
+<p>The tool used to return only a channel id, which made a wrong resolution invisible. Now it returns the resolved channel's <em>name</em>, and when a listing comes back empty it explains both possibilities instead of leaving the agent to retry the same call forever. Small change; the difference between a tool that fails and a tool that tells you why.</p>
+<h2>Why this belongs here</h2>
+<p>DeepSRT has no servers. Everything it can do, it does on your machine with your own key. That was always framed as a privacy and reliability argument, but it has a consequence we like more: <strong>because everything runs locally, everything is reachable by your own tools.</strong></p>
+<p>There's no API to apply for, no rate limit tier, no data leaving your Mac to be summarized somewhere else. Your agent gets the same access you have — which is the whole point of it running on your side of the wire.</p>
+<p>Coming in the next update.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

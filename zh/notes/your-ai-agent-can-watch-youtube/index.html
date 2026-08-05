@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>你的 AI Agent 現在會看 YouTube 了</title>
+  <meta name="description" content="DeepSRT 內建 MCP 功能即將登場：六個工具讓 agent 搜尋 YouTube、讀字幕、做摘要、把影片開到你眼前——全部在你的 Mac 上，用你自己的金鑰。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="你的 AI Agent 現在會看 YouTube 了">
+  <meta property="og:description" content="DeepSRT 內建 MCP 功能即將登場：六個工具讓 agent 搜尋 YouTube、讀字幕、做摘要、把影片開到你眼前——全部在你的 Mac 上，用你自己的金鑰。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article ul { margin: 1rem 0 1rem 1.4rem; }
+    article li { margin: 0.4rem 0; }
+    article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/your-ai-agent-can-watch-youtube/">EN</a>｜<a href="/zh/notes/your-ai-agent-can-watch-youtube/" class="active">中文</a>｜<a href="/ja/notes/your-ai-agent-can-watch-youtube/">日本語</a>｜<a href="/ko/notes/your-ai-agent-can-watch-youtube/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>你的 AI Agent 現在會看 YouTube 了</h1>
+  <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
+  <p class="lead">DeepSRT 內建 MCP 功能即將登場。你的 agent 會拿到六個工具——搜尋、頻道列表、字幕資訊、逐字稿、摘要、播放——而這一切都不離開你的 Mac。</p>
+  <article>
+<p>在<a href="/zh/notes/why-deepsrt-has-no-servers/">〈為什麼 DeepSRT 沒有伺服器〉</a>的最後，我們寫了一句其實是承諾的話：<em>私有 MCP 支援即將登場，讓你的 AI agent 直接跟 DeepSRT 對話。</em></p>
+<p>做好了。下一版就到。</p>
+<h2>實際用起來是什麼樣子</h2>
+<p>你只需要把 DeepSRT 加進 agent 的 MCP 設定一次。之後它就能做這種事：</p>
+<blockquote>搜尋 swift 6 strict concurrency，挑最相關的一支，確認有字幕，有的話用條列模式摘要。</blockquote>
+<p>三次工具呼叫、三十六秒，得到一份條列摘要，每一條都帶著能跳回影片那一刻的時間戳。或者更直接一點：</p>
+<blockquote>播放那個頻道最新的影片。</blockquote>
+<p>Agent 列出該頻道的上傳、取最新那支，影片就在你螢幕上打開了。整句話裡沒有出現任何網址。</p>
+<h2>六個工具</h2>
+<ul>
+  <li><strong>search_videos</strong>——關鍵字搜尋</li>
+  <li><strong>list_channel_videos</strong>——某個頻道最近的上傳</li>
+  <li><strong>get_video_info</strong>——標題、頻道，以及有哪些字幕語言，而且不下載任何字幕</li>
+  <li><strong>get_transcript</strong>——完整逐字稿，帶時間軸，句子邊界已經修好</li>
+  <li><strong>summarize_video</strong>——敘事式或帶時間戳的條列式，支援八種語言</li>
+  <li><strong>open_in_app</strong>——把影片開到你眼前，還能指定從第幾秒開始</li>
+</ul>
+<p>其中五個免費而且很快，只有一個會花你的 AI 額度。這個不對稱，結果成了整個功能裡最重要的設計決定。</p>
+<h2>教模型節省</h2>
+<p>如果放任模型自己來，你叫它「找幾支講 X 的影片然後告訴我它們在說什麼」，它會對<strong>每一筆</strong>搜尋結果都呼叫那個貴的摘要工具。那是你的錢。</p>
+<p>所以伺服器會明確告訴模型：從便宜的做到貴的，先用免費工具收斂範圍，只對留下來的那幾支做摘要。<code>get_video_info</code> 存在的主要理由，就是讓 agent 能先問「這支到底有沒有字幕、是什麼語言」再決定要不要讀。實際上它們真的會這樣做——有一次我們還沒問，agent 就主動補上「這支影片目前沒有字幕，所以要摘要會失敗」。</p>
+<h2>這個端點從第一天就要驗證</h2>
+<p>DeepSRT 本來就在 loopback 上跑一個小小的本機 API 給瀏覽器擴充功能用。把 agent 工具加上去之後，風險的性質變了：這些工具會花你的 AI 額度，沒有驗證的端點等於讓這台 Mac 上任何程式都能記在你帳上。</p>
+<p>所以 MCP 端點從第一個請求起就要求 bearer token，權杖存在 macOS 鑰匙圈裡。設定畫面可以一鍵複製整段設定，沒有人需要自己手拼 JSON。</p>
+<p>還有第二條規則，成本是零但補掉一個真實的洞：<strong>任何帶著 <code>Origin</code> 標頭的請求，一律拒絕。</strong>真正的 MCP 客戶端不是瀏覽器，永遠不會帶這個標頭。帶了就代表有網頁在探你的 loopback 埠——那正是 MCP 規格明文要求伺服器防範的 DNS rebinding 攻擊。整類拒絕，比維護一份例外清單乾淨得多。</p>
+<h2>規格在我們動工前六天改版</h2>
+<p>MCP 的 <code>2026-07-28</code> 版本在這件事開工前一週定案：協定變成無狀態，拿掉了 <code>initialize</code> 握手、拿掉協定層的 session、也拿掉了長連線的伺服器串流。對實作者來說是好消息——要維護的東西少很多。</p>
+<p>規格自己的相容性指引建議用「請求有沒有帶 <code>MCP-Protocol-Version</code> 標頭」來區分新舊世代。我們照著做了。那是錯的，而且它失敗的方式值得寫下來。</p>
+<p>那個標頭從 <code>2025-06-18</code> 就存在了。所以 2025 世代的客戶端會帶它，<em>同時</em>還是用舊的握手流程，也還是不附上 2026 規則要求的逐請求 metadata。我們拿一個真實的 agent 來測，它先發一個沒有標頭的 <code>initialize</code>，之後每個請求都蓋上 <code>MCP-Protocol-Version: 2025-11-25</code>。我們的伺服器把那些請求判成新世代、因為欠缺欄位而拒絕——結果客戶端顯示<strong>零個工具，而且任何地方都沒有錯誤訊息。</strong>它連線成功，然後什麼都沒有。</p>
+<p>修法只是一個判斷：世代要看版本<em>值</em>，絕不能看標頭有沒有出現。兩個世代都服務，而且不認識的版本必須在「選世代」之前就擋掉——否則它們會安靜地掉進舊世代那條路。現在有回歸測試重播那個客戶端的完整序列。</p>
+<p>這個問題不是讀文件讀出來的。是把真實客戶端接上去、然後讀自己的 log 才發現的。</p>
+<h2>現實比 handle 混亂</h2>
+<p>Agent 還教了我們一件事。你說「那位創作者最新的影片」，模型會從創作者的顯示名稱去猜頻道 handle。那個猜測經常錯，而且錯得沒人會發現：我們試過的一個 handle 屬於完全不同的頻道，而且那個頻道連影片都沒有；再猜第二個，結果是那位創作者的副頻道。</p>
+<p>這個工具原本只回傳 channel id，所以解析錯了完全看不出來。現在它會回傳解析到的頻道<em>名稱</em>，而列表為空的時候會把兩種可能都說清楚，而不是讓 agent 一直重試同一個呼叫。改動很小，但那是「一個會失敗的工具」和「一個會告訴你為什麼的工具」之間的差別。</p>
+<h2>為什麼這件事屬於這裡</h2>
+<p>DeepSRT 沒有伺服器。它能做的一切，都是在你的機器上、用你自己的金鑰做的。這件事我們一直是用隱私和可靠性來論述，但它還有一個我們更喜歡的後果：<strong>因為一切都在本機，所以一切都能被你自己的工具取用。</strong></p>
+<p>沒有要申請的 API、沒有速率限制的分級、沒有任何資料離開你的 Mac 跑去別處被摘要。你的 agent 拿到的存取權跟你一樣——而這正是「它跑在你這一側」的全部意義。</p>
+<p>下一版更新見。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

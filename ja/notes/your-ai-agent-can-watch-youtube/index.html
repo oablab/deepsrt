@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>あなたの AI エージェントが YouTube を観るようになる</title>
+  <meta name="description" content="DeepSRT に MCP サポートが近日登場:検索、字幕、要約、再生まで6つのツールをエージェントに。すべてあなたの Mac 上で、あなた自身のキーで。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="あなたの AI エージェントが YouTube を観るようになる">
+  <meta property="og:description" content="DeepSRT に MCP サポートが近日登場:検索、字幕、要約、再生まで6つのツールをエージェントに。すべてあなたの Mac 上で、あなた自身のキーで。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/">
+  <meta property="og:image" content="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.7rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article ul { margin: 1rem 0 1rem 1.4rem; }
+    article li { margin: 0.4rem 0; }
+    article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/your-ai-agent-can-watch-youtube/">EN</a>｜<a href="/zh/notes/your-ai-agent-can-watch-youtube/">中文</a>｜<a href="/ja/notes/your-ai-agent-can-watch-youtube/" class="active">日本語</a>｜<a href="/ko/notes/your-ai-agent-can-watch-youtube/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>あなたの AI エージェントが YouTube を観るようになる</h1>
+  <p class="meta">2026年8月 · DeepSRT 開発ノート</p>
+  <p class="lead">DeepSRT に MCP サポートが近日登場します。エージェントが手にするのは6つのツール——検索、チャンネル一覧、字幕情報、文字起こし、要約、再生。そのどれも Mac の外へ出ません。</p>
+  <article>
+<p><a href="/ja/notes/why-deepsrt-has-no-servers/">「DeepSRT にサーバーがない理由」</a>の最後に、実は約束だった一文を書いた。<em>プライベートな MCP サポートを準備中で、AI エージェントが DeepSRT と直接やり取りできるようになる。</em></p>
+<p>できあがった。次のバージョンで届く。</p>
+<h2>実際にはこう動く</h2>
+<p>エージェントの MCP 設定に DeepSRT を一度追加するだけ。あとはこんなことができる:</p>
+<blockquote>swift 6 strict concurrency を検索して、いちばん関連するものを選び、字幕があるか確認して、あれば箇条書きモードで要約して。</blockquote>
+<p>ツール呼び出し3回、36秒。返ってきた箇条書きには、動画のその瞬間を指すタイムスタンプが付いている。もっと素朴に言えば:</p>
+<blockquote>あのチャンネルの最新動画を再生して。</blockquote>
+<p>エージェントがそのチャンネルの投稿を一覧し、最新のものを取り、動画が画面に開く。この頼み方に URL は一切登場しない。</p>
+<h2>6つのツール</h2>
+<ul>
+  <li><strong>search_videos</strong> — キーワード検索</li>
+  <li><strong>list_channel_videos</strong> — チャンネルの最近の投稿</li>
+  <li><strong>get_video_info</strong> — タイトル、チャンネル、そして「どの言語の字幕が存在するか」。字幕自体はダウンロードしない</li>
+  <li><strong>get_transcript</strong> — 文単位に整えた、時間付きの全文</li>
+  <li><strong>summarize_video</strong> — 文章形式、またはタイムスタンプ付き箇条書き。8言語対応</li>
+  <li><strong>open_in_app</strong> — 動画を画面に出す。秒数の指定も可能</li>
+</ul>
+<p>このうち5つは無料で速い。1つだけがあなたの AI クレジットを消費する。この非対称性が、この機能でいちばん重要な設計判断になった。</p>
+<h2>モデルに節約を教える</h2>
+<p>放っておくと、「X について話している動画を探して内容を教えて」と頼まれたモデルは、検索結果の<em>すべて</em>に対して高価な要約ツールを呼ぶ。それはあなたのお金だ。</p>
+<p>だからサーバーはモデルに明示的に指示する:安いものから高いものへ、まず無料のツールで絞り込み、残ったものだけ要約する。<code>get_video_info</code> が存在する主な理由は、読みに行く前に「この動画にそもそも字幕はあるのか、何語か」を尋ねられるようにするためだ。実際にエージェントはそうする——こちらが聞く前に「この動画には字幕がないので要約は失敗します」と自分から付け足したことがある。</p>
+<h2>このエンドポイントは初日から認証付き</h2>
+<p>DeepSRT はもともと、ブラウザ拡張機能のために loopback 上で小さなローカル API を動かしていた。そこにエージェント用のツールを足すと、risk の性質が変わる。これらのツールはあなたの AI クレジットを使うので、認証のないエンドポイントは「この Mac 上のどのプログラムでもあなたに請求できる」状態を意味する。</p>
+<p>そのため MCP エンドポイントは最初のリクエストから bearer トークンを要求する。トークンは macOS キーチェーンに保存される。設定画面から設定ブロックごとワンクリックでコピーできるので、JSON を手で組み立てる必要はない。</p>
+<p>もう一つ、コストゼロで実在する穴を塞ぐルールがある:<strong><code>Origin</code> ヘッダーを持つリクエストは、すべて拒否する。</strong>本物の MCP クライアントはブラウザではないので、このヘッダーを送ることはない。送ってきたなら、それは web ページが loopback ポートを探っているということ——MCP 仕様がサーバーに防御を明文で求めている DNS リバインディング攻撃そのものだ。例外リストを維持するより、クラスごと拒否するほうが清潔だ。</p>
+<h2>仕様は着手の6日前に変わった</h2>
+<p>MCP の <code>2026-07-28</code> 改訂は、この作業の1週間前に確定した。プロトコルはステートレスになり、<code>initialize</code> ハンドシェイク、プロトコルレベルのセッション、長時間のサーバーストリームが削除された。実装者には良い知らせだ——抱えるものがずっと少ない。</p>
+<p>仕様自身の互換性ガイダンスは、<code>MCP-Protocol-Version</code> ヘッダーの有無で世代を見分けることを示唆している。私たちはその通りに作った。それは間違いで、しかもその失敗の仕方が書き留める価値がある。</p>
+<p>あのヘッダーは <code>2025-06-18</code> から存在する。つまり2025年世代のクライアントはヘッダーを送り、<em>同時に</em>古いハンドシェイクを使い、2026年ルールが要求するリクエストごとのメタデータも付けない。実在のエージェントで試したところ、まずヘッダーなしの <code>initialize</code> を送り、その後のすべてに <code>MCP-Protocol-Version: 2025-11-25</code> を刻んでいた。私たちのサーバーはそれを新世代と判定し、フィールド不足として拒否した——結果、クライアントには<strong>ツールが0個、しかもどこにもエラーが出ない。</strong>接続は成功し、ただ何もなかった。</p>
+<p>修正は判断ひとつ:世代はバージョンの<em>値</em>で決める。ヘッダーの有無では決めない。両方の世代に応え、知らないバージョンは世代を選ぶ<em>前</em>に拒否する——さもないと静かに旧世代の経路へ滑り込んでしまう。今はそのクライアントの手順をそのまま再生する回帰テストがある。</p>
+<p>これは読んで見つかる問題ではなかった。本物のクライアントを繋いで、自分のログを読んで見つけた。</p>
+<h2>現実はハンドルより雑だ</h2>
+<p>エージェントが教えてくれたことがもう一つある。「あの人の最新動画」と頼むと、モデルは表示名からチャンネルのハンドルを推測する。その推測はしばしば外れ、しかも誰も気づかない形で外れる。試したあるハンドルは全く別のチャンネルのもので、そこには動画が1本もなかった。2番目の推測は、その人のサブチャンネルだった。</p>
+<p>このツールは以前、チャンネル id だけを返していたので、誤った解決は見えなかった。今は解決されたチャンネルの<em>名前</em>を返し、一覧が空のときは両方の可能性を説明する。エージェントが同じ呼び出しを延々と繰り返すことはもうない。小さな変更だが、「失敗するツール」と「理由を教えるツール」の差はここにある。</p>
+<h2>なぜこの話がここに載るのか</h2>
+<p>DeepSRT にはサーバーがない。できることはすべて、あなたのマシンで、あなた自身のキーで行われる。これはずっとプライバシーと信頼性の議論として語ってきたが、もっと気に入っている帰結がある:<strong>すべてがローカルで動くからこそ、すべてがあなた自身のツールから届く。</strong></p>
+<p>申請すべき API もなく、レート制限の階層もなく、どこか別の場所で要約されるために Mac を出ていくデータもない。エージェントはあなたと同じアクセスを得る——それが「あなたの側で動いている」ことの意味そのものだ。</p>
+<p>次のアップデートで。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
