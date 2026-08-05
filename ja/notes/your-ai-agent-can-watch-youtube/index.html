@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>あなたの AI エージェントが YouTube を観るようになる</title>
-  <meta name="description" content="DeepSRT に MCP サポートが近日登場:検索、字幕、要約、再生まで6つのツールをエージェントに。すべてあなたの Mac 上で、あなた自身のキーで。">
+  <title>DeepSRT に MCP サポートが近日登場</title>
+  <meta name="description" content="DeepSRT がこのマシンだけに応える MCP サーバーになる:MCP 対応のエージェントなら、どの YouTube 動画の要約も文字起こしも取得でき、再生の操作まで任せられる。">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="あなたの AI エージェントが YouTube を観るようになる">
-  <meta property="og:description" content="DeepSRT に MCP サポートが近日登場:検索、字幕、要約、再生まで6つのツールをエージェントに。すべてあなたの Mac 上で、あなた自身のキーで。">
+  <meta property="og:title" content="DeepSRT に MCP サポートが近日登場">
+  <meta property="og:description" content="DeepSRT がこのマシンだけに応える MCP サーバーになる:MCP 対応のエージェントなら、どの YouTube 動画の要約も文字起こしも取得でき、再生の操作まで任せられる。">
   <meta property="og:url" content="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/">
   <meta property="og:image" content="https://deepsrt.com/ja/notes/your-ai-agent-can-watch-youtube/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -90,14 +90,19 @@
 </nav>
 <main>
   <a class="backlink" href="/ja/notes/">← ノート</a>
-  <h1>あなたの AI エージェントが YouTube を観るようになる</h1>
+  <h1>DeepSRT に MCP サポートが近日登場</h1>
   <p class="meta">2026年8月 · DeepSRT 開発ノート</p>
-  <p class="lead">DeepSRT に MCP サポートが近日登場します。エージェントが手にするのは6つのツール——検索、チャンネル一覧、字幕情報、文字起こし、要約、再生。そのどれも Mac の外へ出ません。</p>
+  <p class="lead">あなたの AI エージェントが YouTube を観るようになる。6つのツール——検索、チャンネル一覧、字幕情報、文字起こし、要約、再生。そのどれも Mac の外へ出ません。</p>
   <article>
+<p>DeepSRT はすでにこれらをこなす:動画を再生し、要約を作り、文字起こしを取ってくる。では——これが姿を変えて、このマシンだけに応える MCP サーバーになったら、どうなるだろう?</p>
+<p>Claude Code、Kiro、Codex、Cursor——MCP を話すエージェントなら何でも、DeepSRT 経由でどの YouTube 動画の要約も文字起こしも手に入る。さらに DeepSRT 自体を操作させて、動画を画面に出してもらうこともできる。</p>
+<blockquote>ねえ、Big Bang の今週の最新動画を探して、いちばん人気のあるやつをそのまま再生して。</blockquote>
+<blockquote>ねえ、Fox News の今日のニュースを全部見て、上位5本が何の話か教えて。</blockquote>
 <p><a href="/ja/notes/why-deepsrt-has-no-servers/">「DeepSRT にサーバーがない理由」</a>の最後に、実は約束だった一文を書いた。<em>プライベートな MCP サポートを準備中で、AI エージェントが DeepSRT と直接やり取りできるようになる。</em></p>
 <p>できあがった。次のバージョンで届く。</p>
 <h2>実際にはこう動く</h2>
 <p>エージェントの MCP 設定に DeepSRT を一度追加するだけ。あとはこんなことができる:</p>
+<p>上の2つは、私たちが目指していた姿だ。下の2つは、実際に走った記録だ。</p>
 <blockquote>swift 6 strict concurrency を検索して、いちばん関連するものを選び、字幕があるか確認して、あれば箇条書きモードで要約して。</blockquote>
 <p>ツール呼び出し3回、36秒。返ってきた箇条書きには、動画のその瞬間を指すタイムスタンプが付いている。もっと素朴に言えば:</p>
 <blockquote>あのチャンネルの最新動画を再生して。</blockquote>

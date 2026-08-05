@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your AI Agent Can Now Watch YouTube</title>
-  <meta name="description" content="Built-in MCP support is coming to DeepSRT: six tools that let an agent search YouTube, read captions, summarize, and put a video in front of you — all on your Mac, on your own key.">
+  <title>Built-in MCP Support Is Coming to DeepSRT</title>
+  <meta name="description" content="DeepSRT is becoming a local-only MCP server: any MCP-capable agent can pull summaries and transcripts for any YouTube video, and even drive playback for you.">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Your AI Agent Can Now Watch YouTube">
-  <meta property="og:description" content="Built-in MCP support is coming to DeepSRT: six tools that let an agent search YouTube, read captions, summarize, and put a video in front of you — all on your Mac, on your own key.">
+  <meta property="og:title" content="Built-in MCP Support Is Coming to DeepSRT">
+  <meta property="og:description" content="DeepSRT is becoming a local-only MCP server: any MCP-capable agent can pull summaries and transcripts for any YouTube video, and even drive playback for you.">
   <meta property="og:url" content="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/">
   <meta property="og:image" content="https://deepsrt.com/notes/your-ai-agent-can-watch-youtube/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -90,14 +90,19 @@
 </nav>
 <main>
   <a class="backlink" href="/notes/">← Notes</a>
-  <h1>Your AI Agent Can Now Watch YouTube</h1>
+  <h1>Built-in MCP Support Is Coming to DeepSRT</h1>
   <p class="meta">August 2026 · DeepSRT development notes</p>
-  <p class="lead">Built-in MCP support is coming to DeepSRT. Your agent gets six tools — search, channel listings, caption info, transcripts, summaries, playback — and none of it leaves your Mac.</p>
+  <p class="lead">Your AI agent can now watch YouTube. Six tools — search, channel listings, caption info, transcripts, summaries, playback — and none of it leaves your Mac.</p>
   <article>
+<p>DeepSRT already does these things: plays a video, produces a summary, fetches a transcript. So — what happens if it also turns into an MCP server that serves nothing but this machine?</p>
+<p>It means Claude Code, Kiro, Codex, Cursor — any agent that speaks MCP — can get a summary or a transcript for any YouTube video through DeepSRT. And it can drive DeepSRT itself, and put a video on your screen for you.</p>
+<blockquote>Hey, find Big Bang's newest video this week and just play the most popular one.</blockquote>
+<blockquote>Hey, check every Fox News story today and tell me what the top five are about.</blockquote>
 <p>At the end of <a href="/notes/why-deepsrt-has-no-servers/">the note about having no servers</a> we wrote one line that was really a promise: <em>private MCP support is on the way, so your AI agents can talk to DeepSRT directly.</em></p>
 <p>It's built. It arrives in the next version.</p>
 <h2>What it actually looks like</h2>
 <p>You add DeepSRT to your agent's MCP configuration once. After that, the agent can do this:</p>
+<p>Those two are what we were aiming for. These two are transcripts of what actually ran.</p>
 <blockquote>Search YouTube for "swift 6 strict concurrency", pick the most relevant result, check whether it has captions, and if it does, summarize it in bullet mode.</blockquote>
 <p>Three tool calls, thirty-six seconds, and a summary whose bullets carry timestamps that point at the exact moment in the video. Or, more bluntly:</p>
 <blockquote>Play the latest video from that channel.</blockquote>

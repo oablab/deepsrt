@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>你的 AI Agent 現在會看 YouTube 了</title>
-  <meta name="description" content="DeepSRT 內建 MCP 功能即將登場：六個工具讓 agent 搜尋 YouTube、讀字幕、做摘要、把影片開到你眼前——全部在你的 Mac 上，用你自己的金鑰。">
+  <title>DeepSRT 內建 MCP 功能即將登場</title>
+  <meta name="description" content="DeepSRT 要變成一個只服務本機的 MCP server：任何支援 MCP 的 agent 都能透過它拿到任何 YouTube 影片的摘要與逐字稿，甚至直接幫你操作播放。">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="你的 AI Agent 現在會看 YouTube 了">
-  <meta property="og:description" content="DeepSRT 內建 MCP 功能即將登場：六個工具讓 agent 搜尋 YouTube、讀字幕、做摘要、把影片開到你眼前——全部在你的 Mac 上，用你自己的金鑰。">
+  <meta property="og:title" content="DeepSRT 內建 MCP 功能即將登場">
+  <meta property="og:description" content="DeepSRT 要變成一個只服務本機的 MCP server：任何支援 MCP 的 agent 都能透過它拿到任何 YouTube 影片的摘要與逐字稿，甚至直接幫你操作播放。">
   <meta property="og:url" content="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/">
   <meta property="og:image" content="https://deepsrt.com/zh/notes/your-ai-agent-can-watch-youtube/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -90,14 +90,19 @@
 </nav>
 <main>
   <a class="backlink" href="/zh/notes/">← 筆記</a>
-  <h1>你的 AI Agent 現在會看 YouTube 了</h1>
+  <h1>DeepSRT 內建 MCP 功能即將登場</h1>
   <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
-  <p class="lead">DeepSRT 內建 MCP 功能即將登場。你的 agent 會拿到六個工具——搜尋、頻道列表、字幕資訊、逐字稿、摘要、播放——而這一切都不離開你的 Mac。</p>
+  <p class="lead">你的 AI Agent 現在會看 YouTube 了。六個工具——搜尋、頻道列表、字幕資訊、逐字稿、摘要、播放——而這一切都不離開你的 Mac。</p>
   <article>
+<p>DeepSRT 已經會做這些事了：播放影片、產生摘要、取得逐字稿。那麼——如果它搖身一變，變成一個只服務本機的 MCP server，會怎麼樣？</p>
+<p>那就變成 Claude Code、Kiro、Codex、Cursor，任何支援 MCP 的 agent，都能透過 DeepSRT 拿到任何 YouTube 影片的摘要和逐字稿。甚至可以讓 agent 直接操作 DeepSRT，幫你把影片播出來。</p>
+<blockquote>嘿！幫我找 Big Bang 這週的最新影片，直接播放最熱門的那支！</blockquote>
+<blockquote>嘿！幫我查一下 Fox News 今天所有新聞，最熱門的五條在講什麼。</blockquote>
 <p>在<a href="/zh/notes/why-deepsrt-has-no-servers/">〈為什麼 DeepSRT 沒有伺服器〉</a>的最後，我們寫了一句其實是承諾的話：<em>私有 MCP 支援即將登場，讓你的 AI agent 直接跟 DeepSRT 對話。</em></p>
 <p>做好了。下一版就到。</p>
 <h2>實際用起來是什麼樣子</h2>
 <p>你只需要把 DeepSRT 加進 agent 的 MCP 設定一次。之後它就能做這種事：</p>
+<p>上面那兩句是我們想達成的樣子。下面這兩個，是實際跑出來的紀錄。</p>
 <blockquote>搜尋 swift 6 strict concurrency，挑最相關的一支，確認有字幕，有的話用條列模式摘要。</blockquote>
 <p>三次工具呼叫、三十六秒，得到一份條列摘要，每一條都帶著能跳回影片那一刻的時間戳。或者更直接一點：</p>
 <blockquote>播放那個頻道最新的影片。</blockquote>

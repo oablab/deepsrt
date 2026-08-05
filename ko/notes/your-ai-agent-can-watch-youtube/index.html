@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>당신의 AI 에이전트가 이제 YouTube를 봅니다</title>
-  <meta name="description" content="DeepSRT에 MCP 지원이 곧 들어옵니다: 검색, 자막, 요약, 재생까지 여섯 개의 도구를 에이전트에게. 모두 당신의 Mac에서, 당신의 키로.">
+  <title>DeepSRT에 내장 MCP 지원이 곧 등장합니다</title>
+  <meta name="description" content="DeepSRT가 이 기기만을 위한 MCP 서버가 됩니다: MCP를 지원하는 에이전트라면 어떤 YouTube 영상의 요약과 자막도 가져올 수 있고, 재생까지 맡길 수 있습니다.">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="당신의 AI 에이전트가 이제 YouTube를 봅니다">
-  <meta property="og:description" content="DeepSRT에 MCP 지원이 곧 들어옵니다: 검색, 자막, 요약, 재생까지 여섯 개의 도구를 에이전트에게. 모두 당신의 Mac에서, 당신의 키로.">
+  <meta property="og:title" content="DeepSRT에 내장 MCP 지원이 곧 등장합니다">
+  <meta property="og:description" content="DeepSRT가 이 기기만을 위한 MCP 서버가 됩니다: MCP를 지원하는 에이전트라면 어떤 YouTube 영상의 요약과 자막도 가져올 수 있고, 재생까지 맡길 수 있습니다.">
   <meta property="og:url" content="https://deepsrt.com/ko/notes/your-ai-agent-can-watch-youtube/">
   <meta property="og:image" content="https://deepsrt.com/ko/notes/your-ai-agent-can-watch-youtube/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -90,14 +90,19 @@
 </nav>
 <main>
   <a class="backlink" href="/ko/notes/">← 노트</a>
-  <h1>당신의 AI 에이전트가 이제 YouTube를 봅니다</h1>
+  <h1>DeepSRT에 내장 MCP 지원이 곧 등장합니다</h1>
   <p class="meta">2026년 8월 · DeepSRT 개발 노트</p>
-  <p class="lead">DeepSRT에 MCP 지원이 곧 들어옵니다. 에이전트가 얻는 것은 여섯 개의 도구 — 검색, 채널 목록, 자막 정보, 자막 전문, 요약, 재생. 그 어느 것도 Mac을 떠나지 않습니다.</p>
+  <p class="lead">당신의 AI 에이전트가 이제 YouTube를 봅니다. 여섯 개의 도구 — 검색, 채널 목록, 자막 정보, 자막 전문, 요약, 재생 — 그 어느 것도 Mac을 떠나지 않습니다.</p>
   <article>
+<p>DeepSRT는 이미 이런 일을 한다: 영상을 재생하고, 요약을 만들고, 자막 전문을 가져온다. 그렇다면 — 이것이 모습을 바꿔, 이 기기만을 위한 MCP 서버가 된다면 어떻게 될까?</p>
+<p>Claude Code, Kiro, Codex, Cursor — MCP를 말하는 에이전트라면 무엇이든, DeepSRT를 통해 어떤 YouTube 영상의 요약과 자막도 얻을 수 있다. 나아가 DeepSRT 자체를 조작해서 영상을 화면에 띄우게 할 수도 있다.</p>
+<blockquote>야, Big Bang 이번 주 최신 영상 찾아서 가장 인기 있는 걸 바로 재생해줘.</blockquote>
+<blockquote>야, Fox News 오늘 뉴스 전부 확인해서 상위 다섯 개가 무슨 이야기인지 알려줘.</blockquote>
 <p><a href="/ko/notes/why-deepsrt-has-no-servers/">「DeepSRT에 서버가 없는 이유」</a>의 마지막에, 사실은 약속이었던 한 문장을 썼다. <em>프라이빗 MCP 지원을 준비 중이며, AI 에이전트가 DeepSRT와 직접 대화할 수 있게 된다.</em></p>
 <p>다 만들었다. 다음 버전에 도착한다.</p>
 <h2>실제로는 이렇게 작동한다</h2>
 <p>에이전트의 MCP 설정에 DeepSRT를 한 번 추가하면 된다. 그다음부터는 이런 일이 가능하다:</p>
+<p>위의 두 개는 우리가 목표로 삼았던 모습이다. 아래 두 개는 실제로 돌아간 기록이다.</p>
 <blockquote>swift 6 strict concurrency를 검색해서 가장 관련 있는 것을 고르고, 자막이 있는지 확인하고, 있으면 불릿 모드로 요약해줘.</blockquote>
 <p>도구 호출 세 번, 36초. 돌아온 불릿에는 영상의 그 순간을 가리키는 타임스탬프가 붙어 있다. 더 직설적으로 말하면:</p>
 <blockquote>그 채널 최신 영상 재생해줘.</blockquote>
