@@ -53,10 +53,21 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
-    article ul { margin: 1rem 0 1rem 1.4rem; }
-    article li { margin: 0.4rem 0; }
     article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
     article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -92,14 +103,19 @@
 <blockquote>あのチャンネルの最新動画を再生して。</blockquote>
 <p>エージェントがそのチャンネルの投稿を一覧し、最新のものを取り、動画が画面に開く。この頼み方に URL は一切登場しない。</p>
 <h2>6つのツール</h2>
-<ul>
-  <li><strong>search_videos</strong> — キーワード検索</li>
-  <li><strong>list_channel_videos</strong> — チャンネルの最近の投稿</li>
-  <li><strong>get_video_info</strong> — タイトル、チャンネル、そして「どの言語の字幕が存在するか」。字幕自体はダウンロードしない</li>
-  <li><strong>get_transcript</strong> — 文単位に整えた、時間付きの全文</li>
-  <li><strong>summarize_video</strong> — 文章形式、またはタイムスタンプ付き箇条書き。8言語対応</li>
-  <li><strong>open_in_app</strong> — 動画を画面に出す。秒数の指定も可能</li>
-</ul>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>ツール</th><th>必須</th><th>任意</th><th>内容</th></tr></thead>
+    <tbody>
+    <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code>(1–50、既定 20)</td><td>キーワードで YouTube を検索。無料で高速。video id、タイトル、チャンネル、長さを返す。</td></tr>
+    <tr><td>list_channel_videos</td><td><code>channel</code><br>(URL、@handle、UC… id)</td><td><code>limit</code>(1–50、既定 30)</td><td>チャンネルの最近の投稿。解決されたチャンネル名を返す——ハンドルは当てにならないので必ず確認する。</td></tr>
+    <tr><td>get_video_info</td><td><code>video</code><br>(URL または11文字の id)</td><td>—</td><td>タイトル、チャンネル、そしてどの言語の字幕が存在するか。字幕自体はダウンロードしない。無料。</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code>(既定 zh-tw)</td><td>文単位に整えたブロックごとの全文。各ブロックに開始時刻と長さが付く。</td></tr>
+    <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code>(開始秒、既定 0)</td><td>DeepSRT のウィンドウで動画を開き、アプリを前面に出す。</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>(既定 zh-tw)、<code>mode</code>(narrative / bullet)</td><td>字幕から AI 要約。bullet モードは [MM:SS] のタイムスタンプ付き。あなたの AI キーを使い、長い動画では10〜30秒。</td></tr>
+    </tbody>
+  </table>
+</div>
 <p>このうち5つは無料で速い。1つだけがあなたの AI クレジットを消費する。この非対称性が、この機能でいちばん重要な設計判断になった。</p>
 <h2>モデルに節約を教える</h2>
 <p>放っておくと、「X について話している動画を探して内容を教えて」と頼まれたモデルは、検索結果の<em>すべて</em>に対して高価な要約ツールを呼ぶ。それはあなたのお金だ。</p>
@@ -113,7 +129,7 @@
 <p>仕様自身の互換性ガイダンスは、<code>MCP-Protocol-Version</code> ヘッダーの有無で世代を見分けることを示唆している。私たちはその通りに作った。それは間違いで、しかもその失敗の仕方が書き留める価値がある。</p>
 <p>あのヘッダーは <code>2025-06-18</code> から存在する。つまり2025年世代のクライアントはヘッダーを送り、<em>同時に</em>古いハンドシェイクを使い、2026年ルールが要求するリクエストごとのメタデータも付けない。実在のエージェントで試したところ、まずヘッダーなしの <code>initialize</code> を送り、その後のすべてに <code>MCP-Protocol-Version: 2025-11-25</code> を刻んでいた。私たちのサーバーはそれを新世代と判定し、フィールド不足として拒否した——結果、クライアントには<strong>ツールが0個、しかもどこにもエラーが出ない。</strong>接続は成功し、ただ何もなかった。</p>
 <p>修正は判断ひとつ:世代はバージョンの<em>値</em>で決める。ヘッダーの有無では決めない。両方の世代に応え、知らないバージョンは世代を選ぶ<em>前</em>に拒否する——さもないと静かに旧世代の経路へ滑り込んでしまう。今はそのクライアントの手順をそのまま再生する回帰テストがある。</p>
-<p>これは読んで見つかる問題ではなかった。本物のクライアントを繋いで、自分のログを読んで見つけた。</p>
+<div class="callout">プロトコルの世代を「ヘッダーがあるかどうか」で分けてはいけない——バージョンの値で分ける。そして「接続は成功しているのにツールが0個」は最も高くつく種類のバグだ:仕様を読めたと信じる前に、本物のクライアントを繋いで自分のログを読むこと。</div>
 <h2>現実はハンドルより雑だ</h2>
 <p>エージェントが教えてくれたことがもう一つある。「あの人の最新動画」と頼むと、モデルは表示名からチャンネルのハンドルを推測する。その推測はしばしば外れ、しかも誰も気づかない形で外れる。試したあるハンドルは全く別のチャンネルのもので、そこには動画が1本もなかった。2番目の推測は、その人のサブチャンネルだった。</p>
 <p>このツールは以前、チャンネル id だけを返していたので、誤った解決は見えなかった。今は解決されたチャンネルの<em>名前</em>を返し、一覧が空のときは両方の可能性を説明する。エージェントが同じ呼び出しを延々と繰り返すことはもうない。小さな変更だが、「失敗するツール」と「理由を教えるツール」の差はここにある。</p>

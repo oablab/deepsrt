@@ -53,10 +53,21 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
-    article ul { margin: 1rem 0 1rem 1.4rem; }
-    article li { margin: 0.4rem 0; }
     article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
     article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -92,14 +103,19 @@
 <blockquote>그 채널 최신 영상 재생해줘.</blockquote>
 <p>에이전트가 그 채널의 업로드를 나열하고, 최신 것을 골라, 영상이 화면에 열린다. 이 요청에는 URL이 한 번도 등장하지 않는다.</p>
 <h2>여섯 개의 도구</h2>
-<ul>
-  <li><strong>search_videos</strong> — 키워드 검색</li>
-  <li><strong>list_channel_videos</strong> — 채널의 최근 업로드</li>
-  <li><strong>get_video_info</strong> — 제목, 채널, 그리고 어떤 언어의 자막이 존재하는지. 자막 자체는 내려받지 않는다</li>
-  <li><strong>get_transcript</strong> — 문장 단위로 정리된, 시간이 붙은 자막 전문</li>
-  <li><strong>summarize_video</strong> — 서술형 또는 타임스탬프가 붙은 불릿. 8개 언어</li>
-  <li><strong>open_in_app</strong> — 영상을 화면에 띄운다. 특정 초부터도 가능</li>
-</ul>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>도구</th><th>필수</th><th>선택</th><th>설명</th></tr></thead>
+    <tbody>
+    <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code>(1–50, 기본 20)</td><td>키워드로 YouTube 검색. 무료이고 빠름. video id, 제목, 채널, 길이를 반환.</td></tr>
+    <tr><td>list_channel_videos</td><td><code>channel</code><br>(URL, @handle, UC… id)</td><td><code>limit</code>(1–50, 기본 30)</td><td>채널의 최근 업로드. 해석된 채널 제목을 반환 — 핸들은 오해를 부를 수 있으니 반드시 확인.</td></tr>
+    <tr><td>get_video_info</td><td><code>video</code><br>(URL 또는 11자 id)</td><td>—</td><td>제목, 채널, 그리고 어떤 언어의 자막이 존재하는지. 자막은 내려받지 않음. 무료.</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code>(기본 zh-tw)</td><td>문장 단위로 합쳐진 블록의 자막 전문. 각 블록에 시작 시간과 길이.</td></tr>
+    <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code>(시작 초, 기본 0)</td><td>DeepSRT 창에서 영상을 열고 앱을 앞으로 가져온다.</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>(기본 zh-tw), <code>mode</code>(narrative / bullet)</td><td>자막으로 AI 요약; bullet 모드는 [MM:SS] 타임스탬프 포함. 당신의 AI 키를 사용, 긴 영상은 10–30초.</td></tr>
+    </tbody>
+  </table>
+</div>
 <p>이 중 다섯 개는 무료이고 빠르다. 하나만이 당신의 AI 크레딧을 쓴다. 이 비대칭이 이 기능 전체에서 가장 중요한 설계 결정이 되었다.</p>
 <h2>모델에게 절약을 가르치기</h2>
 <p>그냥 두면, 「X를 다루는 영상을 찾아서 내용을 알려줘」라는 요청을 받은 모델은 검색 결과 <em>전부</em>에 대해 비싼 요약 도구를 호출한다. 그건 당신의 돈이다.</p>
@@ -113,7 +129,7 @@
 <p>명세 자신의 호환성 지침은 <code>MCP-Protocol-Version</code> 헤더의 유무로 세대를 구분하라고 시사한다. 우리는 그대로 만들었다. 그것은 틀렸고, 실패하는 방식이 기록할 가치가 있다.</p>
 <p>그 헤더는 <code>2025-06-18</code>부터 존재한다. 즉 2025년 세대 클라이언트는 헤더를 보내면서 <em>동시에</em> 옛 핸드셰이크를 쓰고, 2026년 규칙이 요구하는 요청별 메타데이터도 붙이지 않는다. 실제 에이전트로 시험해보니, 먼저 헤더 없는 <code>initialize</code>를 보내고 그 이후 모든 요청에 <code>MCP-Protocol-Version: 2025-11-25</code>를 찍었다. 우리 서버는 그것을 최신 세대로 판정해 필드 누락으로 거부했고 — 결과적으로 클라이언트에는 <strong>도구가 0개, 게다가 어디에도 오류 메시지가 없었다.</strong> 연결은 성공했고, 그저 아무것도 없었다.</p>
 <p>수정은 판단 하나다: 세대는 버전 <em>값</em>으로 정하고, 헤더의 유무로는 정하지 않는다. 두 세대 모두를 처리하고, 모르는 버전은 세대를 고르기 <em>전에</em> 거부한다 — 그렇지 않으면 조용히 구세대 경로로 흘러 들어간다. 지금은 그 클라이언트의 순서를 그대로 재생하는 회귀 테스트가 있다.</p>
-<p>이건 읽어서 찾아낼 문제가 아니었다. 진짜 클라이언트를 붙이고 우리 로그를 읽어서 찾았다.</p>
+<div class="callout">프로토콜 세대를 「헤더가 있는지」로 나누지 말 것 — 버전 값으로 나눈다. 그리고 「연결은 깔끔한데 도구가 0개」는 가장 비싼 종류의 버그다: 명세를 이해했다고 믿기 전에, 진짜 클라이언트를 붙이고 자기 로그를 읽어라.</div>
 <h2>현실은 핸들보다 지저분하다</h2>
 <p>에이전트가 가르쳐준 것이 하나 더 있다. 「그 크리에이터의 최신 영상」이라고 하면 모델은 표시 이름에서 채널 핸들을 추측한다. 그 추측은 자주 틀리고, 아무도 알아차리지 못하는 방식으로 틀린다. 시도한 어떤 핸들은 완전히 다른 채널의 것이었고 그 채널에는 영상이 하나도 없었다. 두 번째 추측은 그 크리에이터의 부계정이었다.</p>
 <p>이 도구는 전에는 채널 id만 돌려줬기 때문에 잘못된 해석이 보이지 않았다. 지금은 해석된 채널의 <em>이름</em>을 돌려주고, 목록이 비었을 때는 두 가지 가능성을 모두 설명한다. 에이전트가 같은 호출을 끝없이 재시도하는 일은 이제 없다. 작은 변경이지만, 「실패하는 도구」와 「이유를 알려주는 도구」의 차이가 여기에 있다.</p>

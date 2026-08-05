@@ -53,10 +53,21 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
-    article ul { margin: 1rem 0 1rem 1.4rem; }
-    article li { margin: 0.4rem 0; }
     article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
     article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -92,14 +103,19 @@
 <blockquote>Play the latest video from that channel.</blockquote>
 <p>The agent lists the channel's uploads, takes the newest one, and the video opens on your screen. Nothing about that request mentions a URL.</p>
 <h2>Six tools</h2>
-<ul>
-  <li><strong>search_videos</strong> — keyword search</li>
-  <li><strong>list_channel_videos</strong> — a channel's recent uploads</li>
-  <li><strong>get_video_info</strong> — title, channel, and which caption languages exist, without downloading any of them</li>
-  <li><strong>get_transcript</strong> — the full transcript as timed blocks, with sentence boundaries repaired</li>
-  <li><strong>summarize_video</strong> — narrative prose or timestamped bullets, in eight languages</li>
-  <li><strong>open_in_app</strong> — put a video on your screen, optionally at a specific second</li>
-</ul>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Tool</th><th>Required</th><th>Optional</th><th>What it does</th></tr></thead>
+    <tbody>
+    <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code> (1–50, default 20)</td><td>Search YouTube by keyword. Free and fast. Returns video id, title, channel, duration.</td></tr>
+    <tr><td>list_channel_videos</td><td><code>channel</code><br>(URL, @handle, or UC… id)</td><td><code>limit</code> (1–50, default 30)</td><td>A channel's recent uploads. Returns the resolved channel title — check it, handles can mislead.</td></tr>
+    <tr><td>get_video_info</td><td><code>video</code><br>(URL or 11-char id)</td><td>—</td><td>Title, channel, and which caption languages exist, without downloading any captions. Free.</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code> (default zh-tw)</td><td>Full timed transcript as sentence-merged blocks, each with start time and duration.</td></tr>
+    <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code> (start seconds, default 0)</td><td>Opens the video in the DeepSRT window and brings the app to the front.</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code> (default zh-tw), <code>mode</code> (narrative / bullet)</td><td>AI summary from the captions; bullet mode carries [MM:SS] timestamps. Uses your AI key, 10–30s on long videos.</td></tr>
+    </tbody>
+  </table>
+</div>
 <p>Five of those are free and fast. One of them spends your AI credits. That asymmetry turned out to be the most important design decision in the whole feature.</p>
 <h2>Teaching a model to be cheap</h2>
 <p>Left to its own instincts, a model asked to "find videos about X and tell me what they say" will call the expensive summarizer on every single search hit. That's your money.</p>
@@ -113,7 +129,7 @@
 <p>The specification's own compatibility guidance suggests telling the eras apart by whether a request carries the <code>MCP-Protocol-Version</code> header. We built it that way. It was wrong, and the way it failed is worth writing down.</p>
 <p>That header has existed since <code>2025-06-18</code>. So a client from the 2025 era sends it <em>and</em> still uses the old handshake, and still omits the per-request metadata the 2026 rules require. We tested against a real agent that opens with an unheadered <code>initialize</code> and then stamps <code>MCP-Protocol-Version: 2025-11-25</code> on everything afterwards. Our server classified those requests as modern, rejected them for missing fields — and the client reported <strong>zero tools, with no error message anywhere.</strong> It connected successfully and simply had nothing.</p>
 <p>The fix is one line of judgement: the era follows the version <em>value</em>, never the presence of the header. Both eras are served, and unknown versions are refused before an era is chosen at all — otherwise they quietly fall through to the legacy path. Regression tests now replay that exact client sequence.</p>
-<p>We would not have found this by reading. We found it by pointing a real client at it and reading our own log.</p>
+<div class="callout">Never split protocol eras on whether a header is present — split on the version value. And treat a client that connects cleanly while reporting zero tools as the expensive kind of bug: point a real client at your server and read your own log before you trust your reading of the spec.</div>
 <h2>Reality is messier than handles</h2>
 <p>One more thing the agents taught us. Ask for "that creator's latest video" and a model will guess the channel handle from the creator's display name. That guess is often wrong in a way nobody notices: one handle we tried belongs to an entirely different channel with no videos at all, and the obvious second guess turned out to be the creator's secondary channel.</p>
 <p>The tool used to return only a channel id, which made a wrong resolution invisible. Now it returns the resolved channel's <em>name</em>, and when a listing comes back empty it explains both possibilities instead of leaving the agent to retry the same call forever. Small change; the difference between a tool that fails and a tool that tells you why.</p>

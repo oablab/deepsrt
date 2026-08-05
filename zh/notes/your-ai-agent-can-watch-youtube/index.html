@@ -53,10 +53,21 @@
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
     .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
-    article ul { margin: 1rem 0 1rem 1.4rem; }
-    article li { margin: 0.4rem 0; }
     article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
     article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
     article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
     article p { margin: 1rem 0; }
     article strong { font-weight: 700; }
@@ -92,14 +103,19 @@
 <blockquote>播放那個頻道最新的影片。</blockquote>
 <p>Agent 列出該頻道的上傳、取最新那支，影片就在你螢幕上打開了。整句話裡沒有出現任何網址。</p>
 <h2>六個工具</h2>
-<ul>
-  <li><strong>search_videos</strong>——關鍵字搜尋</li>
-  <li><strong>list_channel_videos</strong>——某個頻道最近的上傳</li>
-  <li><strong>get_video_info</strong>——標題、頻道，以及有哪些字幕語言，而且不下載任何字幕</li>
-  <li><strong>get_transcript</strong>——完整逐字稿，帶時間軸，句子邊界已經修好</li>
-  <li><strong>summarize_video</strong>——敘事式或帶時間戳的條列式，支援八種語言</li>
-  <li><strong>open_in_app</strong>——把影片開到你眼前，還能指定從第幾秒開始</li>
-</ul>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>工具</th><th>必填</th><th>選填</th><th>說明</th></tr></thead>
+    <tbody>
+    <tr><td>search_videos</td><td><code>query</code></td><td><code>limit</code>（1–50，預設 20）</td><td>關鍵字搜尋 YouTube。免費且快。回傳 video id、標題、頻道、時長。</td></tr>
+    <tr><td>list_channel_videos</td><td><code>channel</code><br>（URL、@handle 或 UC… id）</td><td><code>limit</code>（1–50，預設 30）</td><td>某個頻道最近的上傳。會回傳解析到的頻道標題——請確認它，handle 可能誤導。</td></tr>
+    <tr><td>get_video_info</td><td><code>video</code><br>（URL 或 11 碼 id）</td><td>—</td><td>標題、頻道，以及有哪些字幕語言，而且不下載任何字幕。免費。</td></tr>
+    <tr><td>get_transcript</td><td><code>video</code></td><td><code>lang</code>（預設 zh-tw）</td><td>完整逐字稿，句子已合併的區塊，每塊帶起始時間與長度。</td></tr>
+    <tr><td>open_in_app</td><td><code>video</code></td><td><code>t</code>（起始秒數，預設 0）</td><td>在 DeepSRT 視窗中打開影片，並把 app 帶到前景。</td></tr>
+    <tr><td>summarize_video</td><td><code>video</code></td><td><code>lang</code>（預設 zh-tw）、<code>mode</code>（narrative / bullet）</td><td>用字幕做 AI 摘要；bullet 模式帶 [MM:SS] 時間戳。使用你自己的 AI 金鑰，長片約 10–30 秒。</td></tr>
+    </tbody>
+  </table>
+</div>
 <p>其中五個免費而且很快，只有一個會花你的 AI 額度。這個不對稱，結果成了整個功能裡最重要的設計決定。</p>
 <h2>教模型節省</h2>
 <p>如果放任模型自己來，你叫它「找幾支講 X 的影片然後告訴我它們在說什麼」，它會對<strong>每一筆</strong>搜尋結果都呼叫那個貴的摘要工具。那是你的錢。</p>
@@ -113,7 +129,7 @@
 <p>規格自己的相容性指引建議用「請求有沒有帶 <code>MCP-Protocol-Version</code> 標頭」來區分新舊世代。我們照著做了。那是錯的，而且它失敗的方式值得寫下來。</p>
 <p>那個標頭從 <code>2025-06-18</code> 就存在了。所以 2025 世代的客戶端會帶它，<em>同時</em>還是用舊的握手流程，也還是不附上 2026 規則要求的逐請求 metadata。我們拿一個真實的 agent 來測，它先發一個沒有標頭的 <code>initialize</code>，之後每個請求都蓋上 <code>MCP-Protocol-Version: 2025-11-25</code>。我們的伺服器把那些請求判成新世代、因為欠缺欄位而拒絕——結果客戶端顯示<strong>零個工具，而且任何地方都沒有錯誤訊息。</strong>它連線成功，然後什麼都沒有。</p>
 <p>修法只是一個判斷：世代要看版本<em>值</em>，絕不能看標頭有沒有出現。兩個世代都服務，而且不認識的版本必須在「選世代」之前就擋掉——否則它們會安靜地掉進舊世代那條路。現在有回歸測試重播那個客戶端的完整序列。</p>
-<p>這個問題不是讀文件讀出來的。是把真實客戶端接上去、然後讀自己的 log 才發現的。</p>
+<div class="callout">不要用「有沒有帶某個標頭」來區分協定世代——要用版本值。而「連線成功、卻顯示零個工具」是最貴的那一種 bug：在相信自己讀懂規格之前，先把真實的客戶端接上去，然後讀自己的 log。</div>
 <h2>現實比 handle 混亂</h2>
 <p>Agent 還教了我們一件事。你說「那位創作者最新的影片」，模型會從創作者的顯示名稱去猜頻道 handle。那個猜測經常錯，而且錯得沒人會發現：我們試過的一個 handle 屬於完全不同的頻道，而且那個頻道連影片都沒有；再猜第二個，結果是那位創作者的副頻道。</p>
 <p>這個工具原本只回傳 channel id，所以解析錯了完全看不出來。現在它會回傳解析到的頻道<em>名稱</em>，而列表為空的時候會把兩種可能都說清楚，而不是讓 agent 一直重試同一個呼叫。改動很小，但那是「一個會失敗的工具」和「一個會告訴你為什麼的工具」之間的差別。</p>
