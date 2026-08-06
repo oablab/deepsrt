@@ -1,0 +1,41 @@
+{
+  "slug": "example-note-slug",
+  "css": ["quotes", "code", "tables", "callout"],
+  "locales": {
+    "en": {
+      "title": "The Headline, Sentence Case",
+      "desc": "One or two sentences. Used for <meta description>, og:description, and the notes listing if no summary is given.",
+      "meta": "August 2026 · DeepSRT development notes",
+      "lead": "Optional bold muted line under the title. Plain text only.",
+      "summary": "Optional shorter line for the notes index; falls back to desc.",
+      "card": {
+        "lines": ["The Headline,", "Split For The Card"],
+        "subtitle": "Optional smaller line on the OG card",
+        "size": 58
+      },
+      "body": "<p>HTML, not markdown. Sections use &lt;h2&gt;.</p>\n<h2>A section</h2>\n<p>Bold is <strong>strong</strong>; asterisks render literally and the script refuses them.</p>\n<blockquote>Quotes need \"quotes\" in the css list.</blockquote>\n<div class=\"callout\">The lesson, in a tinted block — needs \"callout\".</div>"
+    },
+    "zh": {
+      "title": "中文標題",
+      "desc": "一兩句話的描述。",
+      "meta": "2026 年 8 月 · DeepSRT 開發筆記",
+      "lead": "標題下方那行粗體灰字，純文字。",
+      "card": { "lines": ["中文標題", "第二行"], "subtitle": "OG 卡片的副標" },
+      "body": "<p>內文是 HTML，不是 markdown。</p>"
+    },
+    "ja": {
+      "title": "日本語タイトル",
+      "desc": "一、二文の説明。",
+      "meta": "2026年8月 · DeepSRT 開発ノート",
+      "card": { "lines": ["日本語タイトル"], "subtitle": "OG カードのサブタイトル" },
+      "body": "<p>本文は HTML です。</p>"
+    },
+    "ko": {
+      "title": "한국어 제목",
+      "desc": "한두 문장의 설명.",
+      "meta": "2026년 8월 · DeepSRT 개발 노트",
+      "card": { "lines": ["한국어 제목"], "subtitle": "OG 카드 부제" },
+      "body": "<p>본문은 HTML입니다.</p>"
+    }
+  }
+}
