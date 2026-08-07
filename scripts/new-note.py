@@ -63,6 +63,15 @@ LOCALES = {
 }
 
 # Optional article styling, switched on per spec so unused rules don't ship.
+# Styled article links ship on every note: the browser default blue clashes
+# with the palette, so links take the theme's deep accent with a quiet
+# underline that fills in on hover.
+LINK_CSS = (
+    "    article a { color: var(--accent-deep); text-decoration-color: var(--border); "
+    "text-underline-offset: 3px; }\n"
+    "    article a:hover { text-decoration-color: var(--accent-deep); }\n"
+)
+
 EXTRA_CSS = {
     "lead": '    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }\n',
     "lists": '    article ul { margin: 1rem 0 1rem 1.4rem; }\n    article li { margin: 0.4rem 0; }\n',
@@ -172,7 +181,7 @@ def build_page(loc, spec, template):
     features = list(spec.get("css", []))
     if has_lead and "lead" not in features:
         features.insert(0, "lead")
-    extra = "".join(EXTRA_CSS[f] for f in features)
+    extra = LINK_CSS + "".join(EXTRA_CSS[f] for f in features)
     meta_margin = "0.5rem" if has_lead else "0.7rem"
     s = re.sub(r"    \.meta \{[^\n]*\n",
                f'    .meta {{ color: var(--muted); font-size: 0.92rem; margin: {meta_margin} 0 2.2rem; }}\n'
