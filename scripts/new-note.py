@@ -66,6 +66,15 @@ LOCALES = {
 # Styled article links ship on every note: the browser default blue clashes
 # with the palette, so links take the theme's deep accent with a quiet
 # underline that fills in on hover.
+# On a ~375px phone the brand and four locales cannot share a row, and
+# mid-string wrapping is the ugliest outcome; stacking matches the homepage.
+NAV_RWD_CSS = (
+    "    nav .lang { white-space: nowrap; }\n"
+    "    @media (max-width: 480px) {\n"
+    "      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }\n"
+    "    }\n"
+)
+
 LINK_CSS = (
     "    article a { color: var(--accent-deep); text-decoration-color: var(--border); "
     "text-underline-offset: 3px; }\n"
@@ -181,7 +190,7 @@ def build_page(loc, spec, template):
     features = list(spec.get("css", []))
     if has_lead and "lead" not in features:
         features.insert(0, "lead")
-    extra = LINK_CSS + "".join(EXTRA_CSS[f] for f in features)
+    extra = NAV_RWD_CSS + LINK_CSS + "".join(EXTRA_CSS[f] for f in features)
     meta_margin = "0.5rem" if has_lead else "0.7rem"
     s = re.sub(r"    \.meta \{[^\n]*\n",
                f'    .meta {{ color: var(--muted); font-size: 0.92rem; margin: {meta_margin} 0 2.2rem; }}\n'

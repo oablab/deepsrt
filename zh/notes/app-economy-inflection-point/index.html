@@ -47,6 +47,13 @@
     nav .lang { font-size: 0.9rem; color: var(--muted); }
     nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
     nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
     main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
     .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
     .backlink:hover { color: var(--accent-deep); }
