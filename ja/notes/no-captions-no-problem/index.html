@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>字幕がない動画も、読めるようになった</title>
+  <meta name="description" content="一年半前の約束——CC 字幕のない動画のカバー——が 1.3.0 で実現。想定していた答えは whisper、実際の答えは URL をモデルに渡すことだった。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="字幕がない動画も、読めるようになった">
+  <meta property="og:description" content="一年半前の約束——CC 字幕のない動画のカバー——が 1.3.0 で実現。想定していた答えは whisper、実際の答えは URL をモデルに渡すことだった。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/no-captions-no-problem/">
+  <meta property="og:image" content="https://deepsrt.com/ja/notes/no-captions-no-problem/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ja/notes/no-captions-no-problem/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/no-captions-no-problem/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+      --font-head: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/no-captions-no-problem/">EN</a>｜<a href="/zh/notes/no-captions-no-problem/">中文</a>｜<a href="/ja/notes/no-captions-no-problem/" class="active">日本語</a>｜<a href="/ko/notes/no-captions-no-problem/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>字幕がない動画も、読めるようになった</h1>
+  <p class="meta">2026年8月 · DeepSRT 開発ノート</p>
+  <p class="lead">一年半前の約束を、当時は存在しなかった方法で果たした。</p>
+  <article>
+<p>2025年3月、DeepSRT のユーザーが一万人を超えたことを報告した投稿に、こう書いた。</p>
+<blockquote>whisper を組み合わせて好みの字幕を作る方法も紹介し、CC 字幕を提供していない動画も完全にカバーしていきます。</blockquote>
+<p>この一文は一年半近く眠っていた。1.3.0 がそれを果たす——ただし whisper ではなく。</p>
+<h2>計画では whisper だった。なぜ違う答えになったか</h2>
+<p>音声認識が難しかったことは一度もない。難しいのは音声を手に入れることだ。動画は YouTube の公式プレイヤーの中で再生されていて、その音声を取り出す API は存在しない。残りの道はすべて塞がっていた。</p>
+<p><strong>システム音声をキャプチャする？</strong>画面収録の権限が要る——ユーザーが頼んでもいない機能のために、macOS で最も物々しい許可ダイアログを出すことになる。<strong>音声ストリームをダウンロードする？</strong>DeepSRT はダウンローダーではないと公言してきた。ダウンロードも変換も保存もしない。一つの機能のためにアーキテクチャの一線を越える価値はない。</p>
+<p>つまり whisper の問題は認識力ではなく、<strong>音声に手が届かない、そして汚い方法で取るつもりがない</strong>ことだった。</p>
+<h2>答えは拍子抜けするほど単純</h2>
+<p>Gemini は公開されている YouTube の URL を、そのまま動画入力として受け取れる。</p>
+<p>それだけだ。アプリが URL を渡すと、モデルが動画を観て、タイムスタンプ付きの文字起こしが返ってくる。ダウンロードも変換も保存もなし——「サーバーがない」という設計とも完全に一致していて、動くのはあなた自身のキーの上だ。</p>
+<h2>計測が設計を書き換えた。二度も</h2>
+<p>一度目の計測。同じ動画に対して、要約だけを頼むと input は 19,393 トークン、完全な文字起こしを頼むと 19,431 トークン——<strong>ほぼ同一</strong>。動画の取り込みが固定費であり、何を尋ねるかは関係ない。結論は明快で、要約と文字起こしで動画呼び出しを二回に分けてはいけない。同じ動画に二度払うことになる。</p>
+<p>そこで長い動画を10分の窓に切った。安定のため、段階表示のため。すると二度目の計測が来た。<strong>どの窓も、動画全体を取り込み直している。</strong>28分の動画の最後の8分だけを頼んでも、請求は全編分の 156,762 トークン。三つに切れば三倍払う。</p>
+<p>自分たちのコミットログに書いた設計理由が、自分たちの計測に覆された。最終版は逆転の発想で、まず楽観的に全編を一度で頼み、出力が本当に途切れた範囲だけを窓で補う。コストは三分の一に落ちた。</p>
+<div class="callout">高いのは取り込み、安いのは出力。カバー率は取り込み回数で買い、粒度は出力トークンで買う——前者は節約すべきで、後者はほぼタダだ。</div>
+<h2>モデルはサボる。しかも具体的なやり方で</h2>
+<p>ログから二つの話を。</p>
+<p>長い動画の最後のセクションを頼むと、モデルは時々 SRT ではない何かを返してくる——謝罪、動画の描写、とにかく字幕以外の何か。修正はリトライ一回、フォーマット要求をより強い言葉で言い直すだけ。「説明するな、謝るな、<code>1</code> の行から出力を始めろ」。それで足りた。</p>
+<p>全編を一度で頼むと、28分に対して<strong>60個のキュー</strong>が返ってきた——平均29秒。言葉は正しく、要約には影響なし。だがライブ字幕としては使い物にならない。画面に文字の壁が30秒も居座る。「各キューは最大8秒まで」と一行足したら 207 個、平均8.3秒になった。追加コストは約1セント。</p>
+<h2>正直な値札</h2>
+<p>字幕がまったくない30分の動画を、自分の Gemini キーで一度文字起こしして、およそ <strong>0.05 ドル</strong>（Google の YouTube URL 入力は現在プレビュー段階のため、実際には無料）。</p>
+<p>この機能は<strong>既定でオフ</strong>だ。あなた自身の AI クレジットを消費するから、自分で入れるスイッチにしてある——設定 &gt; 字幕がない動画——そして実行中は、進捗表示が何をしているかを明言する。コストを立て替えないし、隠さない。初日からそういう約束だ。</p>
+<p>あの一万人の投稿は「二万人になったらまた会いましょう」で締めていた。果たした。「CC 字幕のない動画のカバー」も、いま果たした。</p>
+<p>1.3.0 は審査中。まもなく。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

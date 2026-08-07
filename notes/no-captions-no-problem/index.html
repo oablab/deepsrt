@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>No Captions? It Can Read the Video Itself</title>
+  <meta name="description" content="A promise made a year and a half ago — covering videos with no CC track — ships in 1.3.0. The assumed answer was whisper; the actual answer is handing the URL to the model.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="No Captions? It Can Read the Video Itself">
+  <meta property="og:description" content="A promise made a year and a half ago — covering videos with no CC track — ships in 1.3.0. The assumed answer was whisper; the actual answer is handing the URL to the model.">
+  <meta property="og:url" content="https://deepsrt.com/notes/no-captions-no-problem/">
+  <meta property="og:image" content="https://deepsrt.com/notes/no-captions-no-problem/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/no-captions-no-problem/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/no-captions-no-problem/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/no-captions-no-problem/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--card); padding: 0.1em 0.35em; border-radius: 5px; }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/no-captions-no-problem/" class="active">EN</a>｜<a href="/zh/notes/no-captions-no-problem/">中文</a>｜<a href="/ja/notes/no-captions-no-problem/">日本語</a>｜<a href="/ko/notes/no-captions-no-problem/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>No Captions? It Can Read the Video Itself</h1>
+  <p class="meta">August 2026 · DeepSRT development notes</p>
+  <p class="lead">A promise made eighteen months ago, kept with a method that didn't exist at the time.</p>
+  <article>
+<p>In March 2025, the post announcing DeepSRT's ten-thousandth user made a promise:</p>
+<blockquote>We'll also show you how to combine whisper to make the captions you want — and fully cover the videos that offer no CC track at all.</blockquote>
+<p>That sentence sat there for a year and a half. 1.3.0 keeps it — just not with whisper.</p>
+<h2>The plan said whisper. Here's why the answer isn't.</h2>
+<p>Speech recognition was never the hard part. Getting the audio is. The video plays inside YouTube's official player, and there is no API that taps that audio. Every remaining road was closed:</p>
+<p><strong>Capture system audio?</strong> That's a screen-recording permission — macOS's scariest consent dialog, for a feature the user never asked for. <strong>Download the audio stream?</strong> We've said publicly that DeepSRT is not a downloader: nothing downloaded, converted, or stored. Breaking an architectural promise for one feature isn't worth it.</p>
+<p>So the problem with whisper was never recognition. It was that <strong>the audio is unreachable, and we would not take it the dirty way</strong>.</p>
+<h2>The answer is almost disappointingly simple</h2>
+<p>Gemini accepts a public YouTube URL as a video input.</p>
+<p>That's it. The app hands over the URL, the model watches the video, and a timestamped transcript comes back. Nothing downloaded, converted, or stored — fully consistent with having no servers, and it runs on your own key.</p>
+<h2>Measurement rewrote the design. Twice.</h2>
+<p>First measurement: for the same video, asking for a summary cost 19,393 input tokens and asking for the full transcript cost 19,431 — <strong>practically identical</strong>. Ingesting the video is the fixed cost; what you ask changes nothing. Clear conclusion: never make one video call for the transcript and another for the summary. That's paying twice for the same video.</p>
+<p>So we split long videos into ten-minute windows, for reliability and progressive display. Then came the second measurement: <strong>every window re-ingests the entire video.</strong> Asking for only the last 8 minutes of a 28-minute video still billed 156,762 tokens — the full runtime's worth. Three windows means paying three times.</p>
+<p>The design rationale we had written into our own commit log was overturned by our own measurement. The final version inverts it: optimistically ask for the whole video in one pass, and only window the ranges that actually came back missing. Cost dropped to a third.</p>
+<div class="callout">Ingestion is expensive; output is cheap. Coverage is bought with ingestion passes, granularity with output tokens — economize the former, the latter is nearly free.</div>
+<h2>Models slack off, in specific ways</h2>
+<p>Two stories from the logs.</p>
+<p>Asked for the last section of a long video, the model sometimes returns something that isn't SRT at all — apologies, descriptions, anything but cues. The fix: retry once with a blunter prompt. "Do not explain, do not apologise, start output with the line <code>1</code>." That was enough.</p>
+<p>Asked for a whole video in one pass, it returned <strong>60 cues for 28 minutes</strong> — 29 seconds each. The words were right and summaries were unaffected, but as live subtitles it was unusable: a wall of text parked on screen for half a minute. One added line — "each cue must cover at most 8 seconds" — took it to 207 cues averaging 8.3s. The extra cost? About one cent.</p>
+<h2>An honest price tag</h2>
+<p>A half-hour video with no captions at all, transcribed once on your own Gemini key: about <strong>$0.05</strong> (and currently free, while Google's YouTube-URL input is in preview).</p>
+<p>The feature is <strong>off by default</strong>. It spends your own AI credits, so it's a switch you flip yourself — Settings &gt; Videos Without Captions — and while it runs, the progress notice says plainly what it's doing. We don't front costs and we don't hide them. That's been the deal from day one.</p>
+<p>That ten-thousand-user post ended with "see you at twenty thousand." Kept. "Cover the videos with no CC track" — now kept too.</p>
+<p>1.3.0 is in review, coming soon.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
