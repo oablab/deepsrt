@@ -116,6 +116,13 @@
 <p>첫 영상은 정확히 60초짜리 자막 16개로 돌아왔습니다——1분치 대본이 벽처럼 화면에 쌓였습니다. 더 잘게 잘라 달라고 하자 고분고분 181개의 예쁜 자막을 줬는데, 타임라인이 줄곧 표류했습니다: 중반에 수십 초 늦고, 마지막 자막은 4,181초에 떨어졌습니다——영상 전체 길이는 858초입니다.</p>
 <p>우리 프롬프트가 잘못된 게 아닙니다. 커뮤니티 전체가 기록해 온 Gemini의 한계입니다: SRT급 정밀 타임스탬프를 만들 수 없고, <strong>세밀함과 정확함은 맞바꾸는 관계</strong>——잘게 자르라고 다그치면 표류로 값을 치릅니다.</p>
 <p>공정하게 말하면 <a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google 공식 문서</a>는 자막급 시간 정밀도를 약속한 적이 없습니다. 능력 목록에 적힌 것은 '묘사, 분할, 정보 추출, 특정 타임스탬프 <strong>참조</strong>'——타임스탬프를 참조하는 것과 밀리초 SRT를 만드는 것은 다른 일입니다. YouTube URL 입력 자체도 아직 <strong>preview</strong>(무료, 하루 8시간 한도, 규칙은 언제든 바뀔 수 있음)입니다. 공식적으로 preview라 적힌 지반 위에 시간 정밀도가 필요한 기능을 짓고 있는 셈——아래 표의 모든 프로젝트가 같은 벽 앞에서 방향을 튼 이유입니다.</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>공식 문서의 표현</th><th>DeepSRT에 갖는 의미</th></tr></thead>
+<tbody>
+<tr><td>Preview</td><td>“The YouTube URL feature is in preview and is available at no charge. Pricing and rate limits are likely to change.”</td><td>우리의 preview 표기는 신중해서가 아니다——업스트림 자체가 아직 미확정</td></tr>
+<tr><td>한도</td><td>무료 티어는 하루 YouTube 영상 8시간까지, 공개 영상만</td><td>일일 한도의 공식 출처</td></tr>
+<tr><td>비용</td><td>영상은 1 FPS로 샘플링, 저해상도에서 약 100 토큰/초(기본 300)</td><td>우리 실측은 약 91 토큰/초로 공식 수치와 일치——'요청마다 영상 전체를 다시 수집'하는 비용의 근거</td></tr>
+<tr><td>능력</td><td>능력 목록: describe, segment, extract information, 특정 타임스탬프 <strong>참조</strong></td><td>자막급 시간 정밀도는 약속된 적이 없다——타임스탬프 참조와 밀리초 SRT 생성은 다른 일</td></tr>
+</tbody></table></div>
 <h2>다른 프로젝트들은 어떻게 했나</h2>
 <p>고치기 전에 커뮤니티부터 조사했습니다. 이 벽에 부딪힌 건 우리만이 아니었고, <strong>모든 프로젝트가 결국 어떤 형태로든 포기를 선택했습니다</strong>:</p>
 <div class="table-wrap"><table><thead><tr><th>프로젝트</th><th>부딪힌 벽</th><th>내린 결정</th></tr></thead>

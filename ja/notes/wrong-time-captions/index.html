@@ -116,6 +116,13 @@
 <p>最初の動画は、ちょうど 60 秒ずつの字幕 16 本で返ってきました——1 分ぶんの台本が壁のように画面に積み上がる。細かく切るよう頼むと、素直に 181 本の美しい小さな字幕をくれました。ただしタイムラインはどんどん漂流:中盤で数十秒遅れ、最後の字幕は 4,181 秒に着地——動画の全長は 858 秒です。</p>
 <p>これは我々のプロンプトの書き方の問題ではありません。コミュニティ全体が記録してきた Gemini の限界です:SRT 級の正確なタイムスタンプは生成できず、しかも<strong>粒度と正確さはトレードオフ</strong>——細かく切らせるほど、漂流で支払うことになる。</p>
 <p>公平に言えば、<a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google の公式ドキュメント</a>は字幕級の時間精度を約束したことは一度もありません。能力一覧にあるのは「記述、分割、情報抽出、特定タイムスタンプへの<strong>参照</strong>」——タイムスタンプを参照することと、ミリ秒の SRT を生成することは別の仕事です。YouTube URL 入力自体もまだ <strong>preview</strong>(無料、1 日 8 時間まで、ルールは変更されうる)。公式が preview と記す地盤の上に、時間精度を要する機能を建てているわけです——下の表のどのプロジェクトも、同じ壁の前で進路を変えた理由がそれです。</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>公式ドキュメントの記述</th><th>DeepSRT にとっての意味</th></tr></thead>
+<tbody>
+<tr><td>Preview</td><td>「The YouTube URL feature is in preview and is available at no charge. Pricing and rate limits are likely to change.」</td><td>我々の preview 表記は保守的なのではない——上流そのものが未確定</td></tr>
+<tr><td>上限</td><td>無料枠は 1 日あたり YouTube 動画 8 時間まで、公開動画のみ</td><td>毎日の割り当ての公式な出どころ</td></tr>
+<tr><td>コスト</td><td>動画は 1 FPS でサンプリング。低解像度で約 100 トークン/秒(デフォルト 300)</td><td>我々の実測は約 91 トークン/秒で公式値と一致——「リクエストごとに動画全体を再取り込みする」コストの根拠</td></tr>
+<tr><td>能力</td><td>能力一覧の記述:describe、segment、extract information、特定タイムスタンプへの<strong>参照</strong></td><td>字幕級の時間精度は一度も約束されていない——タイムスタンプの参照とミリ秒 SRT の生成は別の仕事</td></tr>
+</tbody></table></div>
 <h2>ほかのプロジェクトはどうしたか</h2>
 <p>修正に取りかかる前にコミュニティを調べました。この壁にぶつかったのは我々だけではなく、<strong>どのプロジェクトも最終的に何らかの「諦め」を選んでいました</strong>:</p>
 <div class="table-wrap"><table><thead><tr><th>プロジェクト</th><th>ぶつかった壁</th><th>下した決断</th></tr></thead>

@@ -116,6 +116,13 @@
 <p>第一支影片回來 16 條字幕，每條剛好 60 秒——一整分鐘的講稿疊成一面牆掛在畫面上。我們要求它切細一點，它從善如流地給了 181 條漂亮的小字幕，然後時間軸一路漂移：中段慢了幾十秒，最後一條落在 4181 秒——影片全長只有 858 秒。</p>
 <p>這不是我們的 prompt 寫壞了。這是整個社群都記錄過的 Gemini 限制：它無法產生 SRT 等級的精確時間戳，而且<strong>粒度和準度是互相交換的</strong>——逼它切細，它就漂給你看。</p>
 <p>公平地說，<a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google 的官方文件</a>從來沒有承諾過字幕級的時間精度——能力清單寫的是「描述、切分、擷取資訊、<strong>參照</strong>特定時間戳」，而「參照時間戳」和「產生毫秒級的 SRT」是兩件事。YouTube URL 輸入本身也還在 <strong>preview</strong>（免費、每天 8 小時額度、規則隨時可能變）。我們是在一個官方都還標著 preview 的地基上，蓋一個需要對時精度的功能——這就是為什麼下面這張表裡，每個專案都在同一面牆前轉了向。</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>官方怎麼說</th><th>對 DeepSRT 的意義</th></tr></thead>
+<tbody>
+<tr><td>Preview</td><td>「The YouTube URL feature is in preview and is available at no charge. Pricing and rate limits are likely to change.」</td><td>我們把功能標成 preview 不是保守——上游本身就還沒定案</td></tr>
+<tr><td>額度</td><td>免費層每天最多 8 小時 YouTube 影片，僅限公開影片</td><td>你的每日額度，官方出處在此</td></tr>
+<tr><td>成本</td><td>影片以 1 FPS 取樣；低解析度約 100 tokens/秒（預設 300）</td><td>我們實測約 91 tokens/秒，與官方數字吻合——也是「每次請求都重新攝取整支影片」的成本由來</td></tr>
+<tr><td>能力</td><td>能力清單：describe、segment、extract information、<strong>refer to</strong> specific timestamps</td><td>官方從未承諾字幕級時間精度——「參照時間戳」和「產生毫秒級 SRT」是兩回事</td></tr>
+</tbody></table></div>
 <h2>別人怎麼處理</h2>
 <p>動手修之前我們先查了社群——遇到這面牆的不只我們，而且<strong>每一家最後都選擇了某種形式的放棄</strong>：</p>
 <div class="table-wrap"><table><thead><tr><th>專案</th><th>遇到的阻礙</th><th>他們的決定</th></tr></thead>

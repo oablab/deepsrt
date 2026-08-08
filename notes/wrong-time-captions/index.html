@@ -116,6 +116,13 @@
 <p>The first video came back as 16 cues of exactly 60 seconds each — a full minute of script stacked into a wall on screen. We asked for finer cues; it obliged with 181 beautiful small ones whose timeline drifted steadily: tens of seconds late mid-video, the last cue landing at 4,181 seconds. The video is 858 seconds long.</p>
 <p>This is not a prompt bug on our side. It is a Gemini limitation the whole community has documented: it cannot produce SRT-grade timestamps, and <strong>granularity trades off against accuracy</strong> — demand fine cues and it drifts to pay for them.</p>
 <p>To be fair, <a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google's official documentation</a> never promised caption-grade timing. The capability list says describe, segment, extract, and <strong>refer to</strong> specific timestamps — and referring to timestamps is not the same job as producing millisecond SRT. YouTube URL input itself is still in <strong>preview</strong> (free, capped at 8 hours of video a day, rules subject to change). We are building a feature that needs timing precision on a foundation officially labeled preview — which is why every project in the table below turned away at the same wall.</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>What the docs say</th><th>What it means for DeepSRT</th></tr></thead>
+<tbody>
+<tr><td>Preview</td><td>“The YouTube URL feature is in preview and is available at no charge. Pricing and rate limits are likely to change.”</td><td>Our preview label isn't caution — the upstream itself isn't settled</td></tr>
+<tr><td>Quota</td><td>Free tier: at most 8 hours of YouTube video per day, public videos only</td><td>Your daily allowance, straight from the source</td></tr>
+<tr><td>Cost</td><td>Video sampled at 1 FPS; ~100 tokens per second at low media resolution (300 default)</td><td>We measured ~91 tokens/second — matching the official math, and the reason every request re-ingests the whole video</td></tr>
+<tr><td>Capability</td><td>The list reads: describe, segment, extract information, <strong>refer to</strong> specific timestamps</td><td>Caption-grade timing was never promised — referring to timestamps and producing millisecond SRT are different jobs</td></tr>
+</tbody></table></div>
 <h2>What everyone else did</h2>
 <p>Before writing a fix we surveyed the community. We are not the first to hit this wall — and <strong>every project ended up choosing some form of surrender</strong>:</p>
 <div class="table-wrap"><table><thead><tr><th>Project</th><th>The wall they hit</th><th>What they decided</th></tr></thead>
