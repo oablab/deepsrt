@@ -94,6 +94,9 @@
     footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
       color: var(--muted); font-size: 0.88rem; }
     footer a { color: var(--muted); }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
 </style>
 </head>
 <body>
@@ -134,6 +137,7 @@
 </ul>
 <h2>穴のほうが、当て推量よりまし</h2>
 <p>いちばん難しい教訓は例の心霊動画から。長い B ロール、環境音、途切れがちな会話——モデルは数分間に散らばった発話を<strong>1 本の字幕に詰め込みました</strong>。テキストをアンカーに押し戻せば誤り(6 分後に話される言葉が画面に出る)、スパン全体に引き延ばしても誤り(どの行も 20 秒張り付く)。どちらも当て推量です。</p>
+<figure><img src="/notes/wrong-time-captions/ghost-hunt.jpg" alt="心霊動画を DeepSRT で再生中。AI ライブ字幕と文字起こしペインが動作" loading="lazy"><figcaption>「いちばん難しい教訓」の動画そのもの:マレーシアの心霊スポット実録——長い B ロールと途切れがちな会話。字幕トラックのない動画で、AI ライブ字幕と右側の文字起こしがそのまま動く。</figcaption></figure>
 <p>だから推量しません:<strong>詰め込まれた字幕は捨て、その時間は穴にする</strong>。エンジンは区間ごとにカバレッジを検査し、欠けた範囲だけを再転写——範囲を絞った問いには、時間の正しい範囲の答えが返ってきやすい。それでも埋まらない部分は、画面上で正直に「この数分は転写できませんでした」と示します。</p>
 <p>叫び声、雑踏、音楽だけの区間には、そもそも転写できる発話がありません。空白は故障ではない——<strong>あるふりをすることが故障です</strong>。</p>
 <h2>正直に:まだ完璧ではありません</h2>
@@ -150,6 +154,8 @@
 <li><strong>設定に支出上限のリマインダー</strong>(直リンク付き)と転写の preview 注記を追加</li>
 <li><strong>修正</strong>:動画切り替え時、前の動画の遅れて届いた転写が現在の画面を上書きしない</li>
 </ul>
+<figure><img src="/notes/wrong-time-captions/fullscreen-fancam.jpg" alt="ファンカムをパネル非表示レイアウトで全ウィンドウ再生、AI ライブ字幕が動作" loading="lazy"><figcaption>パネル非表示レイアウト:ウィンドウ全体が動画のもの。このファンカムに字幕トラックはなく、歌詞は AI がライブ転写。</figcaption></figure>
+<figure><img src="/notes/wrong-time-captions/fullscreen-lisa.jpg" alt="LISA の嘘発見器インタビューを全ウィンドウ再生、ネイティブ字幕をライブ翻訳" loading="lazy"><figcaption>ネイティブの英語字幕トラックを中国語へリアルタイム翻訳、最大化レイアウトで。</figcaption></figure>
 <div class="callout">小ワザ:ライブ字幕の大きさはキーボードの <strong>+ / −</strong> で、位置はマウスの<strong>ドラッグ</strong>で上下に——拍子抜けするほど簡単です。お試しを。</div>
 <p class="outro">DeepSRT は買い切りで <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> にて公開中。AI 文字起こしにはご自身の Gemini API キーが必要です。1.4.0 は現在審査中。</p>
 

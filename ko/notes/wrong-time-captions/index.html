@@ -94,6 +94,9 @@
     footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
       color: var(--muted); font-size: 0.88rem; }
     footer a { color: var(--muted); }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
 </style>
 </head>
 <body>
@@ -134,6 +137,7 @@
 </ul>
 <h2>구멍이 억측보다 낫다</h2>
 <p>가장 어려운 교훈은 그 심령 영상에서 왔습니다. 긴 B롤, 환경음, 띄엄띄엄한 대화——모델은 몇 분에 흩어진 발화를 <strong>자막 하나에 욱여넣었습니다</strong>. 그 텍스트를 앵커로 눌러 담으면 틀리고(6분 뒤에 나올 말이 화면에 뜸), 스팬 전체에 펼쳐도 틀립니다(모든 줄이 20초씩 눌러앉음). 둘 다 억측입니다.</p>
+<figure><img src="/notes/wrong-time-captions/ghost-hunt.jpg" alt="심령 영상을 DeepSRT에서 재생 중, AI 라이브 자막과 대본 패널 작동" loading="lazy"><figcaption>'가장 어려운 교훈'의 그 영상: 말레이시아 심령 스팟 실록——긴 B롤과 띄엄띄엄한 대화. 자막 트랙이 없는 영상에서 AI 라이브 자막과 오른쪽 대본이 그대로 작동한다.</figcaption></figure>
 <p>그래서 억측하지 않습니다: <strong>욱여넣어진 자막은 버리고, 그 시간은 구멍으로 남깁니다</strong>. 엔진이 구간별로 커버리지를 감사하고, 빠진 범위만 다시 전사합니다——범위를 좁힌 질문에는 시간이 맞는 범위 답변이 돌아오기 마련입니다. 그래도 못 채우면 화면에 정직하게 알립니다: 이 몇 분은 전사할 수 없었다고.</p>
 <p>비명, 군중, 음악뿐인 구간에는 애초에 전사할 말이 없습니다. 공백은 고장이 아닙니다——<strong>있는 척이 고장입니다</strong>.</p>
 <h2>솔직히: 아직 완벽하지 않습니다</h2>
@@ -150,6 +154,8 @@
 <li><strong>설정에 지출 한도 안내</strong>(바로가기 링크)와 전사 preview 고지 추가</li>
 <li><strong>수정</strong>: 영상 전환 시 이전 영상의 늦게 도착한 전사가 현재 화면을 덮어쓰지 않음</li>
 </ul>
+<figure><img src="/notes/wrong-time-captions/fullscreen-fancam.jpg" alt="팬캠을 패널 숨김 레이아웃으로 전체 창 재생, AI 라이브 자막 작동" loading="lazy"><figcaption>패널 숨김 레이아웃: 창 전체가 영상의 것. 이 팬캠에는 자막 트랙이 없다——가사는 AI가 라이브로 전사한 것.</figcaption></figure>
+<figure><img src="/notes/wrong-time-captions/fullscreen-lisa.jpg" alt="LISA의 거짓말 탐지기 인터뷰 전체 창 재생, 네이티브 자막을 실시간 번역" loading="lazy"><figcaption>네이티브 영어 자막 트랙을 중국어로 실시간 번역, 최대화 레이아웃.</figcaption></figure>
 <div class="callout">팁: 라이브 자막 크기는 키보드 <strong>+ / −</strong>로, 위치는 마우스로 <strong>누른 채 드래그</strong>——허무할 만큼 간단합니다. 해 보세요.</div>
 <p class="outro">DeepSRT는 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>에서 한 번 구매로 이용합니다. AI 전사에는 본인의 Gemini API 키가 필요합니다. 1.4.0은 현재 심사 중.</p>
 

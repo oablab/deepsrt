@@ -94,6 +94,9 @@
     footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
       color: var(--muted); font-size: 0.88rem; }
     footer a { color: var(--muted); }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
 </style>
 </head>
 <body>
@@ -134,6 +137,7 @@
 </ul>
 <h2>寧可留洞，不可瞎猜</h2>
 <p>最難的一課來自那支探靈影片。大量空景、環境音、間歇的對白——模型把散落在幾分鐘裡的零星對話<strong>打包成一條字幕</strong>。這種時候把文字擠回錨點是錯的（畫面上出現六分鐘後才會說的話），攤開來也是錯的（每句話糊在螢幕上二十秒）。兩種都是瞎猜。</p>
+<figure><img src="/notes/wrong-time-captions/ghost-hunt.jpg" alt="探靈影片在 DeepSRT 中播放，AI 即時字幕與逐字稿欄運作中" loading="lazy"><figcaption>「最難一課」的本尊：馬來西亞探靈實錄——大量空景、間歇對白，這支影片沒有字幕軌，AI 即時字幕與右側逐字稿照常工作。</figcaption></figure>
 <p>所以我們不猜：<strong>打包的字幕直接丟掉，讓那段時間變成一個洞</strong>。引擎逐段檢查涵蓋率，發現洞就針對那個範圍重新轉錄——範圍問題通常會得到範圍答案，時間反而是準的。補不起來的，畫面上誠實告訴你「這幾分鐘轉不出來」。</p>
 <p>尖叫、人群、純音樂的段落本來就沒有可轉錄的話語。空白不是故障——<strong>假裝有才是</strong>。</p>
 <h2>說實話：這還不完美</h2>
@@ -150,6 +154,8 @@
 <li><strong>設定頁新增支出上限提醒</strong>（附直達連結）與轉錄 preview 警語</li>
 <li><strong>修正</strong>：切換影片時，前一支影片遲到的轉錄結果不再覆蓋目前畫面</li>
 </ul>
+<figure><img src="/notes/wrong-time-captions/fullscreen-fancam.jpg" alt="fancam 在 DeepSRT 隱藏面板佈局下全視窗播放，AI 即時字幕運作中" loading="lazy"><figcaption>隱藏面板佈局：整個視窗留給影片。這支 fancam 沒有字幕軌——歌詞是 AI 即時轉錄的。</figcaption></figure>
+<figure><img src="/notes/wrong-time-captions/fullscreen-lisa.jpg" alt="LISA 測謊影片全視窗播放，原生字幕即時翻譯成中文" loading="lazy"><figcaption>原生英文字幕軌即時翻成中文，最大畫面模式。</figcaption></figure>
 <div class="callout">小技巧：即時字幕的大小用鍵盤 <strong>+ / −</strong> 直接調，位置用滑鼠<strong>按住拖曳</strong>就能上下移——超級簡單，試試看。</div>
 <p class="outro">DeepSRT 買斷制，在 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> 上架中。AI 逐字稿需要你自己的 Gemini API key。1.4.0 現正審核中。</p>
 
