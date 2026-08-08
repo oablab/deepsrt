@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>時間のずれた字幕は、無い字幕より悪い</title>
+  <meta name="description" content="テキストはほぼ正しく返ってくるのに、時間はしばしば創作される。URL しか使えない制約の下で、Gemini の粗いアンカーを「ついていける」ライブ字幕に変えるまで——そして各プロジェクトが同じ壁の前で進路を変えた理由。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="時間のずれた字幕は、無い字幕より悪い">
+  <meta property="og:description" content="テキストはほぼ正しく返ってくるのに、時間はしばしば創作される。URL しか使えない制約の下で、Gemini の粗いアンカーを「ついていける」ライブ字幕に変えるまで——そして各プロジェクトが同じ壁の前で進路を変えた理由。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/wrong-time-captions/">
+  <meta property="og:image" content="https://deepsrt.com/ja/notes/wrong-time-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ja/notes/wrong-time-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+      --font-head: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/wrong-time-captions/">EN</a>｜<a href="/zh/notes/wrong-time-captions/">中文</a>｜<a href="/ja/notes/wrong-time-captions/" class="active">日本語</a>｜<a href="/ko/notes/wrong-time-captions/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>時間のずれた字幕は、無い字幕より悪い</h1>
+  <p class="meta">2026年8月 · DeepSRT 開発ノート</p>
+  <p class="lead">モデルのアンカーだけを信じ、スパンは信じない字幕エンジニアリング。</p>
+  <article>
+<p>1.3.0 が公開されたその夜、実世界の動画で徹底的に試しました——金融チャンネルの週末総括、複数人が語る心霊ポッドキャスト、マレーシアの心霊スポット実録。AI 文字起こしは 1.3.0 の目玉機能です:字幕トラックのない動画では、DeepSRT が Gemini に動画そのものを「観て」もらい、ライブ字幕・文字起こし・要約がそのまま動きます。</p>
+<p>テキストはほぼ毎回正しい。時間は、ほぼ毎回わが道を行く。</p>
+<h2>モデルは聞き取れる、でも拍子が取れない</h2>
+<p>最初の動画は、ちょうど 60 秒ずつの字幕 16 本で返ってきました——1 分ぶんの台本が壁のように画面に積み上がる。細かく切るよう頼むと、素直に 181 本の美しい小さな字幕をくれました。ただしタイムラインはどんどん漂流:中盤で数十秒遅れ、最後の字幕は 4,181 秒に着地——動画の全長は 858 秒です。</p>
+<p>これは我々のプロンプトの書き方の問題ではありません。コミュニティ全体が記録してきた Gemini の限界です:SRT 級の正確なタイムスタンプは生成できず、しかも<strong>粒度と正確さはトレードオフ</strong>——細かく切らせるほど、漂流で支払うことになる。</p>
+<p>公平に言えば、<a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google の公式ドキュメント</a>は字幕級の時間精度を約束したことは一度もありません。能力一覧にあるのは「記述、分割、情報抽出、特定タイムスタンプへの<strong>参照</strong>」——タイムスタンプを参照することと、ミリ秒の SRT を生成することは別の仕事です。YouTube URL 入力自体もまだ <strong>preview</strong>(無料、1 日 8 時間まで、ルールは変更されうる)。公式が preview と記す地盤の上に、時間精度を要する機能を建てているわけです——下の表のどのプロジェクトも、同じ壁の前で進路を変えた理由がそれです。</p>
+<h2>ほかのプロジェクトはどうしたか</h2>
+<p>修正に取りかかる前にコミュニティを調べました。この壁にぶつかったのは我々だけではなく、<strong>どのプロジェクトも最終的に何らかの「諦め」を選んでいました</strong>:</p>
+<div class="table-wrap"><table><thead><tr><th>プロジェクト</th><th>ぶつかった壁</th><th>下した決断</th></tr></thead>
+<tbody>
+<tr><td><a href="https://en.pyvideotrans.com/blog/gemini-stt-duration">pyVideoTrans</a></td><td>Gemini は SRT 級の正確なタイムスタンプを生成できない。バッチ処理ではフォーマットを忘れ、勝手に再分割することも</td><td><strong>Gemini に時間を求めるのをやめた。</strong>音声をダウンロードし、VAD でミリ秒精度の切り出し。Gemini はテキストのみ</td></tr>
+<tr><td><a href="https://github.com/m1guelpf/yt-whisper">yt-whisper 系</a></td><td>正確なタイムラインが必要</td><td><strong>マルチモーダルモデルの道を捨てた。</strong>音声をダウンロードして Whisper に丸ごと任せる</td></tr>
+<tr><td><a href="https://github.com/dzivkovi/video-intel">video-intel</a></td><td>分割転写でタイムスタンプがチャンク間でずれ、時間の桁が欠落し、内容が静かに抜け落ちる。強いモデルに替えたら悪化</td><td><strong>ライブ級の精度を諦めた。</strong>翻訳・検索用のオフライン転写に徹し、分割・正規化・カバレッジ検査で多層防御</td></tr>
+<tr><td><a href="https://github.com/mikeesto/gemini-transcribe">gemini-transcribe</a></td><td>細かいタイムスタンプが信頼できない</td><td><strong>細かさを諦めた。</strong>「論理的にグループ化されたタイムスタンプ」を掲げる——読むためのもので、プレーヤーの同期用ではない</td></tr>
+</tbody></table></div>
+<p>パターンが見えるでしょうか:<strong>音声を取れる者は VAD と Whisper へ逃げ、取れない者は正確な時間を諦めた。</strong>我々にはどちらの道もありません——DeepSRT は動画をダウンロードしない。それは製品の約束であり、この機能が存在する前提でもある。それでいてライブ字幕は時間が合っていなければならない。公開情報に成功例のないことに挑んでいるのです。</p>
+<h2>我々の決断:アンカーだけを信じ、スパンは信じない</h2>
+<p>計測を重ねると規則が浮かびました:モデルが「この文は何分何秒に<strong>始まる</strong>」と言うときは概ね信用できる。「どれだけ<strong>続いた</strong>か」は、しばしば創作です。</p>
+<p>どれほどか?ある 33 分の動画で、モデルは 22 文字の字幕 1 本が 2,723 秒にわたると主張しました。別の回では「全編を隙間なくカバー」する回答——ただし文字数を時間で割ると毎秒 0.3 文字。話し言葉の中国語は毎秒 3〜6 文字です。<strong>線香より遅く話す人間はいません。</strong></p>
+<p>そこで 1.4.0 の字幕エンジンは、信頼の境界線をここに引きました:</p>
+<ul>
+<li><strong>アンカーは使う。</strong>字幕の開始はモデルのタイムスタンプに従う——独立した抜き取り検証で、粗い回答のアンカーは秒レベルで正確だと確認済み。</li>
+<li><strong>スパンは自前で計算。</strong>長すぎる字幕は句読点で分割し、文字数に比例して時間を配る——補間誤差には上限があり(最大でも字幕 1 本ぶん)、モデル自身の分割による漂流は際限なく累積する。</li>
+<li><strong>物理を審判に。</strong>主張されたスパンがあり得ない話速を意味するなら、その時間は虚構。</li>
+</ul>
+<h2>穴のほうが、当て推量よりまし</h2>
+<p>いちばん難しい教訓は例の心霊動画から。長い B ロール、環境音、途切れがちな会話——モデルは数分間に散らばった発話を<strong>1 本の字幕に詰め込みました</strong>。テキストをアンカーに押し戻せば誤り(6 分後に話される言葉が画面に出る)、スパン全体に引き延ばしても誤り(どの行も 20 秒張り付く)。どちらも当て推量です。</p>
+<p>だから推量しません:<strong>詰め込まれた字幕は捨て、その時間は穴にする</strong>。エンジンは区間ごとにカバレッジを検査し、欠けた範囲だけを再転写——範囲を絞った問いには、時間の正しい範囲の答えが返ってきやすい。それでも埋まらない部分は、画面上で正直に「この数分は転写できませんでした」と示します。</p>
+<p>叫び声、雑踏、音楽だけの区間には、そもそも転写できる発話がありません。空白は故障ではない——<strong>あるふりをすることが故障です</strong>。</p>
+<h2>正直に:まだ完璧ではありません</h2>
+<p>先ほどの表をもう一度見てください——各プロジェクトが「正確な時間」の前で次々と進路を変えたのは、努力不足ではなく、URL しかない制約下では<strong>まだ完全な解がない</strong>からです。我々のやり方でライブ字幕は「使いものにならない」から「ついていける」へ進みましたが、位置合わせは段落レベルで、半拍遅れる瞬間は残ります。</p>
+<p>正直なおすすめはこうです:<strong>AI 要約と文字起こしを主役として使ってください——そこは堅実です。ライブ字幕は参考程度に</strong>。この部分は磨き込みを続けます——preview と記され、デフォルトでオフ、自分のキーを使い、設定画面で月間支出上限の設定を促しているのは、まさにそのためです。</p>
+<p>字幕のある動画には一切影響しません——ネイティブの字幕トラックが常に優先で、AI 転写は本当に字幕がない動画にだけ出動します。</p>
+<h2>1.4.0 リリースノート</h2>
+<ul>
+<li><strong>AI 文字起こし(preview)の時間合わせを再構築</strong>——モデルのアンカーだけを信頼し、分割とテンポはエンジンが掌握。字幕の積み上がりと漂流を解消</li>
+<li><strong>カバレッジを区間ごとに検証し、穴を自動再転写</strong>——転写できない区間は正直に表示、静かな空白のまま出荷しない</li>
+<li><strong>会話動画の分割を細かく</strong>——話す人に読みが追いつく</li>
+<li><strong>新機能 YOLO モード</strong>(デフォルトはオフ)——動画が終わると同じチャンネルの未視聴動画を自動再生。5 秒カウントダウンでキャンセル可。無料モデルとの併用推奨</li>
+<li><strong>レイアウトを 2 状態に簡素化</strong>——パネルを右側に、または全画面を動画に</li>
+<li><strong>設定に支出上限のリマインダー</strong>(直リンク付き)と転写の preview 注記を追加</li>
+<li><strong>修正</strong>:動画切り替え時、前の動画の遅れて届いた転写が現在の画面を上書きしない</li>
+</ul>
+<div class="callout">小ワザ:ライブ字幕の大きさはキーボードの <strong>+ / −</strong> で、位置はマウスの<strong>ドラッグ</strong>で上下に——拍子抜けするほど簡単です。お試しを。</div>
+<p class="outro">DeepSRT は買い切りで <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> にて公開中。AI 文字起こしにはご自身の Gemini API キーが必要です。1.4.0 は現在審査中。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

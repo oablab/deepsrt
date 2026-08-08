@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>타이밍이 틀린 자막은 없는 자막보다 나쁘다</title>
+  <meta name="description" content="텍스트는 거의 매번 맞게 돌아오지만 시간은 자주 지어낸다. URL만 쓸 수 있는 제약에서 Gemini의 굵직한 앵커를 &#x27;따라갈 만한&#x27; 라이브 자막으로 바꾸기까지——그리고 다른 프로젝트들이 같은 벽 앞에서 방향을 튼 이유.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="타이밍이 틀린 자막은 없는 자막보다 나쁘다">
+  <meta property="og:description" content="텍스트는 거의 매번 맞게 돌아오지만 시간은 자주 지어낸다. URL만 쓸 수 있는 제약에서 Gemini의 굵직한 앵커를 &#x27;따라갈 만한&#x27; 라이브 자막으로 바꾸기까지——그리고 다른 프로젝트들이 같은 벽 앞에서 방향을 튼 이유.">
+  <meta property="og:url" content="https://deepsrt.com/ko/notes/wrong-time-captions/">
+  <meta property="og:image" content="https://deepsrt.com/ko/notes/wrong-time-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ko/notes/wrong-time-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+      --font-head: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ko/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/wrong-time-captions/">EN</a>｜<a href="/zh/notes/wrong-time-captions/">中文</a>｜<a href="/ja/notes/wrong-time-captions/">日本語</a>｜<a href="/ko/notes/wrong-time-captions/" class="active">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ko/notes/">← 노트</a>
+  <h1>타이밍이 틀린 자막은 없는 자막보다 나쁘다</h1>
+  <p class="meta">2026년 8월 · DeepSRT 개발 노트</p>
+  <p class="lead">모델의 앵커만 믿고, 스팬은 믿지 않는 자막 엔지니어링.</p>
+  <article>
+<p>1.3.0이 출시된 그날 밤, 실제 영상들로 혹독하게 시험했습니다——금융 채널의 주말 리뷰, 여러 명이 대화하는 심령 팟캐스트, 말레이시아 심령 스팟 현장 실록. AI 전사는 1.3.0의 간판 기능입니다: 자막 트랙이 없는 영상이면 DeepSRT가 Gemini에게 영상을 직접 '보게' 하고, 라이브 자막·대본·요약이 그대로 작동합니다.</p>
+<p>텍스트는 거의 매번 맞았습니다. 시간은, 거의 매번 제멋대로였습니다.</p>
+<h2>모델은 알아듣지만, 박자를 못 맞춘다</h2>
+<p>첫 영상은 정확히 60초짜리 자막 16개로 돌아왔습니다——1분치 대본이 벽처럼 화면에 쌓였습니다. 더 잘게 잘라 달라고 하자 고분고분 181개의 예쁜 자막을 줬는데, 타임라인이 줄곧 표류했습니다: 중반에 수십 초 늦고, 마지막 자막은 4,181초에 떨어졌습니다——영상 전체 길이는 858초입니다.</p>
+<p>우리 프롬프트가 잘못된 게 아닙니다. 커뮤니티 전체가 기록해 온 Gemini의 한계입니다: SRT급 정밀 타임스탬프를 만들 수 없고, <strong>세밀함과 정확함은 맞바꾸는 관계</strong>——잘게 자르라고 다그치면 표류로 값을 치릅니다.</p>
+<p>공정하게 말하면 <a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google 공식 문서</a>는 자막급 시간 정밀도를 약속한 적이 없습니다. 능력 목록에 적힌 것은 '묘사, 분할, 정보 추출, 특정 타임스탬프 <strong>참조</strong>'——타임스탬프를 참조하는 것과 밀리초 SRT를 만드는 것은 다른 일입니다. YouTube URL 입력 자체도 아직 <strong>preview</strong>(무료, 하루 8시간 한도, 규칙은 언제든 바뀔 수 있음)입니다. 공식적으로 preview라 적힌 지반 위에 시간 정밀도가 필요한 기능을 짓고 있는 셈——아래 표의 모든 프로젝트가 같은 벽 앞에서 방향을 튼 이유입니다.</p>
+<h2>다른 프로젝트들은 어떻게 했나</h2>
+<p>고치기 전에 커뮤니티부터 조사했습니다. 이 벽에 부딪힌 건 우리만이 아니었고, <strong>모든 프로젝트가 결국 어떤 형태로든 포기를 선택했습니다</strong>:</p>
+<div class="table-wrap"><table><thead><tr><th>프로젝트</th><th>부딪힌 벽</th><th>내린 결정</th></tr></thead>
+<tbody>
+<tr><td><a href="https://en.pyvideotrans.com/blog/gemini-stt-duration">pyVideoTrans</a></td><td>Gemini는 SRT급 정밀 타임스탬프를 만들지 못함. 배치 작업에서는 형식을 잊고 멋대로 재분할하기도</td><td><strong>Gemini에게 시간을 묻지 않기로.</strong> 오디오를 내려받아 VAD로 밀리초 단위 분할, Gemini는 텍스트만</td></tr>
+<tr><td><a href="https://github.com/m1guelpf/yt-whisper">yt-whisper 계열</a></td><td>정확한 타임라인이 필요</td><td><strong>멀티모달 모델 경로를 포기.</strong> 오디오를 내려받아 통째로 Whisper에게</td></tr>
+<tr><td><a href="https://github.com/dzivkovi/video-intel">video-intel</a></td><td>청크 전사에서 타임스탬프가 청크 간 어긋나고, 시(時) 자리가 사라지고, 내용이 조용히 누락. 더 강한 모델로 바꾸니 오히려 악화</td><td><strong>라이브급 정밀도를 포기.</strong> 번역·검색용 오프라인 전사에 집중, 분할·정규화·커버리지 검사로 다층 방어</td></tr>
+<tr><td><a href="https://github.com/mikeesto/gemini-transcribe">gemini-transcribe</a></td><td>세밀한 타임스탬프를 신뢰할 수 없음</td><td><strong>세밀함을 포기.</strong> '논리적으로 묶인 타임스탬프'를 표방——읽기용이지, 플레이어 동기화용이 아님</td></tr>
+</tbody></table></div>
+<p>패턴이 보이시나요: <strong>오디오를 얻을 수 있으면 VAD와 Whisper로 달아나고, 얻을 수 없으면 정밀한 시간을 포기했다.</strong> 우리는 두 길 다 막혀 있습니다——DeepSRT는 영상을 내려받지 않습니다. 제품의 약속이자 이 기능이 존재하는 전제입니다. 그런데 라이브 자막은 시간이 맞아야 합니다. 공개된 자료에 성공 사례가 없는 일을 시도하고 있는 겁니다.</p>
+<h2>우리의 결정: 앵커만 믿고, 스팬은 믿지 않는다</h2>
+<p>측정을 거듭하자 규칙이 드러났습니다: 모델이 '이 문장은 몇 분 몇 초에 <strong>시작한다</strong>'고 할 때는 대체로 믿을 만합니다. '얼마나 <strong>오래</strong> 이어졌는가'는 자주 지어냅니다.</p>
+<p>얼마나 심하냐면, 33분짜리 영상에서 모델은 22자짜리 자막 하나가 2,723초에 걸쳐 있다고 주장했습니다. 다른 회차엔 '전편 빈틈없는 커버리지'라는 답을 줬는데——글자 수를 시간으로 나누면 초당 0.3자. 중국어 구어는 초당 3~6자입니다. <strong>향이 타는 것보다 느리게 말하는 사람은 없습니다.</strong></p>
+<p>그래서 1.4.0 자막 엔진은 신뢰의 경계를 여기에 그었습니다:</p>
+<ul>
+<li><strong>앵커는 쓴다.</strong> 자막 시작점은 모델의 타임스탬프를 따른다——독립 표본 검증으로, 굵직한 답변의 앵커는 초 단위로 정확함을 확인했다.</li>
+<li><strong>스팬은 직접 계산한다.</strong> 너무 긴 자막은 문장부호에서 자르고 글자 수에 비례해 시간을 배치——보간 오차에는 상한이 있고(최대 자막 하나 범위), 모델이 스스로 자른 표류는 무한히 누적된다.</li>
+<li><strong>물리가 심판한다.</strong> 주장된 스팬이 불가능한 말 속도를 뜻하면 그 시간은 허구다.</li>
+</ul>
+<h2>구멍이 억측보다 낫다</h2>
+<p>가장 어려운 교훈은 그 심령 영상에서 왔습니다. 긴 B롤, 환경음, 띄엄띄엄한 대화——모델은 몇 분에 흩어진 발화를 <strong>자막 하나에 욱여넣었습니다</strong>. 그 텍스트를 앵커로 눌러 담으면 틀리고(6분 뒤에 나올 말이 화면에 뜸), 스팬 전체에 펼쳐도 틀립니다(모든 줄이 20초씩 눌러앉음). 둘 다 억측입니다.</p>
+<p>그래서 억측하지 않습니다: <strong>욱여넣어진 자막은 버리고, 그 시간은 구멍으로 남깁니다</strong>. 엔진이 구간별로 커버리지를 감사하고, 빠진 범위만 다시 전사합니다——범위를 좁힌 질문에는 시간이 맞는 범위 답변이 돌아오기 마련입니다. 그래도 못 채우면 화면에 정직하게 알립니다: 이 몇 분은 전사할 수 없었다고.</p>
+<p>비명, 군중, 음악뿐인 구간에는 애초에 전사할 말이 없습니다. 공백은 고장이 아닙니다——<strong>있는 척이 고장입니다</strong>.</p>
+<h2>솔직히: 아직 완벽하지 않습니다</h2>
+<p>위 표를 한 번 더 보세요——프로젝트마다 '정밀한 시간' 앞에서 방향을 튼 것은 노력이 부족해서가 아니라, URL만 있는 제약에서는 <strong>아직 완벽한 해법이 없기</strong> 때문입니다. 우리 방식으로 라이브 자막은 '못 쓸 수준'에서 '따라갈 만한 수준'이 됐지만, 정렬은 문단 단위이고 반 박자 늦는 순간은 남아 있습니다.</p>
+<p>그래서 정직한 권고는 이렇습니다: <strong>AI 요약과 대본을 주 기능으로 쓰세요——그 둘은 견고합니다. 라이브 자막은 참고용으로</strong>. 이 부분은 계속 다듬어질 것입니다——이 기능에 preview 표시가 붙고, 기본값이 꺼짐이고, 본인 키를 쓰며, 설정에서 월 지출 한도부터 잡으라고 안내하는 이유가 바로 그것입니다.</p>
+<p>자막이 있는 영상은 전혀 영향받지 않습니다——네이티브 자막 트랙이 언제나 우선이고, AI 전사는 정말 자막이 없는 영상에만 나섭니다.</p>
+<h2>1.4.0 릴리스 노트</h2>
+<ul>
+<li><strong>AI 전사(preview) 시간 정렬 재구축</strong>——모델의 앵커만 신뢰하고 분할과 페이스는 엔진이 관리. 자막이 쌓이거나 표류하지 않음</li>
+<li><strong>커버리지 구간별 검증·구멍 자동 재전사</strong>——전사 불가 구간은 정직하게 표시</li>
+<li><strong>대화 영상 분할 세분화</strong>——말하는 사람을 읽기가 따라감</li>
+<li><strong>신규 YOLO 모드</strong>(기본 꺼짐)——영상이 끝나면 같은 채널의 안 본 다음 영상을 자동 재생. 5초 카운트다운, 취소 가능. 무료 모델 병용 권장</li>
+<li><strong>레이아웃 2가지로 단순화</strong>——패널 오른쪽, 또는 전체 화면을 영상에</li>
+<li><strong>설정에 지출 한도 안내</strong>(바로가기 링크)와 전사 preview 고지 추가</li>
+<li><strong>수정</strong>: 영상 전환 시 이전 영상의 늦게 도착한 전사가 현재 화면을 덮어쓰지 않음</li>
+</ul>
+<div class="callout">팁: 라이브 자막 크기는 키보드 <strong>+ / −</strong>로, 위치는 마우스로 <strong>누른 채 드래그</strong>——허무할 만큼 간단합니다. 해 보세요.</div>
+<p class="outro">DeepSRT는 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>에서 한 번 구매로 이용합니다. AI 전사에는 본인의 Gemini API 키가 필요합니다. 1.4.0은 현재 심사 중.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

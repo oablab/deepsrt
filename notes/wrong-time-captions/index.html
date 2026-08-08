@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wrong-time captions are worse than no captions</title>
+  <meta name="description" content="The words come back right; the timing comes back invented. How DeepSRT turns Gemini&#x27;s coarse anchors into live captions that keep up — under a URL-only constraint every other project walked away from.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Wrong-time captions are worse than no captions">
+  <meta property="og:description" content="The words come back right; the timing comes back invented. How DeepSRT turns Gemini&#x27;s coarse anchors into live captions that keep up — under a URL-only constraint every other project walked away from.">
+  <meta property="og:url" content="https://deepsrt.com/notes/wrong-time-captions/">
+  <meta property="og:image" content="https://deepsrt.com/notes/wrong-time-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/wrong-time-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/wrong-time-captions/" class="active">EN</a>｜<a href="/zh/notes/wrong-time-captions/">中文</a>｜<a href="/ja/notes/wrong-time-captions/">日本語</a>｜<a href="/ko/notes/wrong-time-captions/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>Wrong-time captions are worse than no captions</h1>
+  <p class="meta">August 2026 · DeepSRT development notes</p>
+  <p class="lead">Caption engineering that trusts the model's anchors, and never its spans.</p>
+  <article>
+<p>The night 1.3.0 went live, we fed it real-world videos — a finance channel's weekend recap, a multi-speaker paranormal podcast, a ghost-hunting field shoot from Malaysia. AI transcription is 1.3.0's headline feature: when a video has no caption track, DeepSRT asks Gemini to “watch” the video itself, and live captions, the transcript pane, and summaries all keep working.</p>
+<p>The words were right almost every time. The timing had ideas of its own.</p>
+<h2>The model can hear, but it can't keep time</h2>
+<p>The first video came back as 16 cues of exactly 60 seconds each — a full minute of script stacked into a wall on screen. We asked for finer cues; it obliged with 181 beautiful small ones whose timeline drifted steadily: tens of seconds late mid-video, the last cue landing at 4,181 seconds. The video is 858 seconds long.</p>
+<p>This is not a prompt bug on our side. It is a Gemini limitation the whole community has documented: it cannot produce SRT-grade timestamps, and <strong>granularity trades off against accuracy</strong> — demand fine cues and it drifts to pay for them.</p>
+<p>To be fair, <a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google's official documentation</a> never promised caption-grade timing. The capability list says describe, segment, extract, and <strong>refer to</strong> specific timestamps — and referring to timestamps is not the same job as producing millisecond SRT. YouTube URL input itself is still in <strong>preview</strong> (free, capped at 8 hours of video a day, rules subject to change). We are building a feature that needs timing precision on a foundation officially labeled preview — which is why every project in the table below turned away at the same wall.</p>
+<h2>What everyone else did</h2>
+<p>Before writing a fix we surveyed the community. We are not the first to hit this wall — and <strong>every project ended up choosing some form of surrender</strong>:</p>
+<div class="table-wrap"><table><thead><tr><th>Project</th><th>The wall they hit</th><th>What they decided</th></tr></thead>
+<tbody>
+<tr><td><a href="https://en.pyvideotrans.com/blog/gemini-stt-duration">pyVideoTrans</a></td><td>Gemini cannot produce SRT-grade timestamps; batch jobs also forget formats and re-segment at will</td><td><strong>Stop asking Gemini for time.</strong> Download the audio, segment with VAD at millisecond precision, let Gemini do text only</td></tr>
+<tr><td><a href="https://github.com/m1guelpf/yt-whisper">yt-whisper family</a></td><td>Needs an accurate timeline</td><td><strong>Skip multimodal models entirely.</strong> Download the audio and hand it to Whisper</td></tr>
+<tr><td><a href="https://github.com/dzivkovi/video-intel">video-intel</a></td><td>Chunked transcription misplaces content across chunk timelines, drops hour digits, silently omits passages; a stronger model made it worse</td><td><strong>Give up on live-grade precision.</strong> Offline transcripts for translation and search, defended by chunking, normalization, and coverage checks</td></tr>
+<tr><td><a href="https://github.com/mikeesto/gemini-transcribe">gemini-transcribe</a></td><td>Fine-grained timestamps are unreliable</td><td><strong>Give up on granularity.</strong> Advertises “logically grouped timestamps” — for reading, not for syncing a player</td></tr>
+</tbody></table></div>
+<p>See the pattern? <strong>Whoever can get the audio escapes to VAD and Whisper; whoever can't gives up on precise time.</strong> Neither road is open to us — DeepSRT does not download videos, which is both a product promise and the reason this feature exists; yet live captions must keep time. We are attempting something with no public precedent of success.</p>
+<h2>Our call: trust the anchors, never the spans</h2>
+<p>After enough measurement a pattern emerged: when the model says a sentence <strong>starts</strong> at a given second, that is roughly trustworthy. When it says how <strong>long</strong> the sentence ran, it is frequently making that up.</p>
+<p>How badly? On a 33-minute video the model claimed one 22-character cue spanned 2,723 seconds. Another run claimed wall-to-wall coverage — but divide characters by claimed time and the speaking rate is 0.3 characters per second. Spoken Chinese runs three to six. <strong>Nobody talks slower than incense burns.</strong></p>
+<p>So the 1.4.0 caption engine draws its trust boundary there:</p>
+<ul>
+<li><strong>Use the anchors.</strong> Cue start times follow the model's timestamps — independently spot-checked, coarse answers anchor to within a second or two.</li>
+<li><strong>Compute the spans ourselves.</strong> Long cues split at punctuation, with time laid out in proportion to text — interpolation error is bounded by one cue's span, while model-made drift compounds without bound.</li>
+<li><strong>Let physics referee.</strong> If a claimed span implies impossible speech, that span is fiction.</li>
+</ul>
+<h2>A hole beats a guess</h2>
+<p>The hardest lesson came from the ghost-hunting video. Long B-roll, ambient noise, intermittent dialogue — the model <strong>packed scattered phrases from several minutes into one cue</strong>. Compressing that text back to its anchor is wrong (words appear on screen six minutes early); spreading it across the span is wrong too (every line smeared for twenty seconds). Both are guesses.</p>
+<p>So we don't guess: <strong>a packed cue is dropped, and its span becomes a hole</strong>. The engine audits coverage segment by segment, and re-transcribes exactly the ranges that are missing — a ranged question usually gets a properly timed ranged answer. Whatever still can't be filled is honestly labeled on screen: these minutes could not be transcribed.</p>
+<p>Screams, crowds, and music have no transcribable speech in the first place. A blank is not a failure — <strong>pretending is</strong>.</p>
+<h2>Honestly: this is not perfect yet</h2>
+<p>That table deserves a second look — project after project turned away from precise timing, not for lack of effort, but because under a URL-only constraint <strong>there is no perfect solution yet</strong>. Our approach moves live captions from “unusable” to “keeps up”, but alignment is paragraph-grade, and there will still be moments half a beat behind.</p>
+<p>So here is our honest recommendation: <strong>treat AI summaries and the transcript as the main feature — those are solid; treat live captions as a reference</strong>. This part needs more polish and will keep getting it — which is exactly why the feature is labeled preview, ships off by default, uses your own key, and why Settings reminds you to set a monthly spending cap first.</p>
+<p>Videos with captions are untouched — native caption tracks always win, and AI transcription only steps in when a video truly has none.</p>
+<h2>1.4.0 release notes</h2>
+<ul>
+<li><strong>AI transcription (preview) timing rebuilt</strong> — the engine trusts only the model's anchors and owns segmentation and pacing; no more stacked or drifting captions</li>
+<li><strong>Coverage audited segment by segment, holes refilled automatically</strong> — untranscribable stretches are labeled instead of silently blank</li>
+<li><strong>Finer segmentation on dialogue</strong> — captions keep pace with the speakers</li>
+<li><strong>New: YOLO mode</strong> (off by default) — when a video ends, auto-play the next unwatched video from the same channel, behind a cancellable 5-second countdown; pair it with a free model</li>
+<li><strong>Layout simplified to two states</strong> — panes on the right, or the whole window for the video</li>
+<li><strong>Settings now recommends a spending cap</strong> (with a direct link) and carries a preview notice on transcription</li>
+<li><strong>Fixed</strong>: a late transcription from the previous video no longer overwrites the current one when you switch</li>
+</ul>
+<div class="callout">Tip: resize live captions with the <strong>+ / −</strong> keys, and move them by <strong>click-dragging</strong> — ridiculously simple, try it.</div>
+<p class="outro">DeepSRT is a one-time purchase on the <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>. AI transcription needs your own Gemini API key. 1.4.0 is in review now.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

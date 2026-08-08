@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>錯時間的字幕，比沒字幕更糟</title>
+  <meta name="description" content="文字幾乎每次都對，時間卻經常是編的。DeepSRT 如何在只有 URL 的約束下，把 Gemini 的粗錨點變成跟得上的即時字幕——以及為什麼各家專案都在同一面牆前轉向。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="錯時間的字幕，比沒字幕更糟">
+  <meta property="og:description" content="文字幾乎每次都對，時間卻經常是編的。DeepSRT 如何在只有 URL 的約束下，把 Gemini 的粗錨點變成跟得上的即時字幕——以及為什麼各家專案都在同一面牆前轉向。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/wrong-time-captions/">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/wrong-time-captions/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/wrong-time-captions/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/wrong-time-captions/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/wrong-time-captions/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/wrong-time-captions/">EN</a>｜<a href="/zh/notes/wrong-time-captions/" class="active">中文</a>｜<a href="/ja/notes/wrong-time-captions/">日本語</a>｜<a href="/ko/notes/wrong-time-captions/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>錯時間的字幕，比沒字幕更糟</h1>
+  <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
+  <p class="lead">只信錨點、不信時長的字幕工程。</p>
+  <article>
+<p>1.3.0 上架那天晚上，我們拿真實世界的影片來虐它——財經頻道的週末點評、多人對談的靈異 podcast、大馬外景的探靈實錄。AI 逐字稿是 1.3.0 的主打功能：影片沒有字幕軌，DeepSRT 就請 Gemini 直接「看」影片，即時字幕、逐字稿、摘要照常運作。</p>
+<p>文字幾乎每次都是對的。時間，幾乎每次都有自己的想法。</p>
+<h2>模型聽得懂，但抓不準拍子</h2>
+<p>第一支影片回來 16 條字幕，每條剛好 60 秒——一整分鐘的講稿疊成一面牆掛在畫面上。我們要求它切細一點，它從善如流地給了 181 條漂亮的小字幕，然後時間軸一路漂移：中段慢了幾十秒，最後一條落在 4181 秒——影片全長只有 858 秒。</p>
+<p>這不是我們的 prompt 寫壞了。這是整個社群都記錄過的 Gemini 限制：它無法產生 SRT 等級的精確時間戳，而且<strong>粒度和準度是互相交換的</strong>——逼它切細，它就漂給你看。</p>
+<p>公平地說，<a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google 的官方文件</a>從來沒有承諾過字幕級的時間精度——能力清單寫的是「描述、切分、擷取資訊、<strong>參照</strong>特定時間戳」，而「參照時間戳」和「產生毫秒級的 SRT」是兩件事。YouTube URL 輸入本身也還在 <strong>preview</strong>（免費、每天 8 小時額度、規則隨時可能變）。我們是在一個官方都還標著 preview 的地基上，蓋一個需要對時精度的功能——這就是為什麼下面這張表裡，每個專案都在同一面牆前轉了向。</p>
+<h2>別人怎麼處理</h2>
+<p>動手修之前我們先查了社群——遇到這面牆的不只我們，而且<strong>每一家最後都選擇了某種形式的放棄</strong>：</p>
+<div class="table-wrap"><table><thead><tr><th>專案</th><th>遇到的阻礙</th><th>他們的決定</th></tr></thead>
+<tbody>
+<tr><td><a href="https://en.pyvideotrans.com/blog/gemini-stt-duration">pyVideoTrans</a></td><td>Gemini 無法產生 SRT 等級的精確時間戳；批次任務還會忘記格式、亂切段落</td><td><strong>放棄向 Gemini 要時間。</strong>下載音訊，用 VAD 做毫秒級切段，Gemini 只負責文字</td></tr>
+<tr><td><a href="https://github.com/m1guelpf/yt-whisper">yt-whisper 系列</a></td><td>需要精確時間軸</td><td><strong>放棄多模態模型這條路。</strong>下載音訊，整包交給 Whisper</td></tr>
+<tr><td><a href="https://github.com/dzivkovi/video-intel">video-intel</a></td><td>分塊轉錄時間戳跨塊錯位、小時位遺失、內容靜默缺漏；換更強的模型反而更糟</td><td><strong>放棄即時等級的精度。</strong>做離線逐字稿供翻譯與檢索，靠分塊、正規化、涵蓋率檢查層層防禦</td></tr>
+<tr><td><a href="https://github.com/mikeesto/gemini-transcribe">gemini-transcribe</a></td><td>細粒度時間戳不可靠</td><td><strong>放棄細粒度。</strong>標榜「邏輯分組的時間戳」——給人讀的，不是給播放器對時的</td></tr>
+</tbody></table></div>
+<p>看出模式了嗎：<strong>拿得到音訊的，都逃去找 VAD 和 Whisper；拿不到的，都放棄了精確時間。</strong>而我們兩條路都不通——DeepSRT 不下載影片，這是產品承諾，也是這個功能存在的前提；但即時字幕又必須對時。我們是在做一件公開資料裡找不到成功先例的事。</p>
+<h2>我們的決定：只信錨點，不信時長</h2>
+<p>反覆量測之後，規律浮現了：模型說「這句話<strong>從</strong>幾分幾秒開始」大致可信，說「這句話<strong>講了多久</strong>」經常是編的。</p>
+<p>有多離譜？某支 33 分鐘的影片，模型宣稱一條 22 個字的字幕橫跨 2,723 秒。另一輪它給了「無縫覆蓋全片」的答案——但把字數除以時長，語速是每秒 0.3 個字。中文口語每秒三到六個字。<strong>沒有人講話講得比一炷香還慢。</strong></p>
+<p>所以 1.4.0 的字幕引擎把信任邊界劃在這裡：</p>
+<ul>
+<li><strong>錨點拿來用。</strong>字幕起點跟著模型的時間戳走——我們用獨立抽查驗證過，粗粒度回答的錨點能準到秒級。</li>
+<li><strong>時長自己算。</strong>太長的字幕在標點處切開，時間按字數比例鋪排——內插誤差有上界（最多錯在一條字幕內），模型自切的漂移是累積無上界的。</li>
+<li><strong>物理當裁判。</strong>聲稱的時長若意味著不可能的語速，那段時間就是虛構的。</li>
+</ul>
+<h2>寧可留洞，不可瞎猜</h2>
+<p>最難的一課來自那支探靈影片。大量空景、環境音、間歇的對白——模型把散落在幾分鐘裡的零星對話<strong>打包成一條字幕</strong>。這種時候把文字擠回錨點是錯的（畫面上出現六分鐘後才會說的話），攤開來也是錯的（每句話糊在螢幕上二十秒）。兩種都是瞎猜。</p>
+<p>所以我們不猜：<strong>打包的字幕直接丟掉，讓那段時間變成一個洞</strong>。引擎逐段檢查涵蓋率，發現洞就針對那個範圍重新轉錄——範圍問題通常會得到範圍答案，時間反而是準的。補不起來的，畫面上誠實告訴你「這幾分鐘轉不出來」。</p>
+<p>尖叫、人群、純音樂的段落本來就沒有可轉錄的話語。空白不是故障——<strong>假裝有才是</strong>。</p>
+<h2>說實話：這還不完美</h2>
+<p>上面那張表值得再看一眼——各家專案紛紛在「精確時間」面前轉向，不是他們不夠努力，是這個問題在只有 URL 的約束下<strong>還沒有完美解</strong>。我們的做法讓字幕從「不可用」進步到「跟得上」，但時間對位是段落級的，偶爾還是會有慢半拍的瞬間。</p>
+<p>所以我們的誠實建議：<strong>把 AI 摘要和逐字稿當主要功能用——那兩個是可靠的；即時字幕當參考</strong>。這部分還需要更多打磨，而它會持續打磨下去——這正是這個功能標著 preview、預設關閉、用你自己的 key、並且我們提醒你先設好每月支出上限的原因。</p>
+<p>有字幕的影片完全不受影響——原生字幕軌永遠優先，AI 轉錄只在影片真的沒有字幕時出手。</p>
+<h2>1.4.0 release notes</h2>
+<ul>
+<li><strong>AI 逐字稿（preview）時間對位重做</strong>——只信任模型的錨點，切分與節奏由引擎掌握，字幕不再堆疊或漂移</li>
+<li><strong>涵蓋率逐段驗證、自動補洞</strong>——轉不出來的段落誠實標示，不再默默留白</li>
+<li><strong>對談影片切分更細</strong>——讀起來跟得上說話的人</li>
+<li><strong>新增 YOLO 模式</strong>（預設關閉）——影片播完自動接播同頻道下一支沒看過的，倒數 5 秒可取消，建議搭配免費模型</li>
+<li><strong>佈局簡化為兩種</strong>——面板在右側，或整個畫面留給影片</li>
+<li><strong>設定頁新增支出上限提醒</strong>（附直達連結）與轉錄 preview 警語</li>
+<li><strong>修正</strong>：切換影片時，前一支影片遲到的轉錄結果不再覆蓋目前畫面</li>
+</ul>
+<div class="callout">小技巧：即時字幕的大小用鍵盤 <strong>+ / −</strong> 直接調，位置用滑鼠<strong>按住拖曳</strong>就能上下移——超級簡單，試試看。</div>
+<p class="outro">DeepSRT 買斷制，在 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> 上架中。AI 逐字稿需要你自己的 Gemini API key。1.4.0 現正審核中。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
