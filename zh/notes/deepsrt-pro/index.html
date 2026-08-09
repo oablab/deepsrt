@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>現在叫 DeepSRT PRO——名字終於追上它做的事</title>
+  <meta name="description" content="1.4.1 起,Mac 版 DeepSRT 改名 DeepSRT PRO。同一個 app、同一次買斷,多了一個字,和一個家族:PRO、Mobile、News 三條產品線,加上字幕樣式、歷史面板、會讓路的字幕。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="現在叫 DeepSRT PRO——名字終於追上它做的事">
+  <meta property="og:description" content="1.4.1 起,Mac 版 DeepSRT 改名 DeepSRT PRO。同一個 app、同一次買斷,多了一個字,和一個家族:PRO、Mobile、News 三條產品線,加上字幕樣式、歷史面板、會讓路的字幕。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/deepsrt-pro/">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/deepsrt-pro/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/deepsrt-pro/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/deepsrt-pro/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/deepsrt-pro/">EN</a>｜<a href="/zh/notes/deepsrt-pro/" class="active">中文</a>｜<a href="/ja/notes/deepsrt-pro/">日本語</a>｜<a href="/ko/notes/deepsrt-pro/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>現在叫 DeepSRT PRO——名字終於追上它做的事</h1>
+  <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
+  <p class="lead">同一個 app、同一次買斷,多了一個字,和一個家族。</p>
+  <article>
+<p>1.4.1 上架後，你 Dock 裡的 DeepSRT 會變成 <strong>DeepSRT PRO</strong>。不是新產品、不用重買、什麼都不用做——只是名字終於承認了這個 app 長成了什麼樣子。</p>
+<h2>為什麼是 PRO</h2>
+<p>因為家族添了新成員。DeepSRT 現在是三條產品線:</p>
+<ul>
+<li><strong>DeepSRT PRO</strong>(Mac)——完整體。即時雙語字幕、AI 摘要與逐字稿、無字幕影片的 AI 轉錄、本機 API、MCP(讓你的 AI agent 看 YouTube)、Safari 擴充、多家 AI provider 任選任配。</li>
+<li><strong>DeepSRT Mobile</strong>(iPhone)——正在 App Store 審核中。把最核心的體驗裝進口袋:播放、即時翻譯字幕、摘要、逐字稿,從 YouTube 分享或貼個連結就開始。</li>
+<li><strong>DeepSRT News</strong>(選單列)——頭條新聞的摘要,安靜地待在螢幕右上角。</li>
+</ul>
+<p>當「DeepSRT」同時指一個 Mac app 和一個品牌,名字就該分工了:品牌叫 DeepSRT,Mac 上那個火力全開的,叫 PRO。</p>
+<figure><img src="/notes/deepsrt-pro/shot-1.jpg" alt="DeepSRT PRO 主畫面:影片、雙語字幕、右側摘要與逐字稿" loading="lazy"><figcaption>招牌畫面:影片 + 即時雙語字幕 + 右側 AI 摘要與逐字稿。</figcaption></figure>
+<h2>1.4.1 帶來什麼</h2>
+<p>改名之外,這一版全是使用手感的打磨——大部分直接來自 Mobile 開發時學到的東西,回頭反哺 Mac:</p>
+<h2>字幕隨你打扮</h2>
+<p>設定裡多了「字幕樣式」:六種底色、透明度、圓角,拉一下滑桿,播放中的字幕即時變裝。大小一樣用 <strong>+ / −</strong> 鍵、位置一樣直接拖——現在連長相都歸你管。</p>
+<figure><img src="/notes/deepsrt-pro/shot-2.jpg" alt="設定頁的字幕樣式區:色票、透明度與圓角滑桿、即時預覽" loading="lazy"><figcaption>字幕樣式:六種底色、透明度、圓角,改了即時生效。</figcaption></figure>
+<h2>歷史按鈕變成了一個地方</h2>
+<p>左上角的時鐘按鈕以前只彈出一排標題。現在它打開一個完整的面板:上方是你<strong>常看頻道的頭像列</strong>,點一下就列出該頻道的最新影片;下方是帶縮圖的觀看紀錄。追頻道這件事,不需要帳號也能很順。</p>
+<figure><img src="/notes/deepsrt-pro/shot-3.jpg" alt="歷史面板:常看頻道的頭像橫列與帶縮圖的觀看紀錄" loading="lazy"><figcaption>歷史面板:頻道頭像一排在上,觀看紀錄在下。</figcaption></figure>
+<h2>字幕懂得讓路</h2>
+<p>點擊播放器——拉進度條、暫停、挑下一支——字幕會自動淡出讓路,三秒後回來。你操作的時候它退場,你觀看的時候它上場。這是 Mobile 上先做出來的小動作,好用到必須帶回 Mac。</p>
+<figure><img src="/notes/deepsrt-pro/shot-4.jpg" alt="滿版佈局:影片獨占整個視窗,字幕疊在畫面上" loading="lazy"><figcaption>隱藏面板佈局:整個視窗留給影片,字幕跟著你。</figcaption></figure>
+<h2>誠實的錯誤訊息</h2>
+<p>會員專屬、私人影片這類需要登入的內容,是 YouTube 對所有第三方 app 的統一邊界(詳見<a href="https://deepsrt.com/zh/#faq">FAQ</a>)。以前你會看到一行英文技術碼;現在 app 用你的語言告訴你發生了什麼——「加入這個頻道即可觀看會員專屬內容」,一看就懂,不再誤會是 app 壞了。</p>
+<p>另外:觀看紀錄現在<strong>影片一打開就記錄</strong>,中途切走的影片不再從歷史裡消失。</p>
+<figure><img src="/notes/deepsrt-pro/shot-5.jpg" alt="搜尋結果列表:輸入關鍵字直接在 app 內搜尋 YouTube" loading="lazy"><figcaption>輸入框不只吃連結——關鍵字直接搜。</figcaption></figure>
+<div class="callout">DeepSRT Mobile 正在 App Store 審核中——即時翻譯字幕、摘要、逐字稿,加上為手機重新設計的操作:滑動調字幕大小、拖曳移位置、常看頻道一排在手。上架時我們會在這裡發文。</div>
+<p class="outro">DeepSRT PRO 買斷制,在 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> 上架中。一次購買,永久使用,AI 用你自己的 key。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

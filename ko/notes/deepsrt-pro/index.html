@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이제 DeepSRT PRO입니다——이름이 마침내 실체를 따라잡았다</title>
+  <meta name="description" content="1.4.1부터 Mac용 DeepSRT는 DeepSRT PRO가 됩니다. 같은 앱, 같은 한 번 구매——늘어난 건 한 단어와 하나의 가족: PRO·Mobile·News 세 라인, 그리고 자막 스타일, 히스토리 패널, 길을 비켜주는 자막.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="이제 DeepSRT PRO입니다——이름이 마침내 실체를 따라잡았다">
+  <meta property="og:description" content="1.4.1부터 Mac용 DeepSRT는 DeepSRT PRO가 됩니다. 같은 앱, 같은 한 번 구매——늘어난 건 한 단어와 하나의 가족: PRO·Mobile·News 세 라인, 그리고 자막 스타일, 히스토리 패널, 길을 비켜주는 자막.">
+  <meta property="og:url" content="https://deepsrt.com/ko/notes/deepsrt-pro/">
+  <meta property="og:image" content="https://deepsrt.com/ko/notes/deepsrt-pro/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ko/notes/deepsrt-pro/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/deepsrt-pro/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+      --font-head: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ko/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/deepsrt-pro/">EN</a>｜<a href="/zh/notes/deepsrt-pro/">中文</a>｜<a href="/ja/notes/deepsrt-pro/">日本語</a>｜<a href="/ko/notes/deepsrt-pro/" class="active">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ko/notes/">← 노트</a>
+  <h1>이제 DeepSRT PRO입니다——이름이 마침내 실체를 따라잡았다</h1>
+  <p class="meta">2026년 8월 · DeepSRT 개발 노트</p>
+  <p class="lead">같은 앱, 같은 한 번 구매——늘어난 건 한 단어와 하나의 가족.</p>
+  <article>
+<p>1.4.1이 도착하면 Dock의 DeepSRT는 <strong>DeepSRT PRO</strong>가 됩니다. 새 제품도 아니고, 다시 살 필요도, 할 일도 없습니다——이 이름은 이 앱이 자라난 모습을 마침내 인정했을 뿐입니다.</p>
+<h2>왜 PRO인가</h2>
+<p>가족이 늘었기 때문입니다. DeepSRT는 이제 세 개의 제품 라인입니다:</p>
+<ul>
+<li><strong>DeepSRT PRO</strong>(Mac)——풀 패키지. 라이브 이중 자막, AI 요약과 대본, 자막 없는 영상의 AI 전사, 로컬 API, MCP(당신의 AI 에이전트가 YouTube를 봅니다), Safari 확장, AI 프로바이더 자유 조합.</li>
+<li><strong>DeepSRT Mobile</strong>(iPhone)——현재 App Store 심사 중. 핵심 경험을 주머니에: 재생, 실시간 번역 자막, 요약, 대본. YouTube 공유나 링크 붙여넣기로 시작합니다.</li>
+<li><strong>DeepSRT News</strong>(메뉴 막대)——헤드라인 요약이 화면 오른쪽 위에 조용히.</li>
+</ul>
+<p>"DeepSRT"가 Mac 앱과 브랜드를 동시에 가리킨다면 이름이 일을 나눠야 합니다: 브랜드는 DeepSRT, Mac에서 풀가동하는 쪽이 PRO.</p>
+<figure><img src="/notes/deepsrt-pro/shot-1.jpg" alt="DeepSRT PRO 메인 화면: 영상, 이중 자막, 요약과 대본 패널" loading="lazy"><figcaption>간판 화면: 영상 + 라이브 이중 자막 + 오른쪽에 AI 요약과 대본.</figcaption></figure>
+<h2>1.4.1이 가져온 것</h2>
+<p>개명 외에는 전부 손맛 다듬기——대부분 Mobile을 만들며 배워 Mac으로 가져온 것들입니다:</p>
+<h2>자막을 취향대로</h2>
+<p>설정에 '자막 스타일'이 생겼습니다: 여섯 가지 배경색, 불투명도, 모서리 둥글기. 슬라이더를 움직이면 재생 중인 자막이 즉시 갈아입습니다. 크기는 <strong>+ / −</strong> 키, 위치는 드래그 그대로——이제 생김새도 당신 것.</p>
+<figure><img src="/notes/deepsrt-pro/shot-2.jpg" alt="자막 스타일 설정: 색상 견본, 불투명도와 둥글기 슬라이더, 실시간 미리보기" loading="lazy"><figcaption>자막 스타일: 여섯 배경·불투명도·모서리, 변경 즉시 반영.</figcaption></figure>
+<h2>히스토리 버튼이 '장소'가 되다</h2>
+<p>시계 버튼은 제목 나열만 띄웠습니다. 이제 진짜 패널이 열립니다: 위에는 <strong>자주 보는 채널의 아바타 줄</strong>——한 번 클릭으로 그 채널 최신 영상 목록——아래에는 썸네일 딸린 시청 기록. 계정 없이도 채널 팔로우가 매끄럽습니다.</p>
+<figure><img src="/notes/deepsrt-pro/shot-3.jpg" alt="히스토리 패널: 채널 아바타 줄과 썸네일 시청 기록" loading="lazy"><figcaption>히스토리 패널: 위에는 채널, 아래에는 기록.</figcaption></figure>
+<h2>길을 비켜주는 자막</h2>
+<p>플레이어를 클릭——탐색, 일시정지, 다음 영상 고르기——하면 자막이 스르르 비켜나고 3초 뒤 돌아옵니다. 조작할 땐 퇴장, 볼 땐 등장. Mobile에서 태어난 동작인데, 너무 좋아서 Mac에 데려왔습니다.</p>
+<figure><img src="/notes/deepsrt-pro/shot-4.jpg" alt="패널 숨김 레이아웃: 영상이 창 전체를 차지하고 자막이 오버레이" loading="lazy"><figcaption>패널 숨김 레이아웃: 창 전체를 영상에, 자막은 그대로.</figcaption></figure>
+<h2>정직한 오류 메시지</h2>
+<p>멤버 전용·비공개 영상은 모든 서드파티 앱에 공통된 YouTube의 경계입니다(<a href="https://deepsrt.com/ko/#faq">FAQ</a> 참고). 예전엔 영어 오류 코드 한 줄이었지만, 이제 앱이 당신의 언어로 사정을 알려줍니다——"채널에 가입하면 시청할 수 있습니다". 답으로 읽히지, 버그로 보이지 않습니다.</p>
+<p>또한: 시청 기록이 <strong>영상을 여는 순간</strong> 기록됩니다. 중간에 이동한 영상이 기록에서 사라지는 일은 더 이상 없습니다.</p>
+<figure><img src="/notes/deepsrt-pro/shot-5.jpg" alt="검색 결과: 입력창에 키워드를 치면 앱 안에서 YouTube 검색" loading="lazy"><figcaption>입력창은 링크 전용이 아닙니다——키워드로 바로 검색.</figcaption></figure>
+<div class="callout">DeepSRT Mobile은 App Store 심사 중입니다——실시간 번역 자막, 요약, 대본, 그리고 폰을 위해 다시 설계한 조작: 슬라이드로 자막 크기, 드래그로 위치, 자주 보는 채널은 한 줄에. 출시되면 여기서 알려드리겠습니다.</div>
+<p class="outro">DeepSRT PRO는 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>에서 한 번 구매로 이용합니다. 한 번 사면 계속, AI는 본인 키로.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>

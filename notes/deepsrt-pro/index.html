@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>It&#x27;s DeepSRT PRO now — the name finally caught up</title>
+  <meta name="description" content="With 1.4.1, DeepSRT for Mac becomes DeepSRT PRO. Same app, same one-time purchase — one more word, and a family: PRO, Mobile, and News, plus caption styling, a real history panel, and captions that step aside.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="It&#x27;s DeepSRT PRO now — the name finally caught up">
+  <meta property="og:description" content="With 1.4.1, DeepSRT for Mac becomes DeepSRT PRO. Same app, same one-time purchase — one more word, and a family: PRO, Mobile, and News, plus caption styling, a real history panel, and captions that step aside.">
+  <meta property="og:url" content="https://deepsrt.com/notes/deepsrt-pro/">
+  <meta property="og:image" content="https://deepsrt.com/notes/deepsrt-pro/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/deepsrt-pro/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/deepsrt-pro/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/deepsrt-pro/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article figure { margin: 1.6rem 0; }
+    article figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); display: block; }
+    article figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.6rem; text-align: center; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/deepsrt-pro/" class="active">EN</a>｜<a href="/zh/notes/deepsrt-pro/">中文</a>｜<a href="/ja/notes/deepsrt-pro/">日本語</a>｜<a href="/ko/notes/deepsrt-pro/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>It's DeepSRT PRO now — the name finally caught up</h1>
+  <p class="meta">August 2026 · DeepSRT development notes</p>
+  <p class="lead">Same app, same one-time purchase — one more word, and a family.</p>
+  <article>
+<p>Once 1.4.1 lands, the DeepSRT in your Dock becomes <strong>DeepSRT PRO</strong>. Not a new product, nothing to re-buy, nothing to do — the name finally admits what this app has grown into.</p>
+<h2>Why PRO</h2>
+<p>Because the family grew. DeepSRT is now three product lines:</p>
+<ul>
+<li><strong>DeepSRT PRO</strong> (Mac) — the full instrument. Live bilingual captions, AI summaries and transcripts, AI transcription for caption-less videos, a local API, MCP (your AI agent can watch YouTube), a Safari extension, and your pick of AI providers.</li>
+<li><strong>DeepSRT Mobile</strong> (iPhone) — in App Store review now. The essential experience in your pocket: playback, live translated captions, summaries, transcripts — start from a YouTube share or a pasted link.</li>
+<li><strong>DeepSRT News</strong> (menu bar) — headline digests, sitting quietly in the top-right of your screen.</li>
+</ul>
+<p>When “DeepSRT” names both a Mac app and a brand, the name should split the work: the brand is DeepSRT, and the one on the Mac firing on every cylinder is PRO.</p>
+<figure><img src="/notes/deepsrt-pro/shot-1.jpg" alt="The DeepSRT PRO main view: video, bilingual captions, summary and transcript panes" loading="lazy"><figcaption>The signature view: video + live bilingual captions + AI summary and transcript on the right.</figcaption></figure>
+<h2>What 1.4.1 brings</h2>
+<p>Beyond the name, this release is all polish — most of it learned building Mobile and carried back to the Mac:</p>
+<h2>Captions, dressed your way</h2>
+<p>Settings grows a Caption Style section: six backgrounds, opacity, corner roundness — drag a slider and the live captions restyle mid-playback. Size stays on the <strong>+ / −</strong> keys, position stays a drag — now the look is yours too.</p>
+<figure><img src="/notes/deepsrt-pro/shot-2.jpg" alt="The Caption Style section: color swatches, opacity and roundness sliders, live preview" loading="lazy"><figcaption>Caption style: six backgrounds, opacity, and corner roundness, applied instantly.</figcaption></figure>
+<h2>The history button becomes a place</h2>
+<p>The clock button used to pop a bare list of titles. Now it opens a real panel: an <strong>avatar row of the channels you keep watching</strong> on top — one click lists that channel's latest uploads — and your watch history with thumbnails below. Following channels flows, no account needed.</p>
+<figure><img src="/notes/deepsrt-pro/shot-3.jpg" alt="The history panel: a row of channel avatars above the thumbnailed watch history" loading="lazy"><figcaption>The history panel: your channels in a row, your history below.</figcaption></figure>
+<h2>Captions that step aside</h2>
+<p>Click the player — scrub, pause, pick the next video — and the captions fade out of the way, returning three seconds later. They exit when you're operating and enter when you're watching. Born on Mobile, too good not to bring home.</p>
+<figure><img src="/notes/deepsrt-pro/shot-4.jpg" alt="The hidden-panes layout: the video owns the window with captions overlaid" loading="lazy"><figcaption>The hidden-panes layout: the whole window for the video, captions riding along.</figcaption></figure>
+<h2>Honest error messages</h2>
+<p>Members-only and private videos are YouTube's boundary for every third-party app (see the <a href="https://deepsrt.com/#faq">FAQ</a>). You used to get a line of English error code; now the app tells you what happened in your language — “join this channel to get access” reads like an answer, not a bug.</p>
+<p>Also: watch history now records <strong>the moment a video opens</strong> — videos you switch away from mid-summary no longer vanish from history.</p>
+<figure><img src="/notes/deepsrt-pro/shot-5.jpg" alt="Search results: type keywords into the input bar to search YouTube in-app" loading="lazy"><figcaption>The input bar takes more than links — type keywords and search.</figcaption></figure>
+<div class="callout">DeepSRT Mobile is in App Store review — live translated captions, summaries, transcripts, and controls redesigned for the phone: slide to resize captions, drag to move them, your channels one row away. We'll post here when it ships.</div>
+<p class="outro">DeepSRT PRO is a one-time purchase on the <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>. Buy once, keep forever, AI on your own key.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
