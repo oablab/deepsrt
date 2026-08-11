@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSRT — 릴리스</title>
+  <meta name="description" content="DeepSRT for Mac 각 버전의 변경 사항, 최신순.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeepSRT — 릴리스">
+  <meta property="og:description" content="DeepSRT for Mac 각 버전의 변경 사항, 최신순.">
+  <meta property="og:url" content="https://deepsrt.com/ko/releases/">
+  <meta property="og:image" content="https://deepsrt.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/releases/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/releases/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/releases/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/releases/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/releases/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .lead { color: var(--muted); font-size: 1.05rem; margin: 0.9rem 0 2.2rem; }
+    .rel-list { list-style: none; }
+    .rel-list li { border-top: 1px solid var(--border); padding: 1.3rem 0; }
+    .rel-row { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+    .rel-row .v { font-size: 1.25rem; font-weight: 700; }
+    .rel-row .latest { background: var(--accent-tint); color: var(--accent-deep); font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.04em; padding: 0.2rem 0.55rem;
+      border-radius: 999px; }
+    .rel-row .date { color: var(--muted); font-size: 0.88rem; margin-left: auto; }
+    .rel-note { color: var(--ink); margin-top: 0.5rem; }
+    .rel-note a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    .rel-note a:hover { text-decoration-color: var(--accent-deep); }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ko/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/releases/">EN</a>｜<a href="/zh/releases/">中文</a>｜<a href="/ja/releases/">日本語</a>｜<a href="/ko/releases/" class="active">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ko/">← DeepSRT</a>
+  <h1>릴리스</h1>
+  <p class="lead">DeepSRT for Mac 각 버전의 변경 사항, 최신순.</p>
+  <ul class="rel-list">
+    <li>
+      <div class="rel-row"><span class="v">1.5.1</span><span class="latest">최신</span><span class="date">2026년 8월 10일</span></div>
+      <div class="rel-note">자막 버그 수정: YouTube가 단순히 "zh"(대개 간체자)로 표시한 네이티브 자막 트랙이 번체자 선호와 완전히 일치하는 것으로 잘못 판단되어 번역이 건너뛰어졌습니다. 그 결과 번체자를 설정한 사용자에게 간체자 자막이 표시되던 문제입니다.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.5.0</span><span class="date">2026년 8월 9일</span></div>
+      <div class="rel-note">DeepSRT PRO: 앱 이름이 제품군(PRO, Mobile, News)에 맞춰 새로 명명되었습니다. 자막 스타일 설정, 실질적인 기록 패널, 클릭 시 자막이 알아서 비켜나는 기능, 다국어 오류 메시지가 추가되었습니다. <a href="/ko/notes/deepsrt-pro/">노트 읽기</a>.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.4.1</span><span class="date">2026년 8월 9일</span></div>
+      <div class="rel-note">같은 날 1.5.0으로 대체되었습니다 — 이름 변경과 네 가지 신규 기능은 패치 버전의 범위를 넘어섰습니다.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.4.0</span><span class="date">2026년 8월 8일</span></div>
+      <div class="rel-note">자막이 전혀 없는 영상을 위한 AI 자동 자막 생성 기능 추가 — 선택적 활성화, 세 번 대신 한 번의 처리로 완료, 잘못된 시간 구간에서도 복구 가능. <a href="/ko/notes/no-captions-no-problem/">노트 읽기</a>.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.3.0</span><span class="date">2026년 8월 7일</span></div>
+      <div class="rel-note">내장 MCP 엔드포인트 추가: 검색, 자막, 요약, 채널 목록, 영상 정보, 앱에서 열기 등 6가지 도구로 AI 에이전트와 CLI가 시청 중인 콘텐츠를 다룰 수 있습니다 — 본인의 API 키를 사용하며 모든 것이 Mac 안에 머뭅니다. <a href="/ko/notes/your-ai-agent-can-watch-youtube/">노트 읽기</a>.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.2.0</span><span class="date">2026년 8월 5일</span></div>
+      <div class="rel-note">유니버설 바이너리(Apple 실리콘 + Intel), 작업 단위 AI 공급자로 커스텀 OpenAI 호환 엔드포인트 추가(OpenCode Zen, OpenRouter, DeepSeek 프리셋 내장), 작업 단위 Gemini 모델 선택, 번체 중국어를 대만·홍콩 두 가지로 세분화.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.1.0</span><span class="date">2026년 8월 4일</span></div>
+      <div class="rel-note">무료 Safari 확장 프로그램이 Mac App Store에 출시: 우클릭 메뉴의 "DeepSRT에서 재생"과 재생 위치를 이어받는 툴바 연동. 앱 내 UI가 콘텐츠 언어 설정을 따르도록 개선되었으며, 지원 언어는 7개로 확대.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.0.1</span><span class="date">2026년 8월 4일</span></div>
+      <div class="rel-note">요약과 자막 패널이 영상 오른쪽에 기본으로 표시됩니다.</div>
+    </li>
+    <li>
+      <div class="rel-row"><span class="v">1.0.0</span><span class="date">2026년 7월 31일</span></div>
+      <div class="rel-note">Mac App Store 첫 출시. 본인의 Gemini API 키로 YouTube 영상의 AI 요약과 클릭 가능한 자막을 제공하며, 이중 언어 자막의 동기화를 유지하는 "스파인+주석" 아키텍처를 적용했습니다. <a href="/ko/notes/now-on-the-mac-app-store/">노트 읽기</a>.</div>
+    </li>
+  </ul>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/releases/">Releases</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:support@deepsrt.com">support@deepsrt.com</a></footer>
+</body>
+</html>
