@@ -273,8 +273,10 @@ def write_card(loc, spec, path):
     ImageDraw.Draw(wm).text((830, -40), "D", font=font(HELV, 1, 620), fill=(255, 255, 255, 14))
     img = Image.alpha_composite(img.convert("RGBA"), wm).convert("RGB")
     d = ImageDraw.Draw(img)
-    d.rounded_rectangle([72, 64, 156, 148], radius=20, fill=(255, 255, 255))
-    d.text((94, 74), "D", font=font(HELV, 1, 72), fill=(29, 94, 140))
+    badge = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    "brand-badge.png")).convert("RGBA")
+    badge = badge.resize((88, 88), Image.LANCZOS)
+    img.paste(badge, (70, 62), badge)
     d.text((176, 92), "DeepSRT", font=font(HELV, 1, 42), fill=(255, 255, 255))
     y = 248
     for line in lines:
