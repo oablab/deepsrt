@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSRT 新功能預覽：用 Google 搜尋讓摘要更準確</title>
+  <meta name="description" content="DeepSRT 的摘要現在可以讓 Gemini 一邊摘要、一邊用即時搜尋結果查證事實——這是一個可選用的 preview 功能。開啟工具很簡單，讓它真正去搜尋，多花了一行字。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DeepSRT 新功能預覽：用 Google 搜尋讓摘要更準確">
+  <meta property="og:description" content="DeepSRT 的摘要現在可以讓 Gemini 一邊摘要、一邊用即時搜尋結果查證事實——這是一個可選用的 preview 功能。開啟工具很簡單，讓它真正去搜尋，多花了一行字。">
+  <meta property="og:url" content="https://deepsrt.com/zh/notes/grounded-summaries/">
+  <meta property="og:image" content="https://deepsrt.com/zh/notes/grounded-summaries/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/zh/notes/grounded-summaries/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/grounded-summaries/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+      --font-head: "PingFang TC", "SF Pro TC", -apple-system, BlinkMacSystemFont, "Heiti TC", "Microsoft JhengHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/zh/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/grounded-summaries/">EN</a>｜<a href="/zh/notes/grounded-summaries/" class="active">中文</a>｜<a href="/ja/notes/grounded-summaries/">日本語</a>｜<a href="/ko/notes/grounded-summaries/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/zh/notes/">← 筆記</a>
+  <h1>DeepSRT 新功能預覽：用 Google 搜尋讓摘要更準確</h1>
+  <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
+  <p class="lead">講者會記錯數字。現在摘要可以查證。</p>
+  <article>
+<p>YouTube 影片裡充滿了自信但略有偏差的數字。創作者憑印象說某個價格「大概兩美元」，實際上發布價是 $0.75。地震規模、日期、版本號——憑記憶講出來，錯得剛好足以誤導人。一份忠實轉述錯誤的摘要，盡了本分，卻還是把你帶偏了。</p>
+<p>DeepSRT 的摘要現在可以處理這件事。開啟設定裡新的可選用 preview 功能「<strong>網路搜尋輔助</strong>」之後，Gemini 在產生摘要時可以用即時的 Google 搜尋結果查證事實性的說法，改正錯誤，並且明白說出來。</p>
+<h2>實際效果</h2>
+<p>我們餵給它一段逐字稿，裡面聲稱某個新 AI 模型「每百萬 token 大概兩美元，比前一代更貴」。沒開輔助時，摘要把這個說法當事實照抄。開了之後，它執行了搜尋、引用官方定價頁面，然後寫道：</p>
+<blockquote>與「價格更高」的誤解相反，該模型以比前一代低 50% 的價格發布，每百萬輸入 token 為 $0.75。</blockquote>
+<p>我們試了更難的案例。一則捏造的地震報導，城市、規模、星期幾、傷亡全是錯的——四項全部被修正，附上來源。一段宣佈某個根本不存在的模型版本的逐字稿——摘要認出講者實際指的是哪個真實版本，一次修正了版本號、benchmark 分數跟價格。</p>
+<h2>值得記下來的部分</h2>
+<p>把 Google Search 加為工具，<em>不會</em>讓模型去搜尋。它每次都自行判斷某個說法值不值得查證，而在我們的第一次測試裡它判斷不用——同一段逐字稿、工具開著、零次搜尋，錯誤數字一字不差地照抄。輸出跟沒開這個功能完全沒有分別。</p>
+<p>真正讓它生效的，是在摘要 prompt 裡多加的一條指示：查證具體的事實性說法——價格、日期、版本、統計數據——對照最新資訊，如果來源講錯了，改正它並簡短說明。加上這行之後，同一段逐字稿每次都觸發搜尋，三次全中，每次都引用來源、明確指出修正了什麼。</p>
+<div class="callout">宣告一個工具是給予許可，不是指定行為。想讓模型使用某個能力，prompt 就得開口要求。</div>
+<h2>誠實的限制</h2>
+<p>這是 preview，我們刻意把範圍收窄：</p>
+<p><strong>預設關閉。</strong>使用搜尋輔助的請求跟一般生成的計費方式不同，而且讓摘要工具連上網路是一個行為上的改變，應該由你自己選擇，而不是在某次更新裡默默發生。</p>
+<p><strong>只用於摘要。</strong>字幕翻譯永遠不使用搜尋輔助——翻譯一句話沒有什麼好搜尋的，而且搜尋輔助跟我們字幕管線依賴的結構化輸出模式互不相容。</p>
+<p><strong>它修正的是說法，不是背景。</strong>具體的數字會被查證。背景性的事實——比如一家悄悄改了名字的公司——可能會漏掉。模型查證看起來像「主張」的內容，不會重新推導整個世界。</p>
+<p><strong>僅限 Gemini。</strong>搜尋輔助是 Gemini 的能力。如果你的摘要跑在其他供應商上，這個開關維持關閉。</p>
+<p>你可以在 DeepSRT PRO（Mac）和 DeepSRT Mobile 的設定裡找到「網路搜尋輔助」。如果有影片騙了你、而摘要抓到了——或者沒抓到——我們都想聽。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/releases/">Releases</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
+</body>
+</html>

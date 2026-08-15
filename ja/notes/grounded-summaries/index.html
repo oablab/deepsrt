@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>機能プレビュー：Google 検索でより正確な要約を</title>
+  <meta name="description" content="DeepSRT の要約は、Gemini が要約しながらウェブの最新情報で事実を検証できるようになりました。オプトインのプレビュー機能です。ツールを有効にするのは簡単でしたが、実際に検索させるにはもう一行必要でした。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="機能プレビュー：Google 検索でより正確な要約を">
+  <meta property="og:description" content="DeepSRT の要約は、Gemini が要約しながらウェブの最新情報で事実を検証できるようになりました。オプトインのプレビュー機能です。ツールを有効にするのは簡単でしたが、実際に検索させるにはもう一行必要でした。">
+  <meta property="og:url" content="https://deepsrt.com/ja/notes/grounded-summaries/">
+  <meta property="og:image" content="https://deepsrt.com/ja/notes/grounded-summaries/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/ja/notes/grounded-summaries/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/grounded-summaries/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+      --font-head: "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, BlinkMacSystemFont, "Yu Gothic", Meiryo, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/ja/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/grounded-summaries/">EN</a>｜<a href="/zh/notes/grounded-summaries/">中文</a>｜<a href="/ja/notes/grounded-summaries/" class="active">日本語</a>｜<a href="/ko/notes/grounded-summaries/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/ja/notes/">← ノート</a>
+  <h1>機能プレビュー：Google 検索でより正確な要約を</h1>
+  <p class="meta">2026年8月 · DeepSRT 開発ノート</p>
+  <p class="lead">話し手は数字を記憶違いする。要約はもう確認できる。</p>
+  <article>
+<p>YouTube の動画は、自信たっぷりだが少しずれた数字であふれています。実際の発売価格が $0.75 なのに「2ドルくらい」と記憶で語るクリエイター。マグニチュード、日付、バージョン番号——記憶から話されるそれらは、人を誤らせるのにちょうど十分なだけ間違っています。間違いを忠実に繰り返す要約は、仕事をこなしながら、それでもあなたを欺いています。</p>
+<p>DeepSRT の要約はこれに対処できるようになりました。設定に加わったオプトインのプレビュー機能「<strong>ウェブ検索グラウンディング</strong>」を有効にすると、Gemini は要約中に Google 検索の最新結果で事実を検証し、間違いを訂正し、そのことを明記します。</p>
+<h2>実際の様子</h2>
+<p>ある新しい AI モデルが「100万トークンあたり2ドルほどで、前世代より高い」と主張するトランスクリプトを与えました。グラウンディングなしでは、要約はこの主張を事実として繰り返しました。有効にすると、検索を実行し、公式の価格ページを引用してこう書きました：</p>
+<blockquote>価格が上がったという誤解に反して、このモデルは前世代より50%安い、100万入力トークンあたり $0.75 で発売されました。</blockquote>
+<p>より難しいケースも試しました。都市、マグニチュード、曜日、被害状況がすべて間違った捏造の地震報道——4項目すべてが出典付きで訂正されました。存在しないモデルバージョンを発表するトランスクリプト——要約は話し手が実際に指している本物のリリースを認識し、バージョン番号、ベンチマークスコア、価格を一度に訂正しました。</p>
+<h2>書き残す価値のある部分</h2>
+<p>Google 検索をツールとして有効にしても、モデルが検索するようには<em>なりません</em>。ある主張が確認に値するかどうかをリクエストごとに自分で判断し、最初のテストでは単に検索しませんでした——同じトランスクリプト、ツール有効、検索ゼロ、間違った数字がそのまま繰り返されました。出力は機能をオフにした場合と見分けがつきませんでした。</p>
+<p>本物にしたのは、要約プロンプトに追加した一つの指示です：具体的な事実の主張——価格、日付、バージョン、統計——を最新情報と照合し、ソースが間違っていれば訂正して簡潔にそう述べること。この一行で、同じトランスクリプトが毎回検索をトリガーするようになりました。3回中3回、毎回出典を引用し、何を訂正したかを明示しました。</p>
+<div class="callout">ツールの宣言は許可であって、行動ではない。モデルに能力を使わせたいなら、プロンプトがそれを求めなければならない。</div>
+<h2>正直な制限</h2>
+<p>これはプレビューであり、意図的に範囲を狭くしています：</p>
+<p><strong>既定でオフ。</strong>グラウンディングされたリクエストは通常の生成とは別に課金され、要約ツールがウェブにアクセスすることは、アップデートで黙って変わるべきではなく、あなたが選ぶべき行動の変化です。</p>
+<p><strong>要約のみ。</strong>字幕の翻訳はグラウンディングを使いません——一文を翻訳するのに検索するものはなく、グラウンディングは字幕パイプラインが依存する構造化出力モードと互換性がありません。</p>
+<p><strong>訂正するのは主張であって、背景ではない。</strong>具体的な数字は確認されます。背景的な事実——たとえば静かに社名を変えた会社——は漏れることがあります。モデルは主張らしきものを検証するのであって、世界全体を再導出するわけではありません。</p>
+<p><strong>Gemini のみ。</strong>グラウンディングは Gemini の機能です。要約が他のプロバイダで動いている場合、このトグルはオフのままです。</p>
+<p>DeepSRT PRO（Mac）と DeepSRT Mobile の設定内「ウェブ検索グラウンディング」にあります。動画に騙され、要約がそれを見抜いたら——あるいは見抜けなかったら——ぜひ聞かせてください。</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/releases/">Releases</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
+</body>
+</html>

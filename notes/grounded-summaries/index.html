@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feature Preview: More Accurate Summaries with Google Search</title>
+  <meta name="description" content="DeepSRT can now let Gemini verify factual claims against live web results while summarizing — an opt-in preview. Enabling the tool was the easy part; making it actually search took one more line.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Feature Preview: More Accurate Summaries with Google Search">
+  <meta property="og:description" content="DeepSRT can now let Gemini verify factual claims against live web results while summarizing — an opt-in preview. Enabling the tool was the easy part; making it actually search took one more line.">
+  <meta property="og:url" content="https://deepsrt.com/notes/grounded-summaries/">
+  <meta property="og:image" content="https://deepsrt.com/notes/grounded-summaries/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://deepsrt.com/notes/grounded-summaries/og-card.png">
+  <link rel="alternate" hreflang="en" href="https://deepsrt.com/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://deepsrt.com/zh/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="ja" href="https://deepsrt.com/ja/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="ko" href="https://deepsrt.com/ko/notes/grounded-summaries/">
+  <link rel="alternate" hreflang="x-default" href="https://deepsrt.com/notes/grounded-summaries/">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <style>
+    :root {
+      --accent: #4E9FD1; --accent-deep: #1D5E8C; --accent-tint: #DCEDF7;
+      --ink: #1B2C3A; --muted: #5C7386; --bg: #F2F7FA; --card: #E6EFF5;
+      --border: rgba(29, 94, 140, 0.16);
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --font-head: "New York", Georgia, "Times New Roman", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #6FB6E4; --accent-deep: #A8D4EF; --accent-tint: #16242E;
+        --ink: #E3EDF4; --muted: #8CA4B4; --bg: #0E161C; --card: #152129;
+        --border: rgba(111, 182, 228, 0.2);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body);
+      color: var(--ink); background: var(--bg); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    nav { display: flex; align-items: center; justify-content: space-between;
+      max-width: 720px; margin: 0 auto; padding: 0.9rem 1.5rem; }
+    nav .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink); }
+    nav .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .lang { font-size: 0.9rem; color: var(--muted); }
+    nav .lang a { margin: 0 0.15rem; text-decoration: none; color: var(--muted); }
+    nav .lang a.active { color: var(--ink); font-weight: 700; }
+    /* Small screens: the brand plus four locales don't share a row on a
+       ~375px phone, and mid-string wrapping is the ugliest outcome. Stack
+       them instead — same pattern the homepage already uses. */
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+    .backlink { display: inline-block; margin-bottom: 1.6rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+    .backlink:hover { color: var(--accent-deep); }
+    h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 2.2rem; }
+    nav .lang { white-space: nowrap; }
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem 0.6rem; }
+    }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    .lead { font-size: 1.12rem; font-weight: 700; color: var(--muted); margin: 0.9rem 0 0.3rem; line-height: 1.75; }
+    article blockquote { margin: 1.3rem 0; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 3px solid var(--border); color: var(--muted); }
+    article .table-wrap { margin: 1.7rem 0; background: var(--card);
+      border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+    article table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    article th { text-align: left; white-space: nowrap; color: var(--muted);
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 1rem 1.1rem 0.55rem; }
+    article td { text-align: left; vertical-align: top; padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border); }
+    article td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+    article td code { background: none; padding: 0; color: var(--muted); }
+    article .callout { background: var(--accent-tint); border-radius: 14px;
+      padding: 1.1rem 1.4rem; margin: 1.7rem 0; font-size: 0.98rem; }
+    article h2 { font-family: var(--font-head); font-size: 1.45rem; margin: 2.4rem 0 0.8rem; }
+    article p { margin: 1rem 0; }
+    article a { color: var(--accent-deep); text-decoration-color: var(--border); text-underline-offset: 3px; }
+    article a:hover { text-decoration-color: var(--accent-deep); }
+    article strong { font-weight: 700; }
+    .note-list { list-style: none; margin-top: 2rem; }
+    .note-list li { border-top: 1px solid var(--border); padding: 1.4rem 0; }
+    .note-list a { text-decoration: none; color: var(--ink); }
+    .note-list .t { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; }
+    .note-list .t:hover { color: var(--accent-deep); }
+    .note-list .d { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .note-list .s { color: var(--muted); margin-top: 0.45rem; font-size: 0.98rem; }
+    footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> DeepSRT</a>
+  <span class="lang"><a href="/notes/grounded-summaries/" class="active">EN</a>｜<a href="/zh/notes/grounded-summaries/">中文</a>｜<a href="/ja/notes/grounded-summaries/">日本語</a>｜<a href="/ko/notes/grounded-summaries/">한국어</a></span>
+</nav>
+<main>
+  <a class="backlink" href="/notes/">← Notes</a>
+  <h1>Feature Preview: More Accurate Summaries with Google Search</h1>
+  <p class="meta">August 2026 · DeepSRT development notes</p>
+  <p class="lead">Speakers misremember numbers. Now the summary can check.</p>
+  <article>
+<p>YouTube videos are full of confident, slightly wrong numbers. A creator recalls a price as “around two dollars” when it launched at $0.75. A magnitude, a date, a version number — spoken from memory, off by just enough to matter. A summary that faithfully repeats the mistake is doing its job and still misleading you.</p>
+<p>DeepSRT's summaries can now do something about that. With <strong>Web Search Grounding</strong> — a new opt-in preview in Settings — Gemini can check factual claims against live Google Search results while it summarizes, correct what's wrong, and say so.</p>
+<h2>What it looks like</h2>
+<p>We fed the feature a transcript claiming a new AI model “costs around two dollars per million tokens, more expensive than its predecessor.” Without grounding, the summary repeated the claim as fact. With grounding, it searched, cited the official pricing page, and wrote:</p>
+<blockquote>Contrary to misconceptions regarding higher pricing, the model launched with a 50% discount compared to its predecessor, at $0.75 per million input tokens.</blockquote>
+<p>We tried harder cases. A fabricated earthquake report with the wrong city, magnitude, weekday, and casualties — all four corrected, with sources. A transcript announcing a model version that doesn't exist — the summary recognized which real release the speaker meant, corrected the version number, the benchmark score, and the price in one pass.</p>
+<h2>The part worth writing down</h2>
+<p>Enabling Google Search as a tool does <em>not</em> make the model search. It decides per request whether a claim looks worth checking, and in our first test it simply didn't — same transcript, tool enabled, zero searches, wrong number repeated verbatim. The output was indistinguishable from having the feature off.</p>
+<p>What made it real was one added instruction in the summary prompt: verify specific factual claims — prices, dates, versions, statistics — against current information, and if the source is wrong, correct it and briefly say so. With that line, the same transcript triggered a search on every run, three out of three, each time citing sources and naming the correction.</p>
+<div class="callout">A tool declaration is permission, not behavior. If you want the model to use a capability, the prompt has to ask for it.</div>
+<h2>The honest limits</h2>
+<p>This is a preview, and we're keeping the scope narrow deliberately:</p>
+<p><strong>Off by default.</strong> Grounded requests are billed differently from plain generation, and letting a summarizer reach out to the web is a behavior change you should choose, not receive silently in an update.</p>
+<p><strong>Summaries only.</strong> Caption translation never grounds — there is nothing to search for when translating a sentence, and grounding is incompatible with the structured-output mode our caption pipeline depends on.</p>
+<p><strong>It corrects claims, not context.</strong> Specific numbers get checked. Background facts — a company that quietly renamed itself, say — may slip through. The model verifies what looks like a claim; it doesn't re-derive the whole world.</p>
+<p><strong>Gemini only.</strong> Grounding is a Gemini capability. If your summaries run on another provider, the toggle stays off.</p>
+<p>You'll find it in Settings under Web Search Grounding, in DeepSRT PRO for Mac and DeepSRT Mobile. If a video lied to you and the summary caught it — or didn't — we'd like to hear.</p>
+
+  </article>
+</main>
+<footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/releases/">Releases</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
+</body>
+</html>
