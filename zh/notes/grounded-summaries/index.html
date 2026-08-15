@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DeepSRT 新功能預覽：用 Google 搜尋讓摘要更準確</title>
-  <meta name="description" content="DeepSRT 的摘要現在可以讓 Gemini 一邊摘要、一邊用即時搜尋結果查證事實——這是一個可選用的 preview 功能。開啟工具很簡單，讓它真正去搜尋，多花了一行字。">
+  <meta name="description" content="每個 LLM 都有知識截止日期——之後發生的事根本不在模型裡。DeepSRT 新的可選用 preview 功能讓 Gemini 在摘要時用即時搜尋結果查證。開啟工具很簡單，讓它真正去搜尋，多花了一行字。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="DeepSRT 新功能預覽：用 Google 搜尋讓摘要更準確">
-  <meta property="og:description" content="DeepSRT 的摘要現在可以讓 Gemini 一邊摘要、一邊用即時搜尋結果查證事實——這是一個可選用的 preview 功能。開啟工具很簡單，讓它真正去搜尋，多花了一行字。">
+  <meta property="og:description" content="每個 LLM 都有知識截止日期——之後發生的事根本不在模型裡。DeepSRT 新的可選用 preview 功能讓 Gemini 在摘要時用即時搜尋結果查證。開啟工具很簡單，讓它真正去搜尋，多花了一行字。">
   <meta property="og:url" content="https://deepsrt.com/zh/notes/grounded-summaries/">
   <meta property="og:image" content="https://deepsrt.com/zh/notes/grounded-summaries/og-card.png">
   <meta property="og:image:width" content="1200">
@@ -106,23 +106,31 @@
   <a class="backlink" href="/zh/notes/">← 筆記</a>
   <h1>DeepSRT 新功能預覽：用 Google 搜尋讓摘要更準確</h1>
   <p class="meta">2026 年 8 月 · DeepSRT 開發筆記</p>
-  <p class="lead">講者會記錯數字。現在摘要可以查證。</p>
+  <p class="lead">講者會記錯數字。模型的知識停在截止日。現在摘要可以查證。</p>
   <article>
-<p>YouTube 影片裡充滿了自信但略有偏差的數字。創作者憑印象說某個價格「大概兩美元」，實際上發布價是 $0.75。地震規模、日期、版本號——憑記憶講出來，錯得剛好足以誤導人。一份忠實轉述錯誤的摘要，盡了本分，卻還是把你帶偏了。</p>
-<p>DeepSRT 的摘要現在可以處理這件事。開啟設定裡新的可選用 preview 功能「<strong>網路搜尋輔助</strong>」之後，Gemini 在產生摘要時可以用即時的 Google 搜尋結果查證事實性的說法，改正錯誤，並且明白說出來。</p>
-<h2>實際效果</h2>
-<p>我們餵給它一段逐字稿，裡面聲稱某個新 AI 模型「每百萬 token 大概兩美元，比前一代更貴」。沒開輔助時，摘要把這個說法當事實照抄。開了之後，它執行了搜尋、引用官方定價頁面，然後寫道：</p>
-<blockquote>與「價格更高」的誤解相反，該模型以比前一代低 50% 的價格發布，每百萬輸入 token 為 $0.75。</blockquote>
-<p>我們試了更難的案例。一則捏造的地震報導，城市、規模、星期幾、傷亡全是錯的——四項全部被修正，附上來源。一段宣佈某個根本不存在的模型版本的逐字稿——摘要認出講者實際指的是哪個真實版本，一次修正了版本號、benchmark 分數跟價格。</p>
+<p>每個大型語言模型都有一個<strong>知識截止日期</strong>（knowledge cutoff）——訓練資料結束的那一天。問它任何在那之後發生的事，它就是不知道：不是模糊、不是一知半解——那些資訊根本不在模型裡。對一個摘要 YouTube 影片的工具來說，這件事比聽起來更要緊，因為人們看的影片有太多是<em>新的</em>：產品發表、突發新聞、三天前才發布的模型。逐字稿講的是一個摘要引擎從未見過的世界。</p>
+<p>還有第二個更隱蔽的問題：逐字稿本身常常就是錯的。創作者憑記憶說話。印象中「大概兩美元」的價格，實際發布價是 $0.75。地震規模、日期、版本號——錯得剛好足以誤導人。一份忠實轉述錯誤的摘要，盡了本分，卻還是把你帶偏了。</p>
+<p>這就是「<strong>用 Google 搜尋輔助</strong>」（grounding）登場的地方。開啟 DeepSRT 設定裡新的可選用 preview 功能「網路搜尋輔助」之後，Gemini 在產生摘要時可以用即時搜尋結果查證事實性的說法，跨過自己的知識截止日，改正錯誤，並且明白說出來。</p>
+<p><img src="/notes/grounded-summaries/settings-toggle.png" alt="DeepSRT 設定頁：網路搜尋輔助區塊，「用 Google 搜尋輔助摘要 (preview)」開關已開啟，下方附 preview 說明與另行計費的提示" width="1134" height="362" loading="lazy"></p>
+<h2>實驗一：講錯的價格</h2>
+<p>我們餵給它一段逐字稿，聲稱某個新 AI 模型「每百萬 token 大概兩美元，比前一代更貴」。實際發布價是每百萬輸入 token $0.75——更便宜，不是更貴。</p>
+<table><thead><tr><th>逐字稿的說法</th><th>沒開輔助</th><th>開了輔助</th></tr></thead><tbody><tr><td>「每百萬 token 大概 $2，比前一代貴」</td><td>當事實照抄</td><td>✅ 執行搜尋、引用官方定價頁：「與『價格更高』的誤解相反……以比前一代低 50% 的價格發布，每百萬輸入 token $0.75」</td></tr></tbody></table>
+<h2>實驗二：捏造的地震報導</h2>
+<p>接著是更難的案例：一則關於西班牙真實地震的假新聞逐字稿，城市、規模、星期幾、傷亡全部故意寫錯。這場地震發生在幾天前——遠在任何模型的訓練資料之後，只有即時搜尋才可能答對。</p>
+<table><thead><tr><th>細節</th><th>逐字稿說的（錯）</th><th>沒開輔助</th><th>開了輔助</th></tr></thead><tbody><tr><td>地點</td><td>巴塞隆納</td><td>照抄「Barcelona」</td><td>✅ 修正為「安達魯西亞的格拉納達省」（Alhendín 附近）</td></tr><tr><td>規模</td><td>6.5</td><td>照抄「規模 6.5」</td><td>✅ 修正為「規模 5.0——不是 6.5」</td></tr><tr><td>時間</td><td>星期三下午</td><td>照抄</td><td>✅ 修正為「星期六凌晨」</td></tr><tr><td>傷亡</td><td>多人受傷、建築倒塌</td><td>照抄「建築倒塌……多人受傷」</td><td>✅ 修正為「沒有建築倒塌，也沒有傷亡報告」</td></tr></tbody></table>
+<h2>實驗三：根本不存在的模型版本</h2>
+<p>最難抓的錯誤不是「真實東西的數字錯了」，而是「這個東西根本不存在」。我們寫了一段宣佈「Grok 3.6」的逐字稿——這個版本從未發布過（幾天前真正發布的是 Grok 4.6），再加上錯的 benchmark 分數跟錯的價格。</p>
+<table><thead><tr><th>細節</th><th>逐字稿說的（錯）</th><th>沒開輔助</th><th>開了輔助</th></tr></thead><tbody><tr><td>版本號</td><td>Grok 3.6（不存在）</td><td>照抄「Grok 3.6」，完全沒發現</td><td>✅ 認出真實版本：「Grok 4.6（correcting the reference to Grok 3.6…）」</td></tr><tr><td>Benchmark 分數</td><td>Intelligence Index 75 分</td><td>照抄「approximately 75」</td><td>✅ 修正為「61 分，不是 75」</td></tr><tr><td>價格</td><td>$5/百萬輸入 token</td><td>照抄「roughly five dollars」</td><td>✅ 修正為「每百萬輸入 token $2.00、輸出 $6.00」</td></tr><tr><td>公司名</td><td>xAI（其後已改名）</td><td>照抄「xAI」</td><td>⚠️ 保留「xAI」——改名這件事漏掉了，這是真實的限制</td></tr></tbody></table>
 <h2>值得記下來的部分</h2>
 <p>把 Google Search 加為工具，<em>不會</em>讓模型去搜尋。它每次都自行判斷某個說法值不值得查證，而在我們的第一次測試裡它判斷不用——同一段逐字稿、工具開著、零次搜尋，錯誤數字一字不差地照抄。輸出跟沒開這個功能完全沒有分別。</p>
 <p>真正讓它生效的，是在摘要 prompt 裡多加的一條指示：查證具體的事實性說法——價格、日期、版本、統計數據——對照最新資訊，如果來源講錯了，改正它並簡短說明。加上這行之後，同一段逐字稿每次都觸發搜尋，三次全中，每次都引用來源、明確指出修正了什麼。</p>
 <div class="callout">宣告一個工具是給予許可，不是指定行為。想讓模型使用某個能力，prompt 就得開口要求。</div>
 <h2>誠實的限制</h2>
 <p>這是 preview，我們刻意把範圍收窄：</p>
+<p><strong>是 best effort，不是保證。</strong>要不要搜尋、搜什麼、信哪些來源，都是 Gemini 模型針對每次請求自行判斷的。它會修正它抓到的錯誤——我們的實驗顯示它抓到不少——但搜尋輔助無法承諾 100% 準確。把它當成一位認真的事實查核員，而不是絕對正確的先知。</p><p><strong>費用會增加。</strong>使用搜尋輔助的請求會消耗更多 token（搜尋結果會進入上下文），搜尋本身也在一般生成之外另行計費。如果你要開啟這個功能，請先在你的 Google 帳戶設定每月支出上限——我們對 AI 轉錄功能的建議，在這裡加倍適用。</p>
 <p><strong>預設關閉。</strong>使用搜尋輔助的請求跟一般生成的計費方式不同，而且讓摘要工具連上網路是一個行為上的改變，應該由你自己選擇，而不是在某次更新裡默默發生。</p>
 <p><strong>只用於摘要。</strong>字幕翻譯永遠不使用搜尋輔助——翻譯一句話沒有什麼好搜尋的，而且搜尋輔助跟我們字幕管線依賴的結構化輸出模式互不相容。</p>
-<p><strong>它修正的是說法，不是背景。</strong>具體的數字會被查證。背景性的事實——比如一家悄悄改了名字的公司——可能會漏掉。模型查證看起來像「主張」的內容，不會重新推導整個世界。</p>
+<p><strong>它修正的是說法，不是背景。</strong>具體的數字會被查證。背景性的事實——像實驗三裡那家悄悄改了名字的公司——可能會漏掉。模型查證看起來像「主張」的內容，不會重新推導整個世界。</p>
 <p><strong>僅限 Gemini。</strong>搜尋輔助是 Gemini 的能力。如果你的摘要跑在其他供應商上，這個開關維持關閉。</p>
 <p>你可以在 DeepSRT PRO（Mac）和 DeepSRT Mobile 的設定裡找到「網路搜尋輔助」。如果有影片騙了你、而摘要抓到了——或者沒抓到——我們都想聽。</p>
 
