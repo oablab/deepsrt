@@ -111,7 +111,7 @@
 <p>每個大型語言模型都有一個<strong>知識截止日期</strong>（knowledge cutoff）——訓練資料結束的那一天。問它任何在那之後發生的事，它就是不知道：不是模糊、不是一知半解——那些資訊根本不在模型裡。對一個摘要 YouTube 影片的工具來說，這件事比聽起來更要緊，因為人們看的影片有太多是<em>新的</em>：產品發表、突發新聞、三天前才發布的模型。逐字稿講的是一個摘要引擎從未見過的世界。</p>
 <p>還有第二個更隱蔽的問題：逐字稿本身常常就是錯的。創作者憑記憶說話。印象中「大概兩美元」的價格，實際發布價是 $0.75。地震規模、日期、版本號——錯得剛好足以誤導人。一份忠實轉述錯誤的摘要，盡了本分，卻還是把你帶偏了。</p>
 <p>這就是「<strong>用 Google 搜尋輔助</strong>」（grounding）登場的地方。開啟 DeepSRT 設定裡新的可選用 preview 功能「網路搜尋輔助」之後，Gemini 在產生摘要時可以用即時搜尋結果查證事實性的說法，跨過自己的知識截止日，改正錯誤，並且明白說出來。</p>
-<p><img src="/notes/grounded-summaries/settings-toggle.png" alt="DeepSRT 設定頁：網路搜尋輔助區塊，「用 Google 搜尋輔助摘要 (preview)」開關已開啟，下方附 preview 說明與另行計費的提示" width="1134" height="362" loading="lazy"></p>
+<p><img src="/notes/grounded-summaries/settings-toggle.png" style="max-width: 640px; width: 100%; height: auto; display: block; margin: 1.6rem auto; border-radius: 12px; border: 1px solid var(--border);" alt="DeepSRT 設定頁：網路搜尋輔助區塊，「用 Google 搜尋輔助摘要 (preview)」開關已開啟，下方附 preview 說明與另行計費的提示" width="1134" height="362" loading="lazy"></p>
 <h2>實驗一：講錯的價格</h2>
 <p>我們餵給它一段逐字稿，聲稱某個新 AI 模型「每百萬 token 大概兩美元，比前一代更貴」。實際發布價是每百萬輸入 token $0.75——更便宜，不是更貴。</p>
 <table><thead><tr><th>逐字稿的說法</th><th>沒開輔助</th><th>開了輔助</th></tr></thead><tbody><tr><td>「每百萬 token 大概 $2，比前一代貴」</td><td>當事實照抄</td><td>✅ 執行搜尋、引用官方定價頁：「與『價格更高』的誤解相反……以比前一代低 50% 的價格發布，每百萬輸入 token $0.75」</td></tr></tbody></table>
