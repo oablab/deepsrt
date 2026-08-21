@@ -1,0 +1,411 @@
+{
+  "_comment": "Release history for deepsrt.com/releases/. Newest first — the generator preserves this order. Edit this file, then run scripts/new-release.py. Never hand-edit the generated HTML.",
+  "ui": {
+    "en": {
+      "lang": "en",
+      "prefix": "",
+      "title": "DeepSRT — Releases",
+      "description": "What each version of DeepSRT brought, newest first.",
+      "h1": "Releases",
+      "lead": "What each version of DeepSRT brought, newest first. The badge on each row says which app and devices it reached.",
+      "back": "← DeepSRT",
+      "latest": "Latest",
+      "review": "In review",
+      "readnote": "Read the note",
+      "footer_links": [
+        [
+          "/pricing/",
+          "Pricing"
+        ],
+        [
+          "/releases/",
+          "Releases"
+        ],
+        [
+          "/terms/",
+          "Terms"
+        ],
+        [
+          "/refunds/",
+          "Refunds"
+        ],
+        [
+          "/privacy/",
+          "Privacy"
+        ]
+      ]
+    },
+    "zh": {
+      "lang": "zh-Hant",
+      "prefix": "/zh",
+      "title": "DeepSRT — 版本紀錄",
+      "description": "DeepSRT 每個版本帶來了什麼，由新到舊。",
+      "h1": "版本紀錄",
+      "lead": "DeepSRT 每個版本帶來了什麼，由新到舊。每列的徽章標示該版本屬於哪個 App 與裝置。",
+      "back": "← DeepSRT",
+      "latest": "最新",
+      "review": "審核中",
+      "readnote": "閱讀完整筆記",
+      "footer_links": [
+        [
+          "/pricing/",
+          "價格"
+        ],
+        [
+          "/releases/",
+          "版本紀錄"
+        ],
+        [
+          "/terms/",
+          "服務條款"
+        ],
+        [
+          "/refunds/",
+          "退款"
+        ],
+        [
+          "/privacy/",
+          "隱私權"
+        ]
+      ]
+    },
+    "ja": {
+      "lang": "ja",
+      "prefix": "/ja",
+      "title": "DeepSRT — リリース",
+      "description": "DeepSRT の各バージョンの内容。新しい順。",
+      "h1": "リリース",
+      "lead": "DeepSRT の各バージョンの内容。新しい順。各行のバッジは、どのアプリとデバイスに届いたかを示します。",
+      "back": "← DeepSRT",
+      "latest": "最新",
+      "review": "審査中",
+      "readnote": "ノートを読む",
+      "footer_links": [
+        [
+          "/pricing/",
+          "価格"
+        ],
+        [
+          "/releases/",
+          "リリース"
+        ],
+        [
+          "/terms/",
+          "利用規約"
+        ],
+        [
+          "/refunds/",
+          "返金"
+        ],
+        [
+          "/privacy/",
+          "プライバシー"
+        ]
+      ]
+    },
+    "ko": {
+      "lang": "ko",
+      "prefix": "/ko",
+      "title": "DeepSRT — 릴리스",
+      "description": "DeepSRT 각 버전의 변경 사항, 최신순.",
+      "h1": "릴리스",
+      "lead": "DeepSRT 각 버전의 변경 사항, 최신순. 각 행의 배지는 어떤 앱과 기기에 적용되었는지 알려줍니다.",
+      "back": "← DeepSRT",
+      "latest": "최신",
+      "review": "심사 중",
+      "readnote": "노트 읽기",
+      "footer_links": [
+        [
+          "/pricing/",
+          "가격"
+        ],
+        [
+          "/releases/",
+          "릴리스"
+        ],
+        [
+          "/terms/",
+          "이용약관"
+        ],
+        [
+          "/refunds/",
+          "환불"
+        ],
+        [
+          "/privacy/",
+          "개인정보"
+        ]
+      ]
+    }
+  },
+  "releases": [
+    {
+      "version": "1.1",
+      "platforms": {
+        "en": "Mobile · iPhone, iPad",
+        "zh": "Mobile · iPhone、iPad",
+        "ja": "Mobile · iPhone、iPad",
+        "ko": "Mobile · iPhone, iPad"
+      },
+      "status": "review",
+      "date": {
+        "en": "Submitted August 21, 2026",
+        "zh": "2026 年 8 月 21 日送審",
+        "ja": "2026年8月21日 申請",
+        "ko": "2026년 8월 21일 제출"
+      },
+      "blurb": {
+        "en": "iPad support: the video sits beside the summary and transcript, with a draggable divider. On iPhone, optional auto-rotation follows how you are actually holding the phone — even with the system rotation lock on — and never turns the picture upside-down. Adds a five-step text size for the summary and transcript, right-sized captions when no translation is configured, paste-to-play, and language changes that apply to the video already playing.",
+        "zh": "iPad 支援：影片與摘要、逐字稿並排，中間可拖曳調整寬度。iPhone 新增選用的重力自動轉向──即使系統鎖定轉向也能依你實際握持方向調整，且永不把畫面轉成上下顛倒。另外新增摘要與逐字稿的五段文字大小、未設定翻譯時字幕大小回歸合理、貼上連結即播放，以及切換語言立即套用到正在播放的影片。",
+        "ja": "iPad対応：動画の隣に要約と文字起こしが並び、仕切りはドラッグで調整できます。iPhoneでは、実際の持ち方に追従する自動回転（任意）を追加──システムの向きロック中でも機能し、画面が上下逆になることはありません。さらに要約と文字起こしの5段階の文字サイズ、翻訳未設定時の字幕サイズの適正化、貼り付けで即再生、再生中の動画にも即時反映される言語切り替えを追加。",
+        "ko": "iPad 지원: 동영상 옆에 요약과 자막이 나란히 표시되고, 구분선을 드래그해 조절할 수 있습니다. iPhone에서는 기기를 든 방향을 따라가는 자동 회전(선택 사항)을 추가했습니다 — 시스템 회전 잠금이 켜져 있어도 작동하며, 화면이 거꾸로 되지는 않습니다. 요약·자막의 5단계 글자 크기, 번역 미설정 시 자막 크기 정상화, 붙여넣기 즉시 재생, 재생 중인 동영상에 바로 적용되는 언어 변경도 추가되었습니다."
+      }
+    },
+    {
+      "version": "1.6.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": "latest",
+      "date": {
+        "en": "August 14, 2026",
+        "zh": "2026 年 8 月 14 日",
+        "ja": "2026年8月14日",
+        "ko": "2026년 8월 14일"
+      },
+      "blurb": {
+        "en": "Fresh installs now default to your preferred caption language instead of captions being off, so the feature that makes DeepSRT worth having is on the first time you play something.",
+        "zh": "全新安裝的字幕預設改為「你偏好的語言」，而不是關閉──讓 DeepSRT 最核心的功能在你第一次播放影片時就已就緒。",
+        "ja": "新規インストール時の字幕の初期設定が「オフ」から「優先する言語」に変わりました。DeepSRTの中心的な機能が、最初の再生から有効になります。",
+        "ko": "새로 설치하면 자막 기본값이 '꺼짐'에서 '선호 언어'로 바뀝니다. DeepSRT의 핵심 기능이 첫 재생부터 켜져 있습니다."
+      }
+    },
+    {
+      "version": "1.5.1",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 11, 2026",
+        "zh": "2026 年 8 月 11 日",
+        "ja": "2026年8月11日",
+        "ko": "2026년 8월 11일"
+      },
+      "blurb": {
+        "en": "Fixed a caption bug: a video whose native track YouTube labels as plain \"zh\" (typically Simplified) was being treated as an exact match for a Traditional Chinese preference, so translation was skipped and Simplified captions showed up for users who asked for 繁體中文.",
+        "zh": "修正字幕問題：影片原生字幕軌若被 YouTube 標為單純的「zh」（通常是簡體），過去會被誤判為與繁體中文偏好完全匹配，導致翻譯被跳過──設定繁體中文的用戶因此看到簡體字幕。",
+        "ja": "字幕の不具合を修正：YouTube が単に「zh」（多くは簡体字）と表示する字幕トラックが、繁体字中国語の設定と完全一致と判定され、翻訳がスキップされていました。繁体字を選んでいる方に簡体字が表示される問題です。",
+        "ko": "자막 버그 수정: YouTube가 단순히 \"zh\"(보통 간체)로 표시한 원본 자막 트랙이 번체 중국어 설정과 정확히 일치하는 것으로 처리되어 번역이 생략되었고, 번체를 선택한 사용자에게 간체 자막이 표시되었습니다."
+      }
+    },
+    {
+      "version": "1.5.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 9, 2026",
+        "zh": "2026 年 8 月 9 日",
+        "ja": "2026年8月9日",
+        "ko": "2026년 8월 9일"
+      },
+      "note": "deepsrt-pro",
+      "blurb": {
+        "en": "DeepSRT PRO: the app takes its name from the family it's now part of (PRO, Mobile, News). Adds caption styling, a real history panel, captions that duck out of the way on click, and localized error messages.",
+        "zh": "DeepSRT PRO：App 名稱正式對齊產品家族（PRO、Mobile、News）。新增字幕樣式設定、真正的歷史紀錄面板、點擊時字幕自動讓開，以及多語系錯誤訊息。",
+        "ja": "DeepSRT PRO：アプリ名が製品ファミリー（PRO、Mobile、News）に合わせられました。字幕スタイル、実用的な履歴パネル、クリックで字幕が退避する挙動、ローカライズされたエラーメッセージを追加。",
+        "ko": "DeepSRT PRO: 앱 이름이 제품군(PRO, Mobile, News)에 맞춰졌습니다. 자막 스타일, 실질적인 기록 패널, 클릭 시 자막이 비켜나는 동작, 현지화된 오류 메시지를 추가했습니다."
+      }
+    },
+    {
+      "version": "1.4.1",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 9, 2026",
+        "zh": "2026 年 8 月 9 日",
+        "ja": "2026年8月9日",
+        "ko": "2026년 8월 9일"
+      },
+      "blurb": {
+        "en": "Superseded same-day by 1.5.0 — the rename plus four features didn't fit a patch version.",
+        "zh": "同日被 1.5.0 取代──改名加上四項新功能，已經超出「修訂版」的份量。",
+        "ja": "同日に 1.5.0 に置き換えられました。改名と4つの新機能は、パッチ版の範囲を超えていたためです。",
+        "ko": "같은 날 1.5.0으로 대체되었습니다 — 이름 변경과 네 가지 기능은 패치 버전에 담기엔 컸습니다."
+      }
+    },
+    {
+      "version": "1.0",
+      "platforms": {
+        "en": "Mobile · iPhone",
+        "zh": "Mobile · iPhone",
+        "ja": "Mobile · iPhone",
+        "ko": "Mobile · iPhone"
+      },
+      "status": null,
+      "date": {
+        "en": "August 2026",
+        "zh": "2026 年 8 月",
+        "ja": "2026年8月",
+        "ko": "2026년 8월"
+      },
+      "blurb": {
+        "en": "DeepSRT Mobile arrives on the App Store as its own app: the same summaries, clickable transcripts and bilingual live captions on iPhone, with a share sheet that takes a YouTube link straight from anywhere in iOS.",
+        "zh": "DeepSRT Mobile 以獨立 App 登上 App Store：在 iPhone 上提供同樣的摘要、可點擊逐字稿與雙語即時字幕，並可透過分享選單從 iOS 任何地方直接接收 YouTube 連結。",
+        "ja": "DeepSRT Mobile が独立したアプリとしてApp Storeに登場：iPhoneでも同じ要約、クリック可能な文字起こし、二言語ライブ字幕を提供し、iOSのどこからでも共有シートでYouTubeリンクを受け取れます。",
+        "ko": "DeepSRT Mobile이 독립 앱으로 App Store에 출시되었습니다: iPhone에서도 동일한 요약, 클릭 가능한 자막, 이중 언어 실시간 자막을 제공하며, iOS 어디서든 공유 시트로 YouTube 링크를 받을 수 있습니다."
+      }
+    },
+    {
+      "version": "1.4.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 8, 2026",
+        "zh": "2026 年 8 月 8 日",
+        "ja": "2026年8月8日",
+        "ko": "2026년 8월 8일"
+      },
+      "note": "no-captions-no-problem",
+      "blurb": {
+        "en": "AI transcription for videos with no captions at all — opt-in, one ingestion pass instead of three, and resilient to a bad time window.",
+        "zh": "為完全沒有字幕的影片提供 AI 轉錄──選擇性啟用，一次擷取取代三次，並能從失敗的時間窗格中恢復。",
+        "ja": "字幕がまったくない動画のためのAI文字起こし──任意で有効化、取り込みは3回から1回に、不正な時間範囲にも耐性があります。",
+        "ko": "자막이 전혀 없는 동영상을 위한 AI 전사 — 선택적으로 켜며, 수집을 3회에서 1회로 줄이고, 잘못된 시간 구간에도 견딥니다."
+      }
+    },
+    {
+      "version": "1.3.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 7, 2026",
+        "zh": "2026 年 8 月 7 日",
+        "ja": "2026年8月7日",
+        "ko": "2026년 8월 7일"
+      },
+      "note": "your-ai-agent-can-watch-youtube",
+      "blurb": {
+        "en": "Built-in MCP endpoint: six tools (search, transcript, summary, channel listing, video info, open-in-app) so AI agents and CLIs can work with what you're watching — your own key, nothing leaving your Mac.",
+        "zh": "內建 MCP 端點：六種工具（搜尋、逐字稿、摘要、頻道列表、影片資訊、開啟於 App 內），讓 AI agent 與 CLI 工具能操作你正在看的內容──使用你自己的金鑰，一切都留在你的 Mac 上。",
+        "ja": "MCPエンドポイントを内蔵：6つのツール（検索、文字起こし、要約、チャンネル一覧、動画情報、アプリで開く）で、AIエージェントやCLIが視聴中の内容を扱えます──鍵はあなたのもの、Macの外には出ません。",
+        "ko": "내장 MCP 엔드포인트: 여섯 가지 도구(검색, 자막, 요약, 채널 목록, 동영상 정보, 앱에서 열기)로 AI 에이전트와 CLI가 지금 보고 있는 내용을 다룰 수 있습니다 — 키는 당신의 것이고, Mac을 벗어나지 않습니다."
+      }
+    },
+    {
+      "version": "1.2.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 5, 2026",
+        "zh": "2026 年 8 月 5 日",
+        "ja": "2026年8月5日",
+        "ko": "2026년 8월 5일"
+      },
+      "blurb": {
+        "en": "Universal binary (Apple silicon + Intel), a custom OpenAI-compatible endpoint as a per-task AI provider (OpenCode Zen, OpenRouter, DeepSeek presets), per-task Gemini model selection, and Traditional Chinese split into Taiwan and Hong Kong variants.",
+        "zh": "通用二進位檔（Apple silicon + Intel）、可自訂的 OpenAI 相容端點作為各任務的 AI 供應商（內建 OpenCode Zen、OpenRouter、DeepSeek 預設）、各任務可分別選擇 Gemini 模型，繁體中文並拆分為台灣與香港兩種。",
+        "ja": "ユニバーサルバイナリ（Apple silicon + Intel）、タスクごとのAIプロバイダとしてOpenAI互換のカスタムエンドポイント（OpenCode Zen、OpenRouter、DeepSeekのプリセット）、タスクごとのGeminiモデル選択、繁体字中国語を台湾と香港に分割。",
+        "ko": "유니버설 바이너리(Apple silicon + Intel), 작업별 AI 공급자로 사용할 수 있는 OpenAI 호환 사용자 지정 엔드포인트(OpenCode Zen, OpenRouter, DeepSeek 프리셋), 작업별 Gemini 모델 선택, 번체 중국어를 대만·홍콩으로 분리."
+      }
+    },
+    {
+      "version": "1.1.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 4, 2026",
+        "zh": "2026 年 8 月 4 日",
+        "ja": "2026年8月4日",
+        "ko": "2026년 8월 4일"
+      },
+      "blurb": {
+        "en": "The free Safari extension ships on the Mac App Store: a \"Play in DeepSRT\" context menu and toolbar hand-off with playback position. In-app UI now follows your content-language setting across 7 locales.",
+        "zh": "免費的 Safari 擴充功能隨 Mac App Store 上架：右鍵「在 DeepSRT 中播放」與工具列接手，並帶著播放位置。App 介面現在會依你的內容語言設定顯示，共 7 種語言。",
+        "ja": "無料のSafari拡張機能がMac App Storeに登場：右クリックの「DeepSRTで再生」とツールバーからの引き継ぎ（再生位置つき）。アプリのUIはコンテンツ言語の設定に従い、7言語に対応します。",
+        "ko": "무료 Safari 확장 프로그램이 Mac App Store에 출시되었습니다: \"DeepSRT에서 재생\" 컨텍스트 메뉴와 재생 위치를 함께 넘기는 툴바 기능. 앱 UI는 콘텐츠 언어 설정을 따르며 7개 언어를 지원합니다."
+      }
+    },
+    {
+      "version": "1.0.1",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "August 4, 2026",
+        "zh": "2026 年 8 月 4 日",
+        "ja": "2026年8月4日",
+        "ko": "2026년 8월 4일"
+      },
+      "blurb": {
+        "en": "Summary and transcript panes default to the right of the video.",
+        "zh": "摘要與逐字稿面板預設顯示在影片右側。",
+        "ja": "要約と文字起こしのパネルが、既定で動画の右側に表示されます。",
+        "ko": "요약·자막 패널이 기본적으로 동영상 오른쪽에 표시됩니다."
+      }
+    },
+    {
+      "version": "1.0.0",
+      "platforms": {
+        "en": "PRO · Mac",
+        "zh": "PRO · Mac",
+        "ja": "PRO · Mac",
+        "ko": "PRO · Mac"
+      },
+      "status": null,
+      "date": {
+        "en": "July 31, 2026",
+        "zh": "2026 年 7 月 31 日",
+        "ja": "2026年7月31日",
+        "ko": "2026년 7월 31일"
+      },
+      "note": "now-on-the-mac-app-store",
+      "blurb": {
+        "en": "First release on the Mac App Store. AI summaries and clickable transcripts for YouTube, powered by your own Gemini key, with the spine+annotation architecture that keeps bilingual captions in sync.",
+        "zh": "首度在 Mac App Store 上架。以你自己的 Gemini 金鑰為 YouTube 產生 AI 摘要與可點擊逐字稿，並採用「主軸＋註記」架構讓雙語字幕永不脫拍。",
+        "ja": "Mac App Storeでの初リリース。ご自身のGeminiキーでYouTubeのAI要約とクリック可能な文字起こしを生成し、二言語字幕がずれない「背骨＋注釈」アーキテクチャを採用しています。",
+        "ko": "Mac App Store 첫 릴리스. 직접 준비한 Gemini 키로 YouTube의 AI 요약과 클릭 가능한 자막을 만들고, 이중 언어 자막이 어긋나지 않는 '척추+주석' 구조를 사용합니다."
+      }
+    }
+  ]
+}
