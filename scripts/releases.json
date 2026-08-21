@@ -34,7 +34,8 @@
           "Privacy"
         ]
       ],
-      "store": "App Store ↗"
+      "store": "App Store ↗",
+      "switch_label": "Choose an app"
     },
     "zh": {
       "lang": "zh-Hant",
@@ -69,7 +70,8 @@
           "隱私權"
         ]
       ],
-      "store": "App Store ↗"
+      "store": "App Store ↗",
+      "switch_label": "選擇 App"
     },
     "ja": {
       "lang": "ja",
@@ -104,7 +106,8 @@
           "プライバシー"
         ]
       ],
-      "store": "App Store ↗"
+      "store": "App Store ↗",
+      "switch_label": "アプリを選択"
     },
     "ko": {
       "lang": "ko",
@@ -139,7 +142,8 @@
           "개인정보"
         ]
       ],
-      "store": "App Store ↗"
+      "store": "App Store ↗",
+      "switch_label": "앱 선택"
     }
   },
   "releases": [
@@ -439,7 +443,14 @@
         "ja": "Mac 版",
         "ko": "Mac 버전"
       },
-      "store": "https://apps.apple.com/app/id6796562729"
+      "store": "https://apps.apple.com/app/id6796562729",
+      "toggle": {
+        "en": "Mac",
+        "zh": "Mac",
+        "ja": "Mac",
+        "ko": "Mac"
+      },
+      "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"13\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>"
     },
     {
       "id": "mobile",
@@ -455,7 +466,14 @@
         "ja": "iPhone・iPad 版",
         "ko": "iPhone·iPad 버전"
       },
-      "store": "https://apps.apple.com/app/id6799504696"
+      "store": "https://apps.apple.com/app/id6799504696",
+      "toggle": {
+        "en": "iPhone & iPad",
+        "zh": "iPhone・iPad",
+        "ja": "iPhone・iPad",
+        "ko": "iPhone·iPad"
+      },
+      "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"7\" y=\"2\" width=\"10\" height=\"20\" rx=\"2.5\"/><path d=\"M11 19h2\"/></svg>"
     }
   ]
 }

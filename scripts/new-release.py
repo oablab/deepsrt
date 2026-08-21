@@ -65,10 +65,33 @@ CSS = """\
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .lead { color: var(--muted); font-size: 1.05rem; margin: 0.9rem 0 0; }
+    /* App switch, ported from foldic.app's platform switch. PRO and Mobile are
+       separate apps with independent version series, and stacking both lists
+       buried Mobile below ten PRO rows. */
+    .app-switch { display: inline-flex; gap: 0.25rem; margin: 1.6rem 0 0;
+      padding: 0.25rem; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--border); }
+    .app-switch button { display: inline-flex; align-items: center; gap: 0.4rem;
+      font: inherit; font-size: 0.92rem; font-weight: 600; color: var(--muted);
+      background: none; border: 0; cursor: pointer;
+      padding: 0.42rem 1.05rem; border-radius: 999px; }
+    .app-switch button[aria-selected="true"] { background: var(--bg); color: var(--ink);
+      box-shadow: 0 1px 3px rgba(29, 94, 140, 0.14); }
+    .app-switch svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    /* The attribute is set by script, never in the markup: with JS off no rule
+       matches and BOTH sections stay visible. foldic hard-codes it on <body>,
+       which would permanently hide one app's history here. */
+    body[data-app="pro"] .app-group[data-app="mobile"],
+    body[data-app="mobile"] .app-group[data-app="pro"] { display: none; }
+    body[data-app] .app-switch { display: inline-flex; }
     /* One section per product line. PRO and Mobile carry independent version
        series, so a single chronological list made the version column read
        backwards (1.6.0 then 1.1). Grouping is what keeps it legible. */
-    .app-group { margin-top: 2.6rem; }
+    /* id is app-<name> while the hash is #<name>: deliberately not the same,
+       so #mobile selects the section without the browser scrolling to it —
+       switching already brings it into view, and the jump hid the heading
+       under the sticky nav. */
+    .app-group { margin-top: 2.2rem; }
     .app-head { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;
       padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
     .app-head h2 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700;
@@ -191,7 +214,7 @@ def build(loc: str, ui: dict, releases: list, apps: list) -> str:
             )
 
         groups.append(
-            '    <section class="app-group">\n'
+            '    <section class="app-group" id="app-{id}" data-app="{id}">\n'
             '      <div class="app-head">\n'
             "        <h2>{name}</h2>\n"
             '        <span class="tagline">{tag}</span>\n'
@@ -201,6 +224,7 @@ def build(loc: str, ui: dict, releases: list, apps: list) -> str:
             "{rows}\n"
             "      </div>\n"
             "    </section>".format(
+                id=app["id"],
                 name=esc(app["name"][loc]),
                 tag=esc(app["tagline"][loc]),
                 store=app["store"],
@@ -208,6 +232,22 @@ def build(loc: str, ui: dict, releases: list, apps: list) -> str:
                 rows=chr(10).join(rows),
             )
         )
+
+    buttons = "\n".join(
+        '    <button type="button" role="tab" data-app-tab="{id}" '
+        'aria-controls="app-{id}" aria-selected="{sel}">{icon}{label}</button>'.format(
+            id=a["id"],
+            sel="true" if i == 0 else "false",
+            icon=a["icon"],
+            label=esc(a["toggle"][loc]),
+        )
+        for i, a in enumerate(apps)
+    )
+    switch = (
+        f'  <div class="app-switch" role="tablist" aria-label="{esc(ui["switch_label"])}">\n'
+        f"{buttons}\n"
+        "  </div>"
+    )
 
     footer_links = " · ".join(
         f'<a href="{prefix}{href}">{esc(label)}</a>' for href, label in ui["footer_links"]
@@ -252,9 +292,47 @@ def build(loc: str, ui: dict, releases: list, apps: list) -> str:
   <a class="backlink" href="{prefix}/">{esc(ui['back'])}</a>
   <h1>{esc(ui['h1'])}</h1>
   <p class="lead">{esc(ui['lead'])}</p>
+{switch}
 {chr(10).join(groups)}
 </main>
 <footer>© 2026 DeepSRT · {footer_links} · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
+<script>
+// App switch. Defaults to the device you are reading on, so someone on an
+// iPhone is not handed the Mac app's history first; #mobile / #pro in the URL
+// wins, which makes either view linkable. The attribute is set here rather
+// than in the markup so that with JS disabled both sections stay visible.
+(function () {{
+  var body = document.body;
+  var tabs = Array.prototype.slice.call(document.querySelectorAll("[data-app-tab]"));
+  var ids = tabs.map(function (t) {{ return t.dataset.appTab; }});
+  function select(app, remember) {{
+    if (ids.indexOf(app) < 0) return;
+    body.setAttribute("data-app", app);
+    tabs.forEach(function (t) {{
+      t.setAttribute("aria-selected", String(t.dataset.appTab === app));
+    }});
+    if (remember) {{
+      try {{ localStorage.setItem("deepsrt-releases-app", app); }} catch (e) {{}}
+    }}
+  }}
+  tabs.forEach(function (t) {{
+    t.addEventListener("click", function () {{ select(t.dataset.appTab, true); }});
+  }});
+  var initial = ids[0];
+  if (/iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent)) initial = "mobile";
+  try {{
+    var saved = localStorage.getItem("deepsrt-releases-app");
+    if (ids.indexOf(saved) >= 0) initial = saved;
+  }} catch (e) {{}}
+  var hash = location.hash.replace("#", "");
+  if (ids.indexOf(hash) >= 0) initial = hash;
+  select(initial, false);
+  window.addEventListener("hashchange", function () {{
+    var h = location.hash.replace("#", "");
+    if (ids.indexOf(h) >= 0) select(h, true);
+  }});
+}})();
+</script>
 </body>
 </html>
 """
