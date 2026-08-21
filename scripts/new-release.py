@@ -65,7 +65,19 @@ CSS = """\
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .lead { color: var(--muted); font-size: 1.05rem; margin: 0.9rem 0 0; }
-    .release-list { margin-top: 2.2rem; display: flex; flex-direction: column; gap: 1rem; }
+    /* One section per product line. PRO and Mobile carry independent version
+       series, so a single chronological list made the version column read
+       backwards (1.6.0 then 1.1). Grouping is what keeps it legible. */
+    .app-group { margin-top: 2.6rem; }
+    .app-head { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;
+      padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .app-head h2 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700;
+      letter-spacing: -0.01em; }
+    .app-head .tagline { color: var(--muted); font-size: 0.95rem; }
+    .app-head .store { margin-left: auto; font-size: 0.88rem; color: var(--accent-deep);
+      text-decoration: none; white-space: nowrap; }
+    .app-head .store:hover { text-decoration: underline; }
+    .release-list { margin-top: 1.1rem; display: flex; flex-direction: column; gap: 1rem; }
     .release { display: block; text-decoration: none; color: var(--ink);
       background: var(--card); border: 1px solid var(--border);
       border-radius: 14px; padding: 1.15rem 1.4rem; transition: transform 0.15s ease; }
@@ -134,7 +146,7 @@ def esc(s: str) -> str:
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def build(loc: str, ui: dict, releases: list) -> str:
+def build(loc: str, ui: dict, releases: list, apps: list) -> str:
     prefix = ui["prefix"]
     css = CSS.replace("__FONT_BODY__", FONTS[loc]["body"]).replace(
         "__FONT_HEAD__", FONTS[loc]["head"]
@@ -146,33 +158,54 @@ def build(loc: str, ui: dict, releases: list) -> str:
         for p, label in NAV_LANGS
     )
 
-    rows = []
-    for r in releases:
-        badge = ""
-        if r.get("status") == "latest":
-            badge = f'<span class="latest-badge">{esc(ui["latest"])}</span>'
-        elif r.get("status") == "review":
-            badge = f'<span class="review-badge">{esc(ui["review"])}</span>'
+    groups = []
+    for app in apps:
+        rows = []
+        for r in [x for x in releases if x["app"] == app["id"]]:
+            badge = ""
+            if r.get("status") == "latest":
+                badge = f'<span class="latest-badge">{esc(ui["latest"])}</span>'
+            elif r.get("status") == "review":
+                badge = f'<span class="review-badge">{esc(ui["review"])}</span>'
 
-        blurb = esc(r["blurb"][loc])
-        if r.get("note"):
-            # Note links are locale-prefixed; the slug is shared.
-            blurb += ' <a href="{p}/notes/{slug}/">{label}</a>'.format(
-                p=prefix, slug=r["note"], label=esc(ui["readnote"])
+            blurb = esc(r["blurb"][loc])
+            if r.get("note"):
+                # Note links are locale-prefixed; the slug is shared.
+                blurb += ' <a href="{p}/notes/{slug}/">{label}</a>'.format(
+                    p=prefix, slug=r["note"], label=esc(ui["readnote"])
+                )
+
+            rows.append(
+                '        <div class="release">\n'
+                '          <div class="row"><span class="version">{v}</span>{badge}'
+                '<span class="platforms">{plat}</span>'
+                '<span class="when">{when}</span></div>\n'
+                '          <p class="blurb">{blurb}</p>\n'
+                "        </div>".format(
+                    v=esc(r["version"]),
+                    badge=badge,
+                    plat=esc(r["platforms"][loc]),
+                    when=esc(r["date"][loc]),
+                    blurb=blurb,
+                )
             )
 
-        rows.append(
-            '      <div class="release">\n'
-            '        <div class="row"><span class="version">{v}</span>{badge}'
-            '<span class="platforms">{plat}</span>'
-            '<span class="when">{when}</span></div>\n'
-            '        <p class="blurb">{blurb}</p>\n'
-            "      </div>".format(
-                v=esc(r["version"]),
-                badge=badge,
-                plat=esc(r["platforms"][loc]),
-                when=esc(r["date"][loc]),
-                blurb=blurb,
+        groups.append(
+            '    <section class="app-group">\n'
+            '      <div class="app-head">\n'
+            "        <h2>{name}</h2>\n"
+            '        <span class="tagline">{tag}</span>\n'
+            '        <a class="store" href="{store}">{store_label}</a>\n'
+            "      </div>\n"
+            '      <div class="release-list">\n'
+            "{rows}\n"
+            "      </div>\n"
+            "    </section>".format(
+                name=esc(app["name"][loc]),
+                tag=esc(app["tagline"][loc]),
+                store=app["store"],
+                store_label=esc(ui["store"]),
+                rows=chr(10).join(rows),
             )
         )
 
@@ -219,9 +252,7 @@ def build(loc: str, ui: dict, releases: list) -> str:
   <a class="backlink" href="{prefix}/">{esc(ui['back'])}</a>
   <h1>{esc(ui['h1'])}</h1>
   <p class="lead">{esc(ui['lead'])}</p>
-  <div class="release-list">
-{chr(10).join(rows)}
-  </div>
+{chr(10).join(groups)}
 </main>
 <footer>© 2026 DeepSRT · {footer_links} · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
 </body>
@@ -235,16 +266,29 @@ def main() -> int:
     args = ap.parse_args()
 
     spec = json.loads(DATA.read_text(encoding="utf-8"))
-    ui_all, releases = spec["ui"], spec["releases"]
+    ui_all, releases, apps = spec["ui"], spec["releases"], spec["apps"]
     locales = list(ui_all)
+    app_ids = [a["id"] for a in apps]
 
     # Validate before writing anything: a missing locale silently shipping an
     # empty blurb is the failure mode this guards.
     problems = []
-    latest = [r["version"] for r in releases if r.get("status") == "latest"]
-    if len(latest) != 1:
-        problems.append(f"exactly one release must be status=latest, found {latest}")
+    for app in apps:
+        mine = [r for r in releases if r.get("app") == app["id"]]
+        if not mine:
+            problems.append(f"app {app['id']} has no releases")
+        # One Latest PER APP: the product lines have independent version series,
+        # so a single global Latest would be a claim about the wrong thing.
+        latest = [r["version"] for r in mine if r.get("status") == "latest"]
+        if len(latest) != 1:
+            problems.append(f"app {app['id']}: exactly one release must be latest, found {latest}")
+        for field in ("name", "tagline"):
+            missing = [l for l in locales if not app.get(field, {}).get(l)]
+            if missing:
+                problems.append(f"app {app['id']}: {field} missing {missing}")
     for r in releases:
+        if r.get("app") not in app_ids:
+            problems.append(f"{r['version']}: unknown app {r.get('app')!r}")
         if r.get("status") not in STATUSES:
             problems.append(f"{r['version']}: bad status {r.get('status')!r}")
         for field in ("blurb", "platforms", "date"):
@@ -262,7 +306,7 @@ def main() -> int:
 
     for loc, ui in ui_all.items():
         out = ROOT / ui["prefix"].lstrip("/") / "releases" / "index.html"
-        html = build(loc, ui, releases)
+        html = build(loc, ui, releases, apps)
         # Same guard new-note.py carries: the English serif must never reach a
         # CJK page. A single shared --font-head is easy to reintroduce.
         if loc != "en" and "New York" in html:

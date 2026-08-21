@@ -59,7 +59,19 @@
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .lead { color: var(--muted); font-size: 1.05rem; margin: 0.9rem 0 0; }
-    .release-list { margin-top: 2.2rem; display: flex; flex-direction: column; gap: 1rem; }
+    /* One section per product line. PRO and Mobile carry independent version
+       series, so a single chronological list made the version column read
+       backwards (1.6.0 then 1.1). Grouping is what keeps it legible. */
+    .app-group { margin-top: 2.6rem; }
+    .app-head { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;
+      padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .app-head h2 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700;
+      letter-spacing: -0.01em; }
+    .app-head .tagline { color: var(--muted); font-size: 0.95rem; }
+    .app-head .store { margin-left: auto; font-size: 0.88rem; color: var(--accent-deep);
+      text-decoration: none; white-space: nowrap; }
+    .app-head .store:hover { text-decoration: underline; }
+    .release-list { margin-top: 1.1rem; display: flex; flex-direction: column; gap: 1rem; }
     .release { display: block; text-decoration: none; color: var(--ink);
       background: var(--card); border: 1px solid var(--border);
       border-radius: 14px; padding: 1.15rem 1.4rem; transition: transform 0.15s ease; }
@@ -106,57 +118,73 @@
 <main>
   <a class="backlink" href="/ko/">← DeepSRT</a>
   <h1>릴리스</h1>
-  <p class="lead">DeepSRT 각 버전의 변경 사항, 최신순. 각 행의 배지는 어떤 앱과 기기에 적용되었는지 알려줍니다.</p>
-  <div class="release-list">
-      <div class="release">
-        <div class="row"><span class="version">1.1</span><span class="review-badge">심사 중</span><span class="platforms">Mobile · iPhone, iPad</span><span class="when">2026년 8월 21일 제출</span></div>
-        <p class="blurb">iPad 지원: 동영상 옆에 요약과 자막이 나란히 표시되고, 구분선을 드래그해 조절할 수 있습니다. iPhone에서는 기기를 든 방향을 따라가는 자동 회전(선택 사항)을 추가했습니다 — 시스템 회전 잠금이 켜져 있어도 작동하며, 화면이 거꾸로 되지는 않습니다. 요약·자막의 5단계 글자 크기, 번역 미설정 시 자막 크기 정상화, 붙여넣기 즉시 재생, 재생 중인 동영상에 바로 적용되는 언어 변경도 추가되었습니다.</p>
+  <p class="lead">각 버전의 변경 사항, 최신순. PRO와 Mobile은 별개의 앱이며 버전 번호도 각각 독립적입니다.</p>
+    <section class="app-group">
+      <div class="app-head">
+        <h2>DeepSRT PRO</h2>
+        <span class="tagline">Mac 버전</span>
+        <a class="store" href="https://apps.apple.com/app/id6796562729">App Store ↗</a>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.6.0</span><span class="latest-badge">최신</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 14일</span></div>
-        <p class="blurb">새로 설치하면 자막 기본값이 '꺼짐'에서 '선호 언어'로 바뀝니다. DeepSRT의 핵심 기능이 첫 재생부터 켜져 있습니다.</p>
+      <div class="release-list">
+        <div class="release">
+          <div class="row"><span class="version">1.6.0</span><span class="latest-badge">최신</span><span class="platforms">Mac</span><span class="when">2026년 8월 14일</span></div>
+          <p class="blurb">새로 설치하면 자막 기본값이 '꺼짐'에서 '선호 언어'로 바뀝니다. DeepSRT의 핵심 기능이 첫 재생부터 켜져 있습니다.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.5.1</span><span class="platforms">Mac</span><span class="when">2026년 8월 11일</span></div>
+          <p class="blurb">자막 버그 수정: YouTube가 단순히 "zh"(보통 간체)로 표시한 원본 자막 트랙이 번체 중국어 설정과 정확히 일치하는 것으로 처리되어 번역이 생략되었고, 번체를 선택한 사용자에게 간체 자막이 표시되었습니다.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.5.0</span><span class="platforms">Mac</span><span class="when">2026년 8월 9일</span></div>
+          <p class="blurb">DeepSRT PRO: 앱 이름이 제품군(PRO, Mobile, News)에 맞춰졌습니다. 자막 스타일, 실질적인 기록 패널, 클릭 시 자막이 비켜나는 동작, 현지화된 오류 메시지를 추가했습니다. <a href="/ko/notes/deepsrt-pro/">노트 읽기</a></p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.4.1</span><span class="platforms">Mac</span><span class="when">2026년 8월 9일</span></div>
+          <p class="blurb">같은 날 1.5.0으로 대체되었습니다 — 이름 변경과 네 가지 기능은 패치 버전에 담기엔 컸습니다.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.4.0</span><span class="platforms">Mac</span><span class="when">2026년 8월 8일</span></div>
+          <p class="blurb">자막이 전혀 없는 동영상을 위한 AI 전사 — 선택적으로 켜며, 수집을 3회에서 1회로 줄이고, 잘못된 시간 구간에도 견딥니다. <a href="/ko/notes/no-captions-no-problem/">노트 읽기</a></p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.3.0</span><span class="platforms">Mac</span><span class="when">2026년 8월 7일</span></div>
+          <p class="blurb">내장 MCP 엔드포인트: 여섯 가지 도구(검색, 자막, 요약, 채널 목록, 동영상 정보, 앱에서 열기)로 AI 에이전트와 CLI가 지금 보고 있는 내용을 다룰 수 있습니다 — 키는 당신의 것이고, Mac을 벗어나지 않습니다. <a href="/ko/notes/your-ai-agent-can-watch-youtube/">노트 읽기</a></p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.2.0</span><span class="platforms">Mac</span><span class="when">2026년 8월 5일</span></div>
+          <p class="blurb">유니버설 바이너리(Apple silicon + Intel), 작업별 AI 공급자로 사용할 수 있는 OpenAI 호환 사용자 지정 엔드포인트(OpenCode Zen, OpenRouter, DeepSeek 프리셋), 작업별 Gemini 모델 선택, 번체 중국어를 대만·홍콩으로 분리.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.1.0</span><span class="platforms">Mac</span><span class="when">2026년 8월 4일</span></div>
+          <p class="blurb">무료 Safari 확장 프로그램이 Mac App Store에 출시되었습니다: "DeepSRT에서 재생" 컨텍스트 메뉴와 재생 위치를 함께 넘기는 툴바 기능. 앱 UI는 콘텐츠 언어 설정을 따르며 7개 언어를 지원합니다.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.0.1</span><span class="platforms">Mac</span><span class="when">2026년 8월 4일</span></div>
+          <p class="blurb">요약·자막 패널이 기본적으로 동영상 오른쪽에 표시됩니다.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.0.0</span><span class="platforms">Mac</span><span class="when">2026년 7월 31일</span></div>
+          <p class="blurb">Mac App Store 첫 릴리스. 직접 준비한 Gemini 키로 YouTube의 AI 요약과 클릭 가능한 자막을 만들고, 이중 언어 자막이 어긋나지 않는 '척추+주석' 구조를 사용합니다. <a href="/ko/notes/now-on-the-mac-app-store/">노트 읽기</a></p>
+        </div>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.5.1</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 11일</span></div>
-        <p class="blurb">자막 버그 수정: YouTube가 단순히 "zh"(보통 간체)로 표시한 원본 자막 트랙이 번체 중국어 설정과 정확히 일치하는 것으로 처리되어 번역이 생략되었고, 번체를 선택한 사용자에게 간체 자막이 표시되었습니다.</p>
+    </section>
+    <section class="app-group">
+      <div class="app-head">
+        <h2>DeepSRT Mobile</h2>
+        <span class="tagline">iPhone·iPad 버전</span>
+        <a class="store" href="https://apps.apple.com/app/id6799504696">App Store ↗</a>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.5.0</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 9일</span></div>
-        <p class="blurb">DeepSRT PRO: 앱 이름이 제품군(PRO, Mobile, News)에 맞춰졌습니다. 자막 스타일, 실질적인 기록 패널, 클릭 시 자막이 비켜나는 동작, 현지화된 오류 메시지를 추가했습니다. <a href="/ko/notes/deepsrt-pro/">노트 읽기</a></p>
+      <div class="release-list">
+        <div class="release">
+          <div class="row"><span class="version">1.1</span><span class="review-badge">심사 중</span><span class="platforms">iPhone, iPad</span><span class="when">2026년 8월 21일 제출</span></div>
+          <p class="blurb">iPad 지원: 동영상 옆에 요약과 자막이 나란히 표시되고, 구분선을 드래그해 조절할 수 있습니다. iPhone에서는 기기를 든 방향을 따라가는 자동 회전(선택 사항)을 추가했습니다 — 시스템 회전 잠금이 켜져 있어도 작동하며, 화면이 거꾸로 되지는 않습니다. 요약·자막의 5단계 글자 크기, 번역 미설정 시 자막 크기 정상화, 붙여넣기 즉시 재생, 재생 중인 동영상에 바로 적용되는 언어 변경도 추가되었습니다.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.0</span><span class="latest-badge">최신</span><span class="platforms">iPhone</span><span class="when">2026년 8월</span></div>
+          <p class="blurb">DeepSRT Mobile이 독립 앱으로 App Store에 출시되었습니다: iPhone에서도 동일한 요약, 클릭 가능한 자막, 이중 언어 실시간 자막을 제공하며, iOS 어디서든 공유 시트로 YouTube 링크를 받을 수 있습니다.</p>
+        </div>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.4.1</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 9일</span></div>
-        <p class="blurb">같은 날 1.5.0으로 대체되었습니다 — 이름 변경과 네 가지 기능은 패치 버전에 담기엔 컸습니다.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.0</span><span class="platforms">Mobile · iPhone</span><span class="when">2026년 8월</span></div>
-        <p class="blurb">DeepSRT Mobile이 독립 앱으로 App Store에 출시되었습니다: iPhone에서도 동일한 요약, 클릭 가능한 자막, 이중 언어 실시간 자막을 제공하며, iOS 어디서든 공유 시트로 YouTube 링크를 받을 수 있습니다.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.4.0</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 8일</span></div>
-        <p class="blurb">자막이 전혀 없는 동영상을 위한 AI 전사 — 선택적으로 켜며, 수집을 3회에서 1회로 줄이고, 잘못된 시간 구간에도 견딥니다. <a href="/ko/notes/no-captions-no-problem/">노트 읽기</a></p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.3.0</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 7일</span></div>
-        <p class="blurb">내장 MCP 엔드포인트: 여섯 가지 도구(검색, 자막, 요약, 채널 목록, 동영상 정보, 앱에서 열기)로 AI 에이전트와 CLI가 지금 보고 있는 내용을 다룰 수 있습니다 — 키는 당신의 것이고, Mac을 벗어나지 않습니다. <a href="/ko/notes/your-ai-agent-can-watch-youtube/">노트 읽기</a></p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.2.0</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 5일</span></div>
-        <p class="blurb">유니버설 바이너리(Apple silicon + Intel), 작업별 AI 공급자로 사용할 수 있는 OpenAI 호환 사용자 지정 엔드포인트(OpenCode Zen, OpenRouter, DeepSeek 프리셋), 작업별 Gemini 모델 선택, 번체 중국어를 대만·홍콩으로 분리.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.1.0</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 4일</span></div>
-        <p class="blurb">무료 Safari 확장 프로그램이 Mac App Store에 출시되었습니다: "DeepSRT에서 재생" 컨텍스트 메뉴와 재생 위치를 함께 넘기는 툴바 기능. 앱 UI는 콘텐츠 언어 설정을 따르며 7개 언어를 지원합니다.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.0.1</span><span class="platforms">PRO · Mac</span><span class="when">2026년 8월 4일</span></div>
-        <p class="blurb">요약·자막 패널이 기본적으로 동영상 오른쪽에 표시됩니다.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.0.0</span><span class="platforms">PRO · Mac</span><span class="when">2026년 7월 31일</span></div>
-        <p class="blurb">Mac App Store 첫 릴리스. 직접 준비한 Gemini 키로 YouTube의 AI 요약과 클릭 가능한 자막을 만들고, 이중 언어 자막이 어긋나지 않는 '척추+주석' 구조를 사용합니다. <a href="/ko/notes/now-on-the-mac-app-store/">노트 읽기</a></p>
-      </div>
-  </div>
+    </section>
 </main>
 <footer>© 2026 DeepSRT · <a href="/ko/pricing/">가격</a> · <a href="/ko/releases/">릴리스</a> · <a href="/ko/terms/">이용약관</a> · <a href="/ko/refunds/">환불</a> · <a href="/ko/privacy/">개인정보</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
 </body>

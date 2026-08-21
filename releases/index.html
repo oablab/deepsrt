@@ -59,7 +59,19 @@
     h1 { font-family: var(--font-head); font-size: clamp(1.9rem, 5vw, 2.6rem);
       line-height: 1.18; letter-spacing: -0.02em; font-weight: 700; }
     .lead { color: var(--muted); font-size: 1.05rem; margin: 0.9rem 0 0; }
-    .release-list { margin-top: 2.2rem; display: flex; flex-direction: column; gap: 1rem; }
+    /* One section per product line. PRO and Mobile carry independent version
+       series, so a single chronological list made the version column read
+       backwards (1.6.0 then 1.1). Grouping is what keeps it legible. */
+    .app-group { margin-top: 2.6rem; }
+    .app-head { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;
+      padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .app-head h2 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700;
+      letter-spacing: -0.01em; }
+    .app-head .tagline { color: var(--muted); font-size: 0.95rem; }
+    .app-head .store { margin-left: auto; font-size: 0.88rem; color: var(--accent-deep);
+      text-decoration: none; white-space: nowrap; }
+    .app-head .store:hover { text-decoration: underline; }
+    .release-list { margin-top: 1.1rem; display: flex; flex-direction: column; gap: 1rem; }
     .release { display: block; text-decoration: none; color: var(--ink);
       background: var(--card); border: 1px solid var(--border);
       border-radius: 14px; padding: 1.15rem 1.4rem; transition: transform 0.15s ease; }
@@ -106,57 +118,73 @@
 <main>
   <a class="backlink" href="/">← DeepSRT</a>
   <h1>Releases</h1>
-  <p class="lead">What each version of DeepSRT brought, newest first. The badge on each row says which app and devices it reached.</p>
-  <div class="release-list">
-      <div class="release">
-        <div class="row"><span class="version">1.1</span><span class="review-badge">In review</span><span class="platforms">Mobile · iPhone, iPad</span><span class="when">Submitted August 21, 2026</span></div>
-        <p class="blurb">iPad support: the video sits beside the summary and transcript, with a draggable divider. On iPhone, optional auto-rotation follows how you are actually holding the phone — even with the system rotation lock on — and never turns the picture upside-down. Adds a five-step text size for the summary and transcript, right-sized captions when no translation is configured, paste-to-play, and language changes that apply to the video already playing.</p>
+  <p class="lead">What each version brought, newest first. PRO and Mobile are separate apps with their own version numbers.</p>
+    <section class="app-group">
+      <div class="app-head">
+        <h2>DeepSRT PRO</h2>
+        <span class="tagline">for Mac</span>
+        <a class="store" href="https://apps.apple.com/app/id6796562729">App Store ↗</a>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.6.0</span><span class="latest-badge">Latest</span><span class="platforms">PRO · Mac</span><span class="when">August 14, 2026</span></div>
-        <p class="blurb">Fresh installs now default to your preferred caption language instead of captions being off, so the feature that makes DeepSRT worth having is on the first time you play something.</p>
+      <div class="release-list">
+        <div class="release">
+          <div class="row"><span class="version">1.6.0</span><span class="latest-badge">Latest</span><span class="platforms">Mac</span><span class="when">August 14, 2026</span></div>
+          <p class="blurb">Fresh installs now default to your preferred caption language instead of captions being off, so the feature that makes DeepSRT worth having is on the first time you play something.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.5.1</span><span class="platforms">Mac</span><span class="when">August 11, 2026</span></div>
+          <p class="blurb">Fixed a caption bug: a video whose native track YouTube labels as plain "zh" (typically Simplified) was being treated as an exact match for a Traditional Chinese preference, so translation was skipped and Simplified captions showed up for users who asked for 繁體中文.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.5.0</span><span class="platforms">Mac</span><span class="when">August 9, 2026</span></div>
+          <p class="blurb">DeepSRT PRO: the app takes its name from the family it's now part of (PRO, Mobile, News). Adds caption styling, a real history panel, captions that duck out of the way on click, and localized error messages. <a href="/notes/deepsrt-pro/">Read the note</a></p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.4.1</span><span class="platforms">Mac</span><span class="when">August 9, 2026</span></div>
+          <p class="blurb">Superseded same-day by 1.5.0 — the rename plus four features didn't fit a patch version.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.4.0</span><span class="platforms">Mac</span><span class="when">August 8, 2026</span></div>
+          <p class="blurb">AI transcription for videos with no captions at all — opt-in, one ingestion pass instead of three, and resilient to a bad time window. <a href="/notes/no-captions-no-problem/">Read the note</a></p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.3.0</span><span class="platforms">Mac</span><span class="when">August 7, 2026</span></div>
+          <p class="blurb">Built-in MCP endpoint: six tools (search, transcript, summary, channel listing, video info, open-in-app) so AI agents and CLIs can work with what you're watching — your own key, nothing leaving your Mac. <a href="/notes/your-ai-agent-can-watch-youtube/">Read the note</a></p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.2.0</span><span class="platforms">Mac</span><span class="when">August 5, 2026</span></div>
+          <p class="blurb">Universal binary (Apple silicon + Intel), a custom OpenAI-compatible endpoint as a per-task AI provider (OpenCode Zen, OpenRouter, DeepSeek presets), per-task Gemini model selection, and Traditional Chinese split into Taiwan and Hong Kong variants.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.1.0</span><span class="platforms">Mac</span><span class="when">August 4, 2026</span></div>
+          <p class="blurb">The free Safari extension ships on the Mac App Store: a "Play in DeepSRT" context menu and toolbar hand-off with playback position. In-app UI now follows your content-language setting across 7 locales.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.0.1</span><span class="platforms">Mac</span><span class="when">August 4, 2026</span></div>
+          <p class="blurb">Summary and transcript panes default to the right of the video.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.0.0</span><span class="platforms">Mac</span><span class="when">July 31, 2026</span></div>
+          <p class="blurb">First release on the Mac App Store. AI summaries and clickable transcripts for YouTube, powered by your own Gemini key, with the spine+annotation architecture that keeps bilingual captions in sync. <a href="/notes/now-on-the-mac-app-store/">Read the note</a></p>
+        </div>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.5.1</span><span class="platforms">PRO · Mac</span><span class="when">August 11, 2026</span></div>
-        <p class="blurb">Fixed a caption bug: a video whose native track YouTube labels as plain "zh" (typically Simplified) was being treated as an exact match for a Traditional Chinese preference, so translation was skipped and Simplified captions showed up for users who asked for 繁體中文.</p>
+    </section>
+    <section class="app-group">
+      <div class="app-head">
+        <h2>DeepSRT Mobile</h2>
+        <span class="tagline">for iPhone and iPad</span>
+        <a class="store" href="https://apps.apple.com/app/id6799504696">App Store ↗</a>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.5.0</span><span class="platforms">PRO · Mac</span><span class="when">August 9, 2026</span></div>
-        <p class="blurb">DeepSRT PRO: the app takes its name from the family it's now part of (PRO, Mobile, News). Adds caption styling, a real history panel, captions that duck out of the way on click, and localized error messages. <a href="/notes/deepsrt-pro/">Read the note</a></p>
+      <div class="release-list">
+        <div class="release">
+          <div class="row"><span class="version">1.1</span><span class="review-badge">In review</span><span class="platforms">iPhone, iPad</span><span class="when">Submitted August 21, 2026</span></div>
+          <p class="blurb">iPad support: the video sits beside the summary and transcript, with a draggable divider. On iPhone, optional auto-rotation follows how you are actually holding the phone — even with the system rotation lock on — and never turns the picture upside-down. Adds a five-step text size for the summary and transcript, right-sized captions when no translation is configured, paste-to-play, and language changes that apply to the video already playing.</p>
+        </div>
+        <div class="release">
+          <div class="row"><span class="version">1.0</span><span class="latest-badge">Latest</span><span class="platforms">iPhone</span><span class="when">August 2026</span></div>
+          <p class="blurb">DeepSRT Mobile arrives on the App Store as its own app: the same summaries, clickable transcripts and bilingual live captions on iPhone, with a share sheet that takes a YouTube link straight from anywhere in iOS.</p>
+        </div>
       </div>
-      <div class="release">
-        <div class="row"><span class="version">1.4.1</span><span class="platforms">PRO · Mac</span><span class="when">August 9, 2026</span></div>
-        <p class="blurb">Superseded same-day by 1.5.0 — the rename plus four features didn't fit a patch version.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.0</span><span class="platforms">Mobile · iPhone</span><span class="when">August 2026</span></div>
-        <p class="blurb">DeepSRT Mobile arrives on the App Store as its own app: the same summaries, clickable transcripts and bilingual live captions on iPhone, with a share sheet that takes a YouTube link straight from anywhere in iOS.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.4.0</span><span class="platforms">PRO · Mac</span><span class="when">August 8, 2026</span></div>
-        <p class="blurb">AI transcription for videos with no captions at all — opt-in, one ingestion pass instead of three, and resilient to a bad time window. <a href="/notes/no-captions-no-problem/">Read the note</a></p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.3.0</span><span class="platforms">PRO · Mac</span><span class="when">August 7, 2026</span></div>
-        <p class="blurb">Built-in MCP endpoint: six tools (search, transcript, summary, channel listing, video info, open-in-app) so AI agents and CLIs can work with what you're watching — your own key, nothing leaving your Mac. <a href="/notes/your-ai-agent-can-watch-youtube/">Read the note</a></p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.2.0</span><span class="platforms">PRO · Mac</span><span class="when">August 5, 2026</span></div>
-        <p class="blurb">Universal binary (Apple silicon + Intel), a custom OpenAI-compatible endpoint as a per-task AI provider (OpenCode Zen, OpenRouter, DeepSeek presets), per-task Gemini model selection, and Traditional Chinese split into Taiwan and Hong Kong variants.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.1.0</span><span class="platforms">PRO · Mac</span><span class="when">August 4, 2026</span></div>
-        <p class="blurb">The free Safari extension ships on the Mac App Store: a "Play in DeepSRT" context menu and toolbar hand-off with playback position. In-app UI now follows your content-language setting across 7 locales.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.0.1</span><span class="platforms">PRO · Mac</span><span class="when">August 4, 2026</span></div>
-        <p class="blurb">Summary and transcript panes default to the right of the video.</p>
-      </div>
-      <div class="release">
-        <div class="row"><span class="version">1.0.0</span><span class="platforms">PRO · Mac</span><span class="when">July 31, 2026</span></div>
-        <p class="blurb">First release on the Mac App Store. AI summaries and clickable transcripts for YouTube, powered by your own Gemini key, with the spine+annotation architecture that keeps bilingual captions in sync. <a href="/notes/now-on-the-mac-app-store/">Read the note</a></p>
-      </div>
-  </div>
+    </section>
 </main>
 <footer>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/releases/">Releases</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a></footer>
 </body>
