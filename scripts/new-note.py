@@ -56,10 +56,10 @@ for _loc, _f in FONTS.items():
     _f.setdefault("head", _f["body"])
 
 LOCALES = {
-    "en": dict(base="", htmllang="en", back="← Notes", brand="/", label="EN", hreflang="en"),
-    "zh": dict(base="/zh", htmllang="zh-Hant", back="← 筆記", brand="/zh/", label="中文", hreflang="zh-Hant"),
-    "ja": dict(base="/ja", htmllang="ja", back="← ノート", brand="/ja/", label="日本語", hreflang="ja"),
-    "ko": dict(base="/ko", htmllang="ko", back="← 노트", brand="/ko/", label="한국어", hreflang="ko"),
+    "en": dict(base="", htmllang="en", back="← Dev notes", brand="/", label="EN", hreflang="en"),
+    "zh": dict(base="/zh", htmllang="zh-Hant", back="← 開發筆記", brand="/zh/", label="中文", hreflang="zh-Hant"),
+    "ja": dict(base="/ja", htmllang="ja", back="← 開発ノート", brand="/ja/", label="日本語", hreflang="ja"),
+    "ko": dict(base="/ko", htmllang="ko", back="← 개발 노트", brand="/ko/", label="한국어", hreflang="ko"),
 }
 
 # Optional article styling, switched on per spec so unused rules don't ship.
