@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DeepSRT — YouTube 影片即時 AI 摘要與逐字稿，原生 Mac 應用程式</title>
-  <meta name="description" content="DeepSRT 將任何 YouTube 影片變成即時 AI 摘要與乾淨可點擊的逐字稿——原生 macOS 應用程式，使用你自己的 Gemini API 金鑰。內建播放器，並提供免費 Chrome 擴充功能。">
+  <title>DeepSRT — YouTube 即時 AI 字幕、摘要與逐字稿，支援 Mac、iPhone 與 iPad</title>
+  <meta name="description" content="DeepSRT 在 Mac、iPhone 與 iPad 上提供 YouTube 即時雙語字幕、AI 摘要與可點擊逐字稿，使用你自己的 AI 金鑰。">
+  <link rel="canonical" href="https://deepsrt.com/zh/">
   <meta property="og:title" content="DeepSRT">
-  <meta property="og:description" content="少看一點，懂得更多。YouTube 即時 AI 摘要與逐字稿——原生 Mac 應用程式，用你自己的 Gemini 金鑰。沒有伺服器、不需帳號。">
-  <meta property="og:url" content="https://deepsrt.com">
+  <meta property="og:description" content="少看一點，懂得更多。DeepSRT 為 Mac、iPhone 與 iPad 提供即時雙語字幕、AI 摘要與可點擊逐字稿，沒有 DeepSRT 伺服器。">
+  <meta property="og:url" content="https://deepsrt.com/zh/">
   <meta property="og:image" content="https://deepsrt.com/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -99,6 +100,26 @@
     @media (max-width: 600px) {
       .desktop-br { display: none; }
     }
+    /* Platform switch: PRO and Mobile are separate App Store apps with a
+       shared core experience and platform-specific controls. */
+    .platform-switch {
+      display: inline-flex; gap: 0.25rem; margin: 0 auto 1.6rem;
+      padding: 0.25rem; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--border);
+    }
+    .platform-switch button {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font: inherit; font-size: 0.92rem; font-weight: 600; color: var(--muted);
+      background: none; border: 0; cursor: pointer;
+      padding: 0.42rem 1.05rem; border-radius: 999px;
+    }
+    .platform-switch button[aria-pressed="true"] {
+      background: var(--bg); color: var(--ink);
+      box-shadow: 0 1px 3px rgba(27, 44, 58, 0.14);
+    }
+    .platform-switch svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    body[data-platform="mac"] .for-ios,
+    body[data-platform="ios"] .for-mac { display: none; }
     .cta-row { margin-top: 2rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
     .cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -214,7 +235,7 @@
     });
   </script>
 </head>
-<body>
+<body data-platform="mac">
   <nav>
     <a class="brand" href="/"><img src="/icon.svg" alt="" width="28" height="28">DeepSRT</a>
     <div class="links">
@@ -229,28 +250,30 @@
   </nav>
 
   <header class="hero">
-    <h1 id="hero-slogan">十分鐘的影片，<br><em>一眼看完。</em></h1>
-    <script>
-      // Rotate the hero slogan; the static default above stays in the HTML
-      // for crawlers and no-JS visitors.
-      (function () {
-        var slogans = [
-          '十分鐘的影片，<br><em>一眼看完。</em>',
-          '把影片，變成<br><em>你的閱讀速度。</em>',
-          '少看一點，<br><em>懂得更多。</em>',
-          '每部影片，<br><em>先幫你讀好。</em>',
-          '長話，<br><em>短說。</em>'
-        ];
-        document.getElementById('hero-slogan').innerHTML =
-          slogans[Math.floor(Math.random() * slogans.length)];
-      })();
-    </script>
-    <p class="sub">DeepSRT 將任何 YouTube 影片變成即時 AI 摘要，<br class="desktop-br">以及乾淨、可點擊的逐字稿——原生 Mac 應用程式，用你自己的 Gemini 金鑰。<br class="desktop-br">邊看、邊略讀、一鍵跳到重點時刻。</p>
-    <div class="cta-row">
-      <a class="cta" href="https://apps.apple.com/app/id6796562729">前往 Mac App Store 下載</a>
+    <div class="platform-switch" role="group" aria-label="選擇平台">
+      <button type="button" data-platform-tab="mac" aria-pressed="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Mac
+      </button>
+      <button type="button" data-platform-tab="ios" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 19h2"/></svg>iPhone・iPad
+      </button>
+    </div>
+
+    <h1 class="for-mac">十分鐘的影片，<br><em>一眼看完。</em></h1>
+    <p class="sub for-mac">DeepSRT PRO 在 Mac 上把任何 YouTube 影片變成 AI 摘要與乾淨、可點擊的逐字稿。<br class="desktop-br">用你自己的 AI 金鑰，在內建播放器邊看邊讀，一鍵跳到重點時刻。</p>
+    <h1 class="for-ios">YouTube 字幕與摘要，<br><em>裝進口袋。</em></h1>
+    <p class="sub for-ios">DeepSRT Mobile 把即時雙語字幕、AI 摘要與可點擊跳轉的逐字稿<br class="desktop-br">帶到 iPhone 與 iPad。貼上、搜尋或從 YouTube 分享連結即可開始。</p>
+
+    <div class="cta-row for-mac">
+      <a class="cta" href="https://apps.apple.com/app/id6796562729">下載 DeepSRT PRO</a>
       <a class="cta secondary" href="#how">看看怎麼運作</a>
     </div>
-    <span class="badge">DEEPSRT V2 · 已正式登陸 MAC APP STORE</span>
+    <div class="cta-row for-ios">
+      <a class="cta" href="https://apps.apple.com/app/id6799504696">下載 DeepSRT Mobile</a>
+      <a class="cta secondary" href="#how">看看怎麼運作</a>
+    </div>
+    <span class="badge for-mac">DEEPSRT PRO · MAC APP STORE</span>
+    <span class="badge for-ios">DEEPSRT MOBILE · APP STORE</span>
 
     <div class="flow" aria-hidden="true">
       <svg viewBox="0 0 720 300">
@@ -259,28 +282,26 @@
             <path d="M0,0 L8,4 L0,8" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
           </marker>
         </defs>
-        <!-- source -->
         <rect class="box" x="20" y="110" width="170" height="80" rx="12"/>
         <text x="105" y="145" text-anchor="middle">YouTube 連結</text>
-        <text class="dim" x="105" y="166" text-anchor="middle">或 Chrome 側邊面板</text>
-        <!-- app -->
+        <text class="dim for-mac" x="105" y="166" text-anchor="middle">貼上連結或搜尋</text>
+        <text class="dim for-ios" x="105" y="166" text-anchor="middle">貼上、搜尋或分享</text>
         <rect class="box" x="250" y="95" width="200" height="110" rx="12"/>
-        <text x="350" y="135" text-anchor="middle">DeepSRT for Mac</text>
-        <text class="dim" x="350" y="156" text-anchor="middle">你自己的 Gemini 金鑰</text>
-        <text class="dim" x="350" y="173" text-anchor="middle">中間沒有任何伺服器</text>
-        <!-- arrows -->
+        <text class="for-mac" x="350" y="135" text-anchor="middle">DeepSRT PRO</text>
+        <text class="for-ios" x="350" y="135" text-anchor="middle">DeepSRT Mobile</text>
+        <text class="dim" x="350" y="156" text-anchor="middle">你自己的 AI 金鑰</text>
+        <text class="dim" x="350" y="173" text-anchor="middle">沒有 DeepSRT 伺服器</text>
         <path class="arrow" d="M200 150 L 240 150"/>
         <path class="arrow" d="M460 150 C 500 150, 510 40, 560 40"/>
         <path class="arrow" d="M460 150 C 500 150, 510 113, 560 113"/>
         <path class="arrow" d="M460 150 C 500 150, 510 187, 560 187"/>
         <path class="arrow" d="M460 150 C 500 150, 510 260, 560 260"/>
-        <!-- outputs -->
         <rect class="box" x="570" y="15" width="130" height="50" rx="12"/>
         <text x="635" y="45" text-anchor="middle">AI 摘要</text>
         <rect class="box" x="570" y="88" width="130" height="50" rx="12"/>
         <text x="635" y="118" text-anchor="middle">逐字稿</text>
         <rect class="box" x="570" y="162" width="130" height="50" rx="12"/>
-        <text x="635" y="192" text-anchor="middle">SRT 匯出</text>
+        <text x="635" y="192" text-anchor="middle">即時雙語字幕</text>
         <rect class="box" x="570" y="235" width="130" height="50" rx="12"/>
         <text x="635" y="265" text-anchor="middle">內建播放器</text>
       </svg>
@@ -292,54 +313,61 @@
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
         <h3>你想要的摘要風格</h3>
-        <p>敘事式段落快速掌握全貌，或條列式摘要——每個重點都附時間戳記。摘要以你的語言呈現：繁體中文、English、日本語、한국어等。</p>
+        <p>敘事式段落快速掌握全貌，或每個重點都附時間戳記的條列摘要。摘要會以你選擇的語言呈現。</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h6M16 15h1"/></svg></div>
         <h3>乾淨、可點擊的逐字稿</h3>
-        <p>完整逐字稿、易讀分段。點任何時間戳記，影片立即跳到那一刻；也可以一鍵複製成 SRT 字幕檔。</p>
+        <p>完整逐字稿、易讀分段。點任何時間戳記，影片立即跳到那一刻；需要時也能複製文字。</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9l5 3-5 3z"/></svg></div>
         <h3>直接在 App 裡看影片</h3>
-        <p>內建 YouTube 播放器就在摘要和逐字稿上方。讀摘要、看到有趣的重點、點時間戳記——影片馬上跳過去。</p>
+        <p>官方 YouTube 播放器與摘要、逐字稿放在一起。看到有趣的重點，點時間戳記就跳到對應畫面。</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 7a5 5 0 1 0-4.9 6H10l1.5-1.5L13 13l1.5-1.5L16 13l2.5-2.5V7z"/><circle cx="9" cy="7" r="1"/></svg></div>
         <h3>你的金鑰，你的額度</h3>
-        <p>使用你自己的 Gemini API 金鑰——Google AI Studio 的免費額度日常使用綽綽有餘。金鑰只存在 macOS 鑰匙圈，只用來直接呼叫 Google。</p>
+        <p>使用自己的 Gemini 金鑰或支援的 AI 服務商。金鑰安全存放在系統 Keychain，只用來直接呼叫該服務。</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <h3>隱私優先的設計</h3>
-        <p>沒有 DeepSRT 伺服器、不需帳號、沒有分析追蹤。字幕直接從 YouTube 到你的 Mac；摘要直接從你的 Mac 到 Google，中間什麼都沒有。</p>
+        <p>沒有 DeepSRT 伺服器、不需帳號、沒有分析追蹤。字幕直接來自 YouTube；AI 請求由你的裝置直接送到服務商。</p>
       </div>
-      <div class="feature">
-        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
-        <h3>免費 Chrome 擴充功能</h3>
-        <p>正在逛 YouTube？免費的 DeepSRT 擴充功能把同樣的摘要和逐字稿放進瀏覽器側邊面板——由背景安靜運行的 Mac App 提供動力。</p>
+      <div class="feature for-mac">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21h8M12 18v3M8 11h.01M12 11h.01M16 11h.01"/></svg></div>
+        <h3>讓 AI agent 也能看 YouTube</h3>
+        <p>DeepSRT PRO 內建本機 MCP server，讓 Mac 上的 AI agent 搜尋、取得逐字稿、摘要影片，並直接在 App 中開啟。</p>
+      </div>
+      <div class="feature for-ios">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h7"/></svg></div>
+        <h3>即時雙語字幕</h3>
+        <p>DeepSRT Mobile 在官方播放器上顯示即時翻譯字幕，提供適合 iPhone 的觸控操作，以及 iPad 的橫向分割畫面。</p>
       </div>
     </div>
   </section>
 
   <section class="how" id="how">
     <h2 class="section-title">三個步驟，之後一切即時</h2>
-    <p class="section-sub">設定一次，之後每部影片只要貼上連結就有摘要。</p>
+    <p class="section-sub">選擇你的裝置版本。設定只要一分鐘，之後每部影片都能貼上、搜尋或分享後直接開始。</p>
     <div class="steps">
       <div class="step">
         <div class="num">1</div>
-        <h3>取得 DeepSRT</h3>
-        <p>在 Mac App Store 買斷一次，沒有訂閱、不用建立帳號。</p>
+        <h3 class="for-mac">取得 DeepSRT PRO</h3>
+        <p class="for-mac">在 Mac App Store 分開買斷一次。沒有訂閱，也不用建立 DeepSRT 帳號。</p>
+        <h3 class="for-ios">取得 DeepSRT Mobile</h3>
+        <p class="for-ios">在 App Store 為 iPhone 與 iPad 分開買斷一次。沒有訂閱，也不用建立 DeepSRT 帳號。</p>
       </div>
       <div class="step">
         <div class="num">2</div>
-        <h3>加入你的 Gemini 金鑰</h3>
-        <p>到 Google AI Studio 免費申請 API 金鑰，貼進設定即可。金鑰存放在你的鑰匙圈。</p>
+        <h3>加入你的 AI 金鑰</h3>
+        <p>到 Google AI Studio 建立 Gemini 金鑰，或選擇支援的服務商，再安全地存入設定。AI 用量可能由服務商計費，大量使用前請先設定每月支出上限。</p>
       </div>
       <div class="step">
         <div class="num">3</div>
-        <h3>貼上連結</h3>
-        <p>貼上任何 YouTube 網址——或在 Chrome 開啟側邊面板。摘要、逐字稿、播放器一起出現。</p>
+        <h3>開啟影片</h3>
+        <p>貼上或搜尋公開的 YouTube 影片。在 iPhone 與 iPad 上，也能直接從 YouTube 分享連結。</p>
       </div>
     </div>
   </section>
@@ -348,45 +376,73 @@
     <h2 class="section-title" style="text-align:center">常見問題</h2>
     <details>
       <summary>我需要自己的 API 金鑰嗎？</summary>
-      <p>是的——DeepSRT 使用你自己的 Google Gemini API 金鑰，可以在 <a href="https://aistudio.google.com/apikey">Google AI Studio</a> 免費申請。因為金鑰是你的，不用付 DeepSRT 任何使用費、沒有每月 AI 訂閱，請求也直接送到 Google。</p>
+      <p>需要。DeepSRT 使用你的 Google Gemini 金鑰或支援的 AI 服務商。Gemini 金鑰可在 <a href="https://aistudio.google.com/apikey">Google AI Studio</a> 建立；請求會從你的裝置直接送到服務商。AI 用量可能由服務商向你收費，大量使用前請設定每月支出上限。</p>
     </details>
     <details>
       <summary>DeepSRT 是訂閱制嗎？</summary>
-      <p>不是。DeepSRT 在 Mac App Store 上買斷一次，Chrome 擴充功能免費。</p>
+      <p>不是。DeepSRT PRO 與 DeepSRT Mobile 是兩個分開買斷的 App Store App，兩者都沒有 DeepSRT 訂閱費。</p>
+    </details>
+    <details>
+      <summary>我該選哪一個 App？</summary>
+      <p>想在 Mac 上使用完整功能與 AI agent 的 MCP 工具，請選 DeepSRT PRO；想在 iPhone 與 iPad 上使用即時字幕、摘要與逐字稿，請選 DeepSRT Mobile。</p>
     </details>
     <details>
       <summary>我的觀看資料會經過 DeepSRT 的伺服器嗎？</summary>
-      <p>絕對不會——根本沒有 DeepSRT 伺服器。App 直接從 YouTube 抓字幕、用你的金鑰直接把逐字稿送到 Google Gemini API。不需帳號、沒有分析追蹤、沒有中間人。</p>
+      <p>絕對不會——根本沒有 DeepSRT 伺服器。App 直接從 YouTube 取得字幕，AI 請求直接送到你設定的服務商。不需帳號、沒有分析追蹤、沒有中間人。</p>
     </details>
     <details>
       <summary>支援哪些語言？</summary>
-      <p>摘要與標題翻譯支援繁體中文、简体中文、English、日本語、한국어、Español、Français、ไทย。逐字稿則依影片本身提供的字幕語言而定。</p>
-    </details>
-    <details>
-      <summary>一定要用 Chrome 嗎？</summary>
-      <p>不用。Mac App 完全獨立運作——貼上連結就有摘要、逐字稿和內建播放器。Chrome 擴充功能是選配，給喜歡邊看影片邊在瀏覽器側邊面板讀摘要的人。</p>
+      <p>App 支援繁體中文、简体中文、English、日本語、한국어、Español、Français 與ไทย。逐字稿依影片字幕而定，即時翻譯則能補上語言差距。</p>
     </details>
     <details>
       <summary>支援會員專屬或需要登入的影片嗎？</summary>
-      <p>不支援。頻道會員專屬、私人影片等需要登入的內容是 YouTube 的限制：這類影片本身就拒絕官方嵌入式播放器，而 Google 也全面封鎖 app 內登入。這是所有第三方 app 共同的邊界，不是 DeepSRT 獨有。公開影片——包括「知道連結才能觀看」的影片——都完整支援。</p>
+      <p>不支援。頻道會員專屬、私人影片等內容會拒絕官方嵌入式播放器，這是所有第三方 App 共同的 YouTube 限制。公開影片與知道連結才能觀看的影片都支援。</p>
     </details>
     <details>
-      <summary>DeepSRT v1 怎麼了？</summary>
-      <p>v1 跑在雲端。v2 是從零重寫，把一切搬到你的 Mac 上：更快、更私密、不再依賴共用基礎設施。擴充功能還在——只是現在連的是 App，不是雲端。</p>
-    </details>
-    <details>
-      <summary>什麼時候上架？</summary>
-      <p>DeepSRT for Mac 現已在 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> 上架——買斷制，無訂閱。詳情見<a href="/pricing/">價格說明</a>。</p>
+      <summary>在哪裡下載？</summary>
+      <p>DeepSRT PRO 在 <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>；DeepSRT Mobile 在 <a href="https://apps.apple.com/app/id6799504696">iPhone 與 iPad 的 App Store</a>。兩者都是買斷制。</p>
     </details>
   </section>
 
   <div class="bottom-cta">
     <h2>每部影片，都先幫你讀好了。</h2>
-    <a class="cta" href="https://apps.apple.com/app/id6796562729">前往 Mac App Store 下載</a>
+    <a class="cta for-mac" href="https://apps.apple.com/app/id6796562729">下載 DeepSRT PRO</a>
+    <a class="cta for-ios" href="https://apps.apple.com/app/id6799504696">下載 DeepSRT Mobile</a>
   </div>
 
   <footer>
     <p>© 2026 DeepSRT · <a href="/privacy/">隱私權政策</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a> · From the maker of <a href="https://foldic.app">Foldic</a> and <a href="https://ripplic.app">Ripplic</a></p>
   </footer>
+  <script>
+    // Platform switch. Defaults to the device being used, remembers an explicit
+    // choice, and accepts #mac / #ios so either product view is linkable.
+    (function () {
+      var body = document.body;
+      var tabs = Array.prototype.slice.call(document.querySelectorAll("[data-platform-tab]"));
+      function select(platform, remember) {
+        body.setAttribute("data-platform", platform);
+        tabs.forEach(function (tab) {
+          tab.setAttribute("aria-pressed", String(tab.dataset.platformTab === platform));
+        });
+        if (remember) {
+          try { localStorage.setItem("deepsrt-platform", platform); } catch (error) {}
+        }
+      }
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () { select(tab.dataset.platformTab, true); });
+      });
+      var device = navigator.platform || navigator.userAgent;
+      var isiOS = /iPhone|iPad|iPod/.test(device) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      var initial = isiOS ? "ios" : "mac";
+      try {
+        var saved = localStorage.getItem("deepsrt-platform");
+        if (saved === "mac" || saved === "ios") initial = saved;
+      } catch (error) {}
+      if (location.hash === "#ios") initial = "ios";
+      if (location.hash === "#mac") initial = "mac";
+      select(initial, false);
+    })();
+  </script>
 </body>
 </html>
