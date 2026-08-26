@@ -389,18 +389,18 @@
         "ja": "iPhone、iPad",
         "ko": "iPhone, iPad"
       },
-      "status": "review",
+      "status": "latest",
       "date": {
-        "en": "Submitted August 21, 2026",
-        "zh": "2026 年 8 月 21 日送審",
-        "ja": "2026年8月21日 申請",
-        "ko": "2026년 8월 21일 제출"
+        "en": "August 26, 2026",
+        "zh": "2026 年 8 月 26 日",
+        "ja": "2026年8月26日",
+        "ko": "2026년 8월 26일"
       },
       "blurb": {
-        "en": "iPad support: the video sits beside the summary and transcript, with a draggable divider. On iPhone, optional auto-rotation follows how you are actually holding the phone — even with the system rotation lock on — and never turns the picture upside-down. Adds a five-step text size for the summary and transcript, right-sized captions when no translation is configured, paste-to-play, and language changes that apply to the video already playing.",
-        "zh": "iPad 支援：影片與摘要、逐字稿並排，中間可拖曳調整寬度。iPhone 新增選用的重力自動轉向──即使系統鎖定轉向也能依你實際握持方向調整，且永不把畫面轉成上下顛倒。另外新增摘要與逐字稿的五段文字大小、未設定翻譯時字幕大小回歸合理、貼上連結即播放，以及切換語言立即套用到正在播放的影片。",
-        "ja": "iPad対応：動画の隣に要約と文字起こしが並び、仕切りはドラッグで調整できます。iPhoneでは、実際の持ち方に追従する自動回転（任意）を追加──システムの向きロック中でも機能し、画面が上下逆になることはありません。さらに要約と文字起こしの5段階の文字サイズ、翻訳未設定時の字幕サイズの適正化、貼り付けで即再生、再生中の動画にも即時反映される言語切り替えを追加。",
-        "ko": "iPad 지원: 동영상 옆에 요약과 자막이 나란히 표시되고, 구분선을 드래그해 조절할 수 있습니다. iPhone에서는 기기를 든 방향을 따라가는 자동 회전(선택 사항)을 추가했습니다 — 시스템 회전 잠금이 켜져 있어도 작동하며, 화면이 거꾸로 되지는 않습니다. 요약·자막의 5단계 글자 크기, 번역 미설정 시 자막 크기 정상화, 붙여넣기 즉시 재생, 재생 중인 동영상에 바로 적용되는 언어 변경도 추가되었습니다."
+        "en": "DeepSRT Mobile now feels at home on iPad: landscape split view puts the video beside its summary and transcript, with a draggable divider and maximize toggle. iPhone gains hold-aware auto-rotation, including when system rotation lock is on. Playback stays stable through rotation and app switching, reuses captions and translations on return, and keeps captions visible while you control the player. Also adds five-step text sizing, paste-to-play, immediate language changes, and clearer API-key validation.",
+        "zh": "DeepSRT Mobile 正式支援 iPad：橫向分割畫面讓影片與摘要、逐字稿並排，並可拖曳分隔線或切換最大化。iPhone 新增依實際握持方向自動旋轉，即使系統鎖定旋轉也能使用。旋轉螢幕或切換 App 時播放更穩定，返回前景會沿用現有字幕與翻譯，操作播放器時字幕也保持可見。另新增五段文字大小、貼上即播放、語言立即套用與更清楚的 API 金鑰驗證。",
+        "ja": "DeepSRT MobileがiPadに正式対応：横向きの分割表示で動画、要約、文字起こしを並べ、仕切りのドラッグと最大化切り替えができます。iPhoneには、システムの回転ロック中でも実際の持ち方に追従する自動回転を追加。画面回転やアプリ切り替えでも再生が安定し、復帰時は既存の字幕と翻訳を再利用、プレーヤー操作中も字幕を表示し続けます。さらに5段階の文字サイズ、貼り付けで即再生、言語変更の即時反映、APIキー検証の改善を追加しました。",
+        "ko": "DeepSRT Mobile이 iPad를 정식 지원합니다. 가로 분할 화면에서 동영상, 요약, 스크립트를 나란히 보고 구분선을 드래그하거나 최대화할 수 있습니다. iPhone에는 시스템 회전 잠금 중에도 실제 기기 방향을 따르는 자동 회전을 추가했습니다. 화면 회전과 앱 전환 중에도 재생이 안정적으로 유지되고, 복귀 시 기존 자막과 번역을 재사용하며, 플레이어를 조작해도 자막이 계속 표시됩니다. 5단계 글자 크기, 붙여넣기 즉시 재생, 언어 변경 즉시 적용, 더 명확한 API 키 검증도 추가했습니다."
       },
       "app": "mobile"
     },
@@ -412,7 +412,7 @@
         "ja": "iPhone",
         "ko": "iPhone"
       },
-      "status": "latest",
+      "status": null,
       "date": {
         "en": "August 2026",
         "zh": "2026 年 8 月",
