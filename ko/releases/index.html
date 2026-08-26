@@ -115,6 +115,10 @@
     .release .blurb a { color: var(--accent-deep); text-decoration-color: var(--border);
       text-underline-offset: 3px; }
     .release .blurb a:hover { text-decoration-color: var(--accent-deep); }
+    .release .changes { color: var(--muted); font-size: 0.9rem;
+      margin: 0.7rem 0 0 1.2rem; display: grid; gap: 0.3rem; }
+    .release .changes li { padding-left: 0.15rem; }
+    .release .changes li::marker { color: var(--accent-deep); }
     .latest-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent-deep);
       background: var(--accent-tint); border-radius: 999px; padding: 0.1rem 0.55rem;
       margin-left: 0.4rem; vertical-align: 0.08em; text-transform: uppercase;
@@ -204,7 +208,21 @@
       <div class="release-list">
         <div class="release">
           <div class="row"><span class="version">1.1</span><span class="latest-badge">최신</span><span class="platforms">iPhone, iPad</span><span class="when">2026년 8월 26일</span></div>
-          <p class="blurb">DeepSRT Mobile이 iPad를 정식 지원합니다. 가로 분할 화면에서 동영상, 요약, 스크립트를 나란히 보고 구분선을 드래그하거나 최대화할 수 있습니다. iPhone에는 시스템 회전 잠금 중에도 실제 기기 방향을 따르는 자동 회전을 추가했습니다. 화면 회전과 앱 전환 중에도 재생이 안정적으로 유지되고, 복귀 시 기존 자막과 번역을 재사용하며, 플레이어를 조작해도 자막이 계속 표시됩니다. 5단계 글자 크기, 붙여넣기 즉시 재생, 언어 변경 즉시 적용, 더 명확한 API 키 검증도 추가했습니다.</p>
+          <p class="blurb">이번 업데이트에서는 iPhone과 iPad의 시청 경험을 크게 개선했습니다.</p>
+          <ul class="changes">
+            <li>iPad 가로 분할 화면에서 동영상과 요약, 스크립트를 나란히 표시하고 구분선을 드래그하거나 최대화할 수 있습니다.</li>
+            <li>iPhone은 시스템 회전 잠금 중에도 실제 기기 방향을 따라 자동 회전하며, 화면이 거꾸로 되지 않고 누워서 볼 때는 방향을 고정할 수 있습니다.</li>
+            <li>Pro Max 기기도 가로 모드에서 휴대폰에 맞는 레이아웃을 유지합니다.</li>
+            <li>화면 회전과 앱 전환 중 플레이어와 재생 상태가 더욱 안정적으로 유지됩니다.</li>
+            <li>앱으로 돌아오면 기존 자막과 번역을 재사용해 다시 불러오지 않습니다.</li>
+            <li>영상을 탭하거나 길게 눌러도 자막이 사라지지 않습니다.</li>
+            <li>요약과 스크립트에 5단계 글자 크기 설정을 추가했습니다.</li>
+            <li>번역을 설정하지 않았을 때 자막 크기를 알맞게 조정하고 영상 하단에 더 가깝게 배치했습니다.</li>
+            <li>붙여넣기 즉시 재생: 클립보드의 YouTube 링크는 앱을 열 때, 검색창에 붙여넣은 링크는 즉시 재생합니다.</li>
+            <li>언어 변경 사항이 재생 중인 영상에 즉시 적용됩니다.</li>
+            <li>API 키 저장 시 즉시 확인하며, 오류가 발생한 제공업체를 정확히 표시합니다.</li>
+            <li>OpenCode Zen 및 OpenRouter 무료 모델 목록을 업데이트했습니다.</li>
+          </ul>
         </div>
         <div class="release">
           <div class="row"><span class="version">1.0</span><span class="platforms">iPhone</span><span class="when">2026년 8월</span></div>

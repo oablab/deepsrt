@@ -115,6 +115,10 @@
     .release .blurb a { color: var(--accent-deep); text-decoration-color: var(--border);
       text-underline-offset: 3px; }
     .release .blurb a:hover { text-decoration-color: var(--accent-deep); }
+    .release .changes { color: var(--muted); font-size: 0.9rem;
+      margin: 0.7rem 0 0 1.2rem; display: grid; gap: 0.3rem; }
+    .release .changes li { padding-left: 0.15rem; }
+    .release .changes li::marker { color: var(--accent-deep); }
     .latest-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent-deep);
       background: var(--accent-tint); border-radius: 999px; padding: 0.1rem 0.55rem;
       margin-left: 0.4rem; vertical-align: 0.08em; text-transform: uppercase;
@@ -204,7 +208,21 @@
       <div class="release-list">
         <div class="release">
           <div class="row"><span class="version">1.1</span><span class="latest-badge">Latest</span><span class="platforms">iPhone, iPad</span><span class="when">August 26, 2026</span></div>
-          <p class="blurb">DeepSRT Mobile now feels at home on iPad: landscape split view puts the video beside its summary and transcript, with a draggable divider and maximize toggle. iPhone gains hold-aware auto-rotation, including when system rotation lock is on. Playback stays stable through rotation and app switching, reuses captions and translations on return, and keeps captions visible while you control the player. Also adds five-step text sizing, paste-to-play, immediate language changes, and clearer API-key validation.</p>
+          <p class="blurb">This update makes DeepSRT a much better viewing companion on both iPhone and iPad.</p>
+          <ul class="changes">
+            <li>iPad landscape split view places the video beside the summary and transcript, with a draggable divider and maximize toggle.</li>
+            <li>Optional iPhone auto-rotation follows how you hold the phone even with system rotation lock on, never turns upside-down, and can be locked while watching lying down.</li>
+            <li>Pro Max iPhones stay in the phone layout in landscape.</li>
+            <li>Playback stays stable through rotation and app switching.</li>
+            <li>Existing captions and translations are reused when returning to the app instead of being fetched again.</li>
+            <li>Captions stay visible while you tap or hold the video.</li>
+            <li>The summary and transcript now have five text-size settings.</li>
+            <li>Captions are sensibly sized when no translation is configured and sit closer to the bottom of the video.</li>
+            <li>Paste to play: a copied YouTube link starts when you open the app, and a link pasted into search plays immediately.</li>
+            <li>Changing the language applies immediately to the playing video.</li>
+            <li>API keys are verified when saved, and provider errors identify the provider that failed.</li>
+            <li>Free-model lists for OpenCode Zen and OpenRouter have been refreshed.</li>
+          </ul>
         </div>
         <div class="release">
           <div class="row"><span class="version">1.0</span><span class="platforms">iPhone</span><span class="when">August 2026</span></div>

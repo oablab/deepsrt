@@ -121,6 +121,10 @@ CSS = """\
     .release .blurb a { color: var(--accent-deep); text-decoration-color: var(--border);
       text-underline-offset: 3px; }
     .release .blurb a:hover { text-decoration-color: var(--accent-deep); }
+    .release .changes { color: var(--muted); font-size: 0.9rem;
+      margin: 0.7rem 0 0 1.2rem; display: grid; gap: 0.3rem; }
+    .release .changes li { padding-left: 0.15rem; }
+    .release .changes li::marker { color: var(--accent-deep); }
     .latest-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent-deep);
       background: var(--accent-tint); border-radius: 999px; padding: 0.1rem 0.55rem;
       margin-left: 0.4rem; vertical-align: 0.08em; text-transform: uppercase;
@@ -198,18 +202,25 @@ def build(loc: str, ui: dict, releases: list, apps: list) -> str:
                     p=prefix, slug=r["note"], label=esc(ui["readnote"])
                 )
 
+            changes = ""
+            bullets = r.get("bullets", {}).get(loc, [])
+            if bullets:
+                items = "\n".join(f"            <li>{esc(item)}</li>" for item in bullets)
+                changes = f'\n          <ul class="changes">\n{items}\n          </ul>'
+
             rows.append(
                 '        <div class="release">\n'
                 '          <div class="row"><span class="version">{v}</span>{badge}'
                 '<span class="platforms">{plat}</span>'
                 '<span class="when">{when}</span></div>\n'
-                '          <p class="blurb">{blurb}</p>\n'
+                '          <p class="blurb">{blurb}</p>{changes}\n'
                 "        </div>".format(
                     v=esc(r["version"]),
                     badge=badge,
                     plat=esc(r["platforms"][loc]),
                     when=esc(r["date"][loc]),
                     blurb=blurb,
+                    changes=changes,
                 )
             )
 
@@ -376,6 +387,17 @@ def main() -> int:
         for l in locales:
             if re.search(r"\*\*|^- ", r.get("blurb", {}).get(l, ""), re.M):
                 problems.append(f"{r['version']} [{l}]: blurb looks like markdown; use HTML")
+        bullets = r.get("bullets")
+        if bullets is not None:
+            missing = [l for l in locales if not bullets.get(l)]
+            if missing:
+                problems.append(f"{r['version']}: bullets missing {missing}")
+            for l in locales:
+                items = bullets.get(l, [])
+                if not isinstance(items, list) or any(
+                    not isinstance(item, str) or not item.strip() for item in items
+                ):
+                    problems.append(f"{r['version']} [{l}]: bullets must be non-empty strings")
     if problems:
         print("spec problems:", file=sys.stderr)
         for p in problems:

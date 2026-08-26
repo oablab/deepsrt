@@ -397,12 +397,70 @@
         "ko": "2026년 8월 26일"
       },
       "blurb": {
-        "en": "DeepSRT Mobile now feels at home on iPad: landscape split view puts the video beside its summary and transcript, with a draggable divider and maximize toggle. iPhone gains hold-aware auto-rotation, including when system rotation lock is on. Playback stays stable through rotation and app switching, reuses captions and translations on return, and keeps captions visible while you control the player. Also adds five-step text sizing, paste-to-play, immediate language changes, and clearer API-key validation.",
-        "zh": "DeepSRT Mobile 正式支援 iPad：橫向分割畫面讓影片與摘要、逐字稿並排，並可拖曳分隔線或切換最大化。iPhone 新增依實際握持方向自動旋轉，即使系統鎖定旋轉也能使用。旋轉螢幕或切換 App 時播放更穩定，返回前景會沿用現有字幕與翻譯，操作播放器時字幕也保持可見。另新增五段文字大小、貼上即播放、語言立即套用與更清楚的 API 金鑰驗證。",
-        "ja": "DeepSRT MobileがiPadに正式対応：横向きの分割表示で動画、要約、文字起こしを並べ、仕切りのドラッグと最大化切り替えができます。iPhoneには、システムの回転ロック中でも実際の持ち方に追従する自動回転を追加。画面回転やアプリ切り替えでも再生が安定し、復帰時は既存の字幕と翻訳を再利用、プレーヤー操作中も字幕を表示し続けます。さらに5段階の文字サイズ、貼り付けで即再生、言語変更の即時反映、APIキー検証の改善を追加しました。",
-        "ko": "DeepSRT Mobile이 iPad를 정식 지원합니다. 가로 분할 화면에서 동영상, 요약, 스크립트를 나란히 보고 구분선을 드래그하거나 최대화할 수 있습니다. iPhone에는 시스템 회전 잠금 중에도 실제 기기 방향을 따르는 자동 회전을 추가했습니다. 화면 회전과 앱 전환 중에도 재생이 안정적으로 유지되고, 복귀 시 기존 자막과 번역을 재사용하며, 플레이어를 조작해도 자막이 계속 표시됩니다. 5단계 글자 크기, 붙여넣기 즉시 재생, 언어 변경 즉시 적용, 더 명확한 API 키 검증도 추가했습니다."
+        "en": "This update makes DeepSRT a much better viewing companion on both iPhone and iPad.",
+        "zh": "這次更新大幅提升 DeepSRT 在 iPhone 與 iPad 上的觀看體驗。",
+        "ja": "今回のアップデートでは、iPhoneとiPadでの視聴体験を大幅に改善しました。",
+        "ko": "이번 업데이트에서는 iPhone과 iPad의 시청 경험을 크게 개선했습니다."
       },
-      "app": "mobile"
+      "app": "mobile",
+      "bullets": {
+        "en": [
+          "iPad landscape split view places the video beside the summary and transcript, with a draggable divider and maximize toggle.",
+          "Optional iPhone auto-rotation follows how you hold the phone even with system rotation lock on, never turns upside-down, and can be locked while watching lying down.",
+          "Pro Max iPhones stay in the phone layout in landscape.",
+          "Playback stays stable through rotation and app switching.",
+          "Existing captions and translations are reused when returning to the app instead of being fetched again.",
+          "Captions stay visible while you tap or hold the video.",
+          "The summary and transcript now have five text-size settings.",
+          "Captions are sensibly sized when no translation is configured and sit closer to the bottom of the video.",
+          "Paste to play: a copied YouTube link starts when you open the app, and a link pasted into search plays immediately.",
+          "Changing the language applies immediately to the playing video.",
+          "API keys are verified when saved, and provider errors identify the provider that failed.",
+          "Free-model lists for OpenCode Zen and OpenRouter have been refreshed."
+        ],
+        "zh": [
+          "iPad 橫向分割畫面讓影片與摘要、逐字稿並排，支援拖曳分隔線與最大化切換。",
+          "iPhone 可選擇依實際握持方向自動旋轉，即使系統鎖定旋轉也能使用、不會上下顛倒，躺著觀看時還可鎖定方向。",
+          "Pro Max 機型在橫向模式下仍維持適合手機的版面。",
+          "旋轉螢幕或切換 App 時，播放器與播放狀態更穩定。",
+          "返回前景時沿用現有字幕與翻譯，不再重複抓取。",
+          "操作影片時字幕保持可見，不再因點擊或長按而隱藏。",
+          "摘要與逐字稿新增五段文字大小設定。",
+          "未設定翻譯語言時，字幕大小更合理，位置也更靠近影片底部。",
+          "貼上即播放：開啟 App 時會播放剪貼簿中的 YouTube 連結，在搜尋欄貼上連結也會立即開啟。",
+          "變更語言會立即套用到正在播放的影片。",
+          "儲存 API 金鑰時立即驗證，錯誤訊息會正確指出實際失敗的服務商。",
+          "更新 OpenCode Zen 與 OpenRouter 的免費模型清單。"
+        ],
+        "ja": [
+          "iPadの横向き分割表示で、動画と要約、文字起こしを並べ、仕切りのドラッグと最大化切り替えができます。",
+          "iPhoneではシステムの回転ロック中でも持ち方に追従して自動回転し、上下逆にはならず、横になって視聴するときは向きを固定できます。",
+          "Pro Maxモデルでも横向き時にiPhone向けレイアウトを維持します。",
+          "画面回転やアプリ切り替え中のプレーヤーと再生状態を安定化しました。",
+          "アプリに戻ったとき、既存の字幕と翻訳を再利用し、再取得を防ぎます。",
+          "動画をタップまたは長押ししても字幕が消えなくなりました。",
+          "要約と文字起こしに5段階の文字サイズ設定を追加しました。",
+          "翻訳を設定していない場合の字幕サイズを適正化し、動画の下部に近づけました。",
+          "貼り付けですぐ再生：クリップボードのYouTubeリンクはアプリ起動時に、検索欄へ貼り付けたリンクはその場で再生します。",
+          "言語変更が再生中の動画へ即座に反映されます。",
+          "APIキーを保存時に検証し、エラーが発生したプロバイダーを正しく表示します。",
+          "OpenCode ZenとOpenRouterの無料モデル一覧を更新しました。"
+        ],
+        "ko": [
+          "iPad 가로 분할 화면에서 동영상과 요약, 스크립트를 나란히 표시하고 구분선을 드래그하거나 최대화할 수 있습니다.",
+          "iPhone은 시스템 회전 잠금 중에도 실제 기기 방향을 따라 자동 회전하며, 화면이 거꾸로 되지 않고 누워서 볼 때는 방향을 고정할 수 있습니다.",
+          "Pro Max 기기도 가로 모드에서 휴대폰에 맞는 레이아웃을 유지합니다.",
+          "화면 회전과 앱 전환 중 플레이어와 재생 상태가 더욱 안정적으로 유지됩니다.",
+          "앱으로 돌아오면 기존 자막과 번역을 재사용해 다시 불러오지 않습니다.",
+          "영상을 탭하거나 길게 눌러도 자막이 사라지지 않습니다.",
+          "요약과 스크립트에 5단계 글자 크기 설정을 추가했습니다.",
+          "번역을 설정하지 않았을 때 자막 크기를 알맞게 조정하고 영상 하단에 더 가깝게 배치했습니다.",
+          "붙여넣기 즉시 재생: 클립보드의 YouTube 링크는 앱을 열 때, 검색창에 붙여넣은 링크는 즉시 재생합니다.",
+          "언어 변경 사항이 재생 중인 영상에 즉시 적용됩니다.",
+          "API 키 저장 시 즉시 확인하며, 오류가 발생한 제공업체를 정확히 표시합니다.",
+          "OpenCode Zen 및 OpenRouter 무료 모델 목록을 업데이트했습니다."
+        ]
+      }
     },
     {
       "version": "1.0",
