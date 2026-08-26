@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DeepSRT — Instant AI summaries and transcripts for YouTube, natively on your Mac</title>
-  <meta name="description" content="DeepSRT turns any YouTube video into an instant AI summary and a clean, clickable transcript — natively on your Mac, powered by your own Gemini API key. Includes a built-in player and a free Chrome extension companion.">
+  <title>DeepSRT — AI captions, summaries, and transcripts for YouTube on Mac, iPhone, and iPad</title>
+  <meta name="description" content="DeepSRT turns YouTube videos into live bilingual captions, AI summaries, and clickable transcripts on Mac, iPhone, and iPad — powered by your own AI key.">
+  <link rel="canonical" href="https://deepsrt.com/">
   <meta property="og:title" content="DeepSRT">
-  <meta property="og:description" content="Watch less, understand more. Instant AI summaries and transcripts for YouTube — natively on your Mac, with your own Gemini key. No servers, no account.">
-  <meta property="og:url" content="https://deepsrt.com">
+  <meta property="og:description" content="Watch less and understand more with DeepSRT apps for Mac, iPhone, and iPad. Live bilingual captions, AI summaries, and clickable transcripts, with no DeepSRT servers.">
+  <meta property="og:url" content="https://deepsrt.com/">
   <meta property="og:image" content="https://deepsrt.com/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -100,6 +101,26 @@
     @media (max-width: 600px) {
       .desktop-br { display: none; }
     }
+    /* Platform switch: PRO and Mobile are separate App Store apps with a
+       shared core experience and platform-specific controls. */
+    .platform-switch {
+      display: inline-flex; gap: 0.25rem; margin: 0 auto 1.6rem;
+      padding: 0.25rem; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--border);
+    }
+    .platform-switch button {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font: inherit; font-size: 0.92rem; font-weight: 600; color: var(--muted);
+      background: none; border: 0; cursor: pointer;
+      padding: 0.42rem 1.05rem; border-radius: 999px;
+    }
+    .platform-switch button[aria-pressed="true"] {
+      background: var(--bg); color: var(--ink);
+      box-shadow: 0 1px 3px rgba(27, 44, 58, 0.14);
+    }
+    .platform-switch svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    body[data-platform="mac"] .for-ios,
+    body[data-platform="ios"] .for-mac { display: none; }
     .cta-row { margin-top: 2rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
     .cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -238,7 +259,7 @@
     })();
   </script>
 </head>
-<body>
+<body data-platform="mac">
   <nav>
     <a class="brand" href="/"><img src="/icon.svg" alt="" width="28" height="28">DeepSRT</a>
     <div class="links">
@@ -253,13 +274,30 @@
   </nav>
 
   <header class="hero">
-    <h1>Watch less.<br><em>Understand more.</em></h1>
-    <p class="sub">DeepSRT turns any YouTube video into an instant AI summary and a clean,<br class="desktop-br">clickable transcript — natively on your Mac, powered by your own Gemini key.<br class="desktop-br">Watch, skim, jump to the moment that matters.</p>
-    <div class="cta-row">
-      <a class="cta" href="https://apps.apple.com/app/id6796562729">Download on the Mac App Store</a>
+    <div class="platform-switch" role="group" aria-label="Choose a platform">
+      <button type="button" data-platform-tab="mac" aria-pressed="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Mac
+      </button>
+      <button type="button" data-platform-tab="ios" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 19h2"/></svg>iPhone & iPad
+      </button>
+    </div>
+
+    <h1 class="for-mac">Watch less.<br><em>Understand more.</em></h1>
+    <p class="sub for-mac">DeepSRT PRO turns any YouTube video into an AI summary and a clean,<br class="desktop-br">clickable transcript on your Mac. Use your own AI key, watch in the built-in player,<br class="desktop-br">and jump straight to the moment that matters.</p>
+    <h1 class="for-ios">YouTube, understood<br><em>in your pocket.</em></h1>
+    <p class="sub for-ios">DeepSRT Mobile brings live bilingual captions, AI summaries, and tap-to-seek transcripts<br class="desktop-br">to iPhone and iPad. Paste, search, or share a YouTube link and start watching.</p>
+
+    <div class="cta-row for-mac">
+      <a class="cta" href="https://apps.apple.com/app/id6796562729">Download DeepSRT PRO</a>
       <a class="cta secondary" href="#how">See how it works</a>
     </div>
-    <span class="badge">DEEPSRT V2 · NOW ON THE MAC APP STORE</span>
+    <div class="cta-row for-ios">
+      <a class="cta" href="https://apps.apple.com/app/id6799504696">Download DeepSRT Mobile</a>
+      <a class="cta secondary" href="#how">See how it works</a>
+    </div>
+    <span class="badge for-mac">DEEPSRT PRO · MAC APP STORE</span>
+    <span class="badge for-ios">DEEPSRT MOBILE · APP STORE</span>
 
     <div class="flow" aria-hidden="true">
       <svg viewBox="0 0 720 300">
@@ -268,28 +306,26 @@
             <path d="M0,0 L8,4 L0,8" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
           </marker>
         </defs>
-        <!-- source -->
         <rect class="box" x="20" y="110" width="170" height="80" rx="12"/>
         <text x="105" y="145" text-anchor="middle">YouTube link</text>
-        <text class="dim" x="105" y="166" text-anchor="middle">or the Chrome side panel</text>
-        <!-- app -->
+        <text class="dim for-mac" x="105" y="166" text-anchor="middle">paste or search</text>
+        <text class="dim for-ios" x="105" y="166" text-anchor="middle">paste, search, or share</text>
         <rect class="box" x="250" y="95" width="200" height="110" rx="12"/>
-        <text x="350" y="135" text-anchor="middle">DeepSRT for Mac</text>
-        <text class="dim" x="350" y="156" text-anchor="middle">your Gemini key,</text>
-        <text class="dim" x="350" y="173" text-anchor="middle">no servers in between</text>
-        <!-- arrows -->
+        <text class="for-mac" x="350" y="135" text-anchor="middle">DeepSRT PRO</text>
+        <text class="for-ios" x="350" y="135" text-anchor="middle">DeepSRT Mobile</text>
+        <text class="dim" x="350" y="156" text-anchor="middle">your own AI key</text>
+        <text class="dim" x="350" y="173" text-anchor="middle">no DeepSRT servers</text>
         <path class="arrow" d="M200 150 L 240 150"/>
         <path class="arrow" d="M460 150 C 500 150, 510 40, 560 40"/>
         <path class="arrow" d="M460 150 C 500 150, 510 113, 560 113"/>
         <path class="arrow" d="M460 150 C 500 150, 510 187, 560 187"/>
         <path class="arrow" d="M460 150 C 500 150, 510 260, 560 260"/>
-        <!-- outputs -->
         <rect class="box" x="570" y="15" width="130" height="50" rx="12"/>
         <text x="635" y="45" text-anchor="middle">AI summary</text>
         <rect class="box" x="570" y="88" width="130" height="50" rx="12"/>
         <text x="635" y="118" text-anchor="middle">Transcript</text>
         <rect class="box" x="570" y="162" width="130" height="50" rx="12"/>
-        <text x="635" y="192" text-anchor="middle">SRT export</text>
+        <text x="635" y="192" text-anchor="middle">Live captions</text>
         <rect class="box" x="570" y="235" width="130" height="50" rx="12"/>
         <text x="635" y="265" text-anchor="middle">Built-in player</text>
       </svg>
@@ -301,54 +337,61 @@
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
         <h3>Summaries in your style</h3>
-        <p>Narrative paragraphs for a quick read, or a structured bullet digest where every point carries a timestamp. Summaries arrive in your language — 繁體中文, English, 日本語, 한국어, and more.</p>
+        <p>Narrative paragraphs for a quick read, or a structured digest where every point carries a timestamp. Summaries arrive in your language.</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h6M16 15h1"/></svg></div>
         <h3>Clean, clickable transcripts</h3>
-        <p>Full transcripts with readable segmenting. Click any timestamp to jump the video to that exact moment, or copy the whole thing as an SRT file in one click.</p>
+        <p>Full transcripts with readable segments. Tap or click any timestamp to jump the video to that exact moment, then copy the text when you need it.</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9l5 3-5 3z"/></svg></div>
         <h3>Watch right in the app</h3>
-        <p>A built-in YouTube player sits above your summary and transcript. Read the digest, spot an interesting point, click its timestamp — the video jumps there.</p>
+        <p>The official YouTube player sits with your summary and transcript. Read a point, select its timestamp, and the video jumps there.</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 7a5 5 0 1 0-4.9 6H10l1.5-1.5L13 13l1.5-1.5L16 13l2.5-2.5V7z"/><circle cx="9" cy="7" r="1"/></svg></div>
         <h3>Your key, your quota</h3>
-        <p>Bring your own Gemini API key — the free tier from Google AI Studio is plenty for everyday use. Your key is stored only in the macOS Keychain and used only to call Google directly.</p>
+        <p>Bring your own Gemini key or a supported AI provider. It stays in the system Keychain and is used to call the provider directly.</p>
       </div>
       <div class="feature">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <h3>Private by design</h3>
-        <p>No DeepSRT servers, no account, no analytics. Captions come straight from YouTube to your Mac; summaries go straight from your Mac to Google. Nothing in between.</p>
+        <p>No DeepSRT servers, no account, no analytics. Captions come straight from YouTube; AI requests go straight from your device to your provider.</p>
       </div>
-      <div class="feature">
-        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
-        <h3>Free Chrome extension</h3>
-        <p>Browsing YouTube? The free DeepSRT extension puts the same summary and transcript in your browser's side panel — powered by the Mac app running quietly in the background.</p>
+      <div class="feature for-mac">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21h8M12 18v3M8 11h.01M12 11h.01M16 11h.01"/></svg></div>
+        <h3>Built for AI agents</h3>
+        <p>DeepSRT PRO includes a local MCP server, so AI agents on your Mac can search, transcribe, summarize, and open YouTube videos.</p>
+      </div>
+      <div class="feature for-ios">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h7"/></svg></div>
+        <h3>Live bilingual captions</h3>
+        <p>DeepSRT Mobile overlays translated live captions on the official player, with touch controls designed for iPhone and a split view for iPad.</p>
       </div>
     </div>
   </section>
 
   <section class="how" id="how">
-    <h2 class="section-title">Three steps, then it's instant</h2>
-    <p class="section-sub">Set up once. From then on, every video is a paste away from a summary.</p>
+    <h2 class="section-title">Three steps, then it is instant</h2>
+    <p class="section-sub">Choose the app for your device. Setup takes a minute; every video after that is a paste, search, or share away.</p>
     <div class="steps">
       <div class="step">
         <div class="num">1</div>
-        <h3>Get DeepSRT</h3>
-        <p>One purchase on the Mac App Store. No subscription, no account to create.</p>
+        <h3 class="for-mac">Get DeepSRT PRO</h3>
+        <p class="for-mac">A separate one-time purchase on the Mac App Store. No subscription and no DeepSRT account.</p>
+        <h3 class="for-ios">Get DeepSRT Mobile</h3>
+        <p class="for-ios">A separate one-time purchase on the App Store for iPhone and iPad. No subscription and no DeepSRT account.</p>
       </div>
       <div class="step">
         <div class="num">2</div>
-        <h3>Add your Gemini key</h3>
-        <p>Grab a free API key from Google AI Studio and paste it into Settings. It lives in your Keychain.</p>
+        <h3>Add your AI key</h3>
+        <p>Create a Gemini key at Google AI Studio or choose a supported provider, then save it securely in Settings. Your provider may charge for usage, so set a monthly spending cap before heavy use.</p>
       </div>
       <div class="step">
         <div class="num">3</div>
-        <h3>Paste a link</h3>
-        <p>Drop in any YouTube URL — or open the side panel in Chrome. Summary, transcript, and player appear together.</p>
+        <h3>Open a video</h3>
+        <p>Paste or search for a public YouTube video. On iPhone and iPad, you can also share a link directly from YouTube.</p>
       </div>
     </div>
   </section>
@@ -357,45 +400,73 @@
     <h2 class="section-title" style="text-align:center">FAQ</h2>
     <details>
       <summary>Do I need my own API key?</summary>
-      <p>Yes — DeepSRT is powered by your own Google Gemini API key, which you can create for free at <a href="https://aistudio.google.com/apikey">Google AI Studio</a>. Because the key is yours, there are no usage fees to DeepSRT, no monthly AI subscription, and your requests go directly to Google.</p>
+      <p>Yes. DeepSRT uses your Google Gemini key or a supported provider. Gemini keys are available from <a href="https://aistudio.google.com/apikey">Google AI Studio</a>. Requests go directly from your device to that provider. Provider usage may be billed to you; set a monthly spending cap before heavy use.</p>
     </details>
     <details>
       <summary>Is DeepSRT a subscription?</summary>
-      <p>No. DeepSRT is a one-time purchase on the Mac App Store. The Chrome extension companion is free.</p>
+      <p>No. DeepSRT PRO and DeepSRT Mobile are separate one-time App Store purchases. Neither app has a DeepSRT subscription.</p>
     </details>
     <details>
-      <summary>Does my viewing data pass through DeepSRT's servers?</summary>
-      <p>Never — there are no DeepSRT servers. The app fetches captions directly from YouTube and sends transcript text directly to Google's Gemini API using your key. No account, no analytics, no middleman.</p>
+      <summary>Which app should I choose?</summary>
+      <p>Choose DeepSRT PRO for the full Mac experience, including MCP tools for AI agents. Choose DeepSRT Mobile for live captions, summaries, and transcripts designed for iPhone and iPad.</p>
+    </details>
+    <details>
+      <summary>Does my viewing data pass through DeepSRT servers?</summary>
+      <p>Never — there are no DeepSRT servers. The app fetches captions directly from YouTube and sends AI requests directly to the provider you configure. No account, analytics, or middleman.</p>
     </details>
     <details>
       <summary>Which languages are supported?</summary>
-      <p>Summaries and title translations are available in 繁體中文, 简体中文, English, 日本語, 한국어, Español, Français, and ไทย. Transcripts follow the caption languages available on the video.</p>
-    </details>
-    <details>
-      <summary>Do I need Chrome to use it?</summary>
-      <p>No. The Mac app is fully standalone — paste a link, get a summary, transcript, and built-in player. The Chrome extension is an optional companion for people who like summaries in the browser side panel while they watch.</p>
+      <p>The apps support Traditional and Simplified Chinese, English, Japanese, Korean, Spanish, French, and Thai. Transcript availability depends on the video; live translation fills the language gap.</p>
     </details>
     <details>
       <summary>Does it work with members-only or login-required videos?</summary>
-      <p>No. Members-only, private, and other login-gated videos are a YouTube restriction: they refuse the official embedded player entirely, and Google blocks in-app sign-in across the board. This applies to every third-party app, not just DeepSRT. Public videos — including unlisted ones with a link — work fully.</p>
+      <p>No. Members-only, private, and other login-gated videos reject the official embedded player. This is a YouTube restriction shared by all third-party apps. Public and unlisted videos with a link work.</p>
     </details>
     <details>
-      <summary>What happened to DeepSRT v1?</summary>
-      <p>DeepSRT v1 ran in the cloud. v2 is a ground-up rebuild that moves everything onto your Mac: faster, more private, and no longer dependent on shared infrastructure. The extension lives on — it now talks to the app instead of the cloud.</p>
-    </details>
-    <details>
-      <summary>Where can I get it?</summary>
-      <p>DeepSRT for Mac is available now on the <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a> — a one-time purchase, no subscription. See <a href="/pricing/">pricing</a> for details.</p>
+      <summary>Where can I get the apps?</summary>
+      <p>DeepSRT PRO is on the <a href="https://apps.apple.com/app/id6796562729">Mac App Store</a>. DeepSRT Mobile is on the <a href="https://apps.apple.com/app/id6799504696">App Store for iPhone and iPad</a>. Both are one-time purchases.</p>
     </details>
   </section>
 
   <div class="bottom-cta">
     <h2>Every video, already read for you.</h2>
-    <a class="cta" href="https://apps.apple.com/app/id6796562729">Download on the Mac App Store</a>
+    <a class="cta for-mac" href="https://apps.apple.com/app/id6796562729">Download DeepSRT PRO</a>
+    <a class="cta for-ios" href="https://apps.apple.com/app/id6799504696">Download DeepSRT Mobile</a>
   </div>
 
   <footer>
     <p>© 2026 DeepSRT · <a href="/pricing/">Pricing</a> · <a href="/releases/">Releases</a> · <a href="/terms/">Terms</a> · <a href="/refunds/">Refunds</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:tautiu.dev@gmail.com">tautiu.dev@gmail.com</a> · From the maker of <a href="https://foldic.app">Foldic</a> and <a href="https://ripplic.app">Ripplic</a></p>
   </footer>
+  <script>
+    // Platform switch. Defaults to the device being used, remembers an explicit
+    // choice, and accepts #mac / #ios so either product view is linkable.
+    (function () {
+      var body = document.body;
+      var tabs = Array.prototype.slice.call(document.querySelectorAll("[data-platform-tab]"));
+      function select(platform, remember) {
+        body.setAttribute("data-platform", platform);
+        tabs.forEach(function (tab) {
+          tab.setAttribute("aria-pressed", String(tab.dataset.platformTab === platform));
+        });
+        if (remember) {
+          try { localStorage.setItem("deepsrt-platform", platform); } catch (error) {}
+        }
+      }
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () { select(tab.dataset.platformTab, true); });
+      });
+      var device = navigator.platform || navigator.userAgent;
+      var isiOS = /iPhone|iPad|iPod/.test(device) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      var initial = isiOS ? "ios" : "mac";
+      try {
+        var saved = localStorage.getItem("deepsrt-platform");
+        if (saved === "mac" || saved === "ios") initial = saved;
+      } catch (error) {}
+      if (location.hash === "#ios") initial = "ios";
+      if (location.hash === "#mac") initial = "mac";
+      select(initial, false);
+    })();
+  </script>
 </body>
 </html>
