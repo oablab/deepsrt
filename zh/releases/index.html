@@ -115,6 +115,10 @@
     .release .blurb a { color: var(--accent-deep); text-decoration-color: var(--border);
       text-underline-offset: 3px; }
     .release .blurb a:hover { text-decoration-color: var(--accent-deep); }
+    .release .changes { color: var(--muted); font-size: 0.9rem;
+      margin: 0.7rem 0 0 1.2rem; display: grid; gap: 0.3rem; }
+    .release .changes li { padding-left: 0.15rem; }
+    .release .changes li::marker { color: var(--accent-deep); }
     .latest-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent-deep);
       background: var(--accent-tint); border-radius: 999px; padding: 0.1rem 0.55rem;
       margin-left: 0.4rem; vertical-align: 0.08em; text-transform: uppercase;
@@ -204,7 +208,21 @@
       <div class="release-list">
         <div class="release">
           <div class="row"><span class="version">1.1</span><span class="latest-badge">最新</span><span class="platforms">iPhone、iPad</span><span class="when">2026 年 8 月 26 日</span></div>
-          <p class="blurb">DeepSRT Mobile 正式支援 iPad：橫向分割畫面讓影片與摘要、逐字稿並排，並可拖曳分隔線或切換最大化。iPhone 新增依實際握持方向自動旋轉，即使系統鎖定旋轉也能使用。旋轉螢幕或切換 App 時播放更穩定，返回前景會沿用現有字幕與翻譯，操作播放器時字幕也保持可見。另新增五段文字大小、貼上即播放、語言立即套用與更清楚的 API 金鑰驗證。</p>
+          <p class="blurb">這次更新大幅提升 DeepSRT 在 iPhone 與 iPad 上的觀看體驗。</p>
+          <ul class="changes">
+            <li>iPad 橫向分割畫面讓影片與摘要、逐字稿並排，支援拖曳分隔線與最大化切換。</li>
+            <li>iPhone 可選擇依實際握持方向自動旋轉，即使系統鎖定旋轉也能使用、不會上下顛倒，躺著觀看時還可鎖定方向。</li>
+            <li>Pro Max 機型在橫向模式下仍維持適合手機的版面。</li>
+            <li>旋轉螢幕或切換 App 時，播放器與播放狀態更穩定。</li>
+            <li>返回前景時沿用現有字幕與翻譯，不再重複抓取。</li>
+            <li>操作影片時字幕保持可見，不再因點擊或長按而隱藏。</li>
+            <li>摘要與逐字稿新增五段文字大小設定。</li>
+            <li>未設定翻譯語言時，字幕大小更合理，位置也更靠近影片底部。</li>
+            <li>貼上即播放：開啟 App 時會播放剪貼簿中的 YouTube 連結，在搜尋欄貼上連結也會立即開啟。</li>
+            <li>變更語言會立即套用到正在播放的影片。</li>
+            <li>儲存 API 金鑰時立即驗證，錯誤訊息會正確指出實際失敗的服務商。</li>
+            <li>更新 OpenCode Zen 與 OpenRouter 的免費模型清單。</li>
+          </ul>
         </div>
         <div class="release">
           <div class="row"><span class="version">1.0</span><span class="platforms">iPhone</span><span class="when">2026 年 8 月</span></div>

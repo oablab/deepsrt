@@ -115,6 +115,10 @@
     .release .blurb a { color: var(--accent-deep); text-decoration-color: var(--border);
       text-underline-offset: 3px; }
     .release .blurb a:hover { text-decoration-color: var(--accent-deep); }
+    .release .changes { color: var(--muted); font-size: 0.9rem;
+      margin: 0.7rem 0 0 1.2rem; display: grid; gap: 0.3rem; }
+    .release .changes li { padding-left: 0.15rem; }
+    .release .changes li::marker { color: var(--accent-deep); }
     .latest-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent-deep);
       background: var(--accent-tint); border-radius: 999px; padding: 0.1rem 0.55rem;
       margin-left: 0.4rem; vertical-align: 0.08em; text-transform: uppercase;
@@ -204,7 +208,21 @@
       <div class="release-list">
         <div class="release">
           <div class="row"><span class="version">1.1</span><span class="latest-badge">最新</span><span class="platforms">iPhone、iPad</span><span class="when">2026年8月26日</span></div>
-          <p class="blurb">DeepSRT MobileがiPadに正式対応：横向きの分割表示で動画、要約、文字起こしを並べ、仕切りのドラッグと最大化切り替えができます。iPhoneには、システムの回転ロック中でも実際の持ち方に追従する自動回転を追加。画面回転やアプリ切り替えでも再生が安定し、復帰時は既存の字幕と翻訳を再利用、プレーヤー操作中も字幕を表示し続けます。さらに5段階の文字サイズ、貼り付けで即再生、言語変更の即時反映、APIキー検証の改善を追加しました。</p>
+          <p class="blurb">今回のアップデートでは、iPhoneとiPadでの視聴体験を大幅に改善しました。</p>
+          <ul class="changes">
+            <li>iPadの横向き分割表示で、動画と要約、文字起こしを並べ、仕切りのドラッグと最大化切り替えができます。</li>
+            <li>iPhoneではシステムの回転ロック中でも持ち方に追従して自動回転し、上下逆にはならず、横になって視聴するときは向きを固定できます。</li>
+            <li>Pro Maxモデルでも横向き時にiPhone向けレイアウトを維持します。</li>
+            <li>画面回転やアプリ切り替え中のプレーヤーと再生状態を安定化しました。</li>
+            <li>アプリに戻ったとき、既存の字幕と翻訳を再利用し、再取得を防ぎます。</li>
+            <li>動画をタップまたは長押ししても字幕が消えなくなりました。</li>
+            <li>要約と文字起こしに5段階の文字サイズ設定を追加しました。</li>
+            <li>翻訳を設定していない場合の字幕サイズを適正化し、動画の下部に近づけました。</li>
+            <li>貼り付けですぐ再生：クリップボードのYouTubeリンクはアプリ起動時に、検索欄へ貼り付けたリンクはその場で再生します。</li>
+            <li>言語変更が再生中の動画へ即座に反映されます。</li>
+            <li>APIキーを保存時に検証し、エラーが発生したプロバイダーを正しく表示します。</li>
+            <li>OpenCode ZenとOpenRouterの無料モデル一覧を更新しました。</li>
+          </ul>
         </div>
         <div class="release">
           <div class="row"><span class="version">1.0</span><span class="platforms">iPhone</span><span class="when">2026年8月</span></div>
