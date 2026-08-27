@@ -366,15 +366,11 @@ def main() -> int:
         mine = [r for r in releases if r.get("app") == app["id"]]
         if not mine:
             problems.append(f"app {app['id']} has no releases")
-        # A product line with a shipping release has exactly one Latest badge.
-        # A brand-new app may temporarily contain only in-review releases; it
-        # gets its first Latest badge after Apple approves the first version.
+        # One Latest PER APP: the product lines have independent version series,
+        # so a single global Latest would be a claim about the wrong thing.
         latest = [r["version"] for r in mine if r.get("status") == "latest"]
-        expected_latest = 0 if all(r.get("status") == "review" for r in mine) else 1
-        if len(latest) != expected_latest:
-            problems.append(
-                f"app {app['id']}: expected {expected_latest} latest release(s), found {latest}"
-            )
+        if len(latest) != 1:
+            problems.append(f"app {app['id']}: exactly one release must be latest, found {latest}")
         for field in ("name", "tagline"):
             missing = [l for l in locales if not app.get(field, {}).get(l)]
             if missing:

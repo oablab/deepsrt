@@ -7,7 +7,7 @@
       "title": "DeepSRT — Releases",
       "description": "What each version of DeepSRT brought, newest first.",
       "h1": "Releases",
-      "lead": "What each version brought, newest first. PRO, Mobile, and OpenAB Remote are separate apps with their own version numbers.",
+      "lead": "What each version brought, newest first. PRO and Mobile are separate apps with their own version numbers.",
       "back": "← DeepSRT",
       "latest": "Latest",
       "review": "In review",
@@ -43,7 +43,7 @@
       "title": "DeepSRT — 版本紀錄",
       "description": "DeepSRT 每個版本帶來了什麼，由新到舊。",
       "h1": "版本紀錄",
-      "lead": "每個版本帶來了什麼，由新到舊。PRO、Mobile 與 OpenAB Remote 是三個獨立的 App，各自有自己的版號。",
+      "lead": "每個版本帶來了什麼，由新到舊。PRO 與 Mobile 是兩個獨立的 App，各自有自己的版號。",
       "back": "← DeepSRT",
       "latest": "最新",
       "review": "審核中",
@@ -79,7 +79,7 @@
       "title": "DeepSRT — リリース",
       "description": "DeepSRT の各バージョンの内容。新しい順。",
       "h1": "リリース",
-      "lead": "各バージョンの内容。新しい順。PRO、Mobile、OpenAB Remote は別々のアプリで、バージョン番号もそれぞれ独立しています。",
+      "lead": "各バージョンの内容。新しい順。PRO と Mobile は別々のアプリで、バージョン番号もそれぞれ独立しています。",
       "back": "← DeepSRT",
       "latest": "最新",
       "review": "審査中",
@@ -115,7 +115,7 @@
       "title": "DeepSRT — 릴리스",
       "description": "DeepSRT 각 버전의 변경 사항, 최신순.",
       "h1": "릴리스",
-      "lead": "각 버전의 변경 사항, 최신순. PRO, Mobile, OpenAB Remote는 별개의 앱이며 버전 번호도 각각 독립적입니다.",
+      "lead": "각 버전의 변경 사항, 최신순. PRO와 Mobile은 별개의 앱이며 버전 번호도 각각 독립적입니다.",
       "back": "← DeepSRT",
       "latest": "최신",
       "review": "심사 중",
@@ -147,29 +147,6 @@
     }
   },
   "releases": [
-    {
-      "version": "0.2.0",
-      "platforms": {
-        "en": "iPhone, iPad",
-        "zh": "iPhone、iPad",
-        "ja": "iPhone、iPad",
-        "ko": "iPhone, iPad"
-      },
-      "status": "review",
-      "date": {
-        "en": "August 27, 2026",
-        "zh": "2026 年 8 月 27 日",
-        "ja": "2026年8月27日",
-        "ko": "2026년 8월 27일"
-      },
-      "blurb": {
-        "en": "The iPhone and iPad companion for OpenAB Connect: hold to dictate terminal-safe text to the focused Mac terminal, securely pair nearby, import connections, browse live sessions, and attach directly. Submitted to the App Store with native iPad support.",
-        "zh": "OpenAB Connect 的 iPhone 與 iPad 伴侶：按住說話，把裝置端辨識、經終端安全處理的文字送到目前聚焦的 Mac 終端；也能安全配對、匯入連線、瀏覽即時 session 並直接接手。原生 iPad 版現正於 App Store 審核中。",
-        "ja": "OpenAB Connect の iPhone・iPad コンパニオン。長押しで音声入力し、端末上で認識・安全化したテキストを Mac の選択中のターミナルへ送信。近くの Mac との安全なペアリング、接続の取り込み、ライブセッションの閲覧、直接アタッチにも対応。iPad ネイティブ対応版を App Store で審査中です。",
-        "ko": "OpenAB Connect용 iPhone·iPad 컴패니언입니다. 버튼을 누른 채 말하면 기기에서 인식하고 터미널에 안전한 텍스트만 Mac의 현재 터미널로 보냅니다. 안전한 근거리 페어링, 연결 가져오기, 실시간 세션 탐색 및 직접 연결도 지원합니다. iPad 네이티브 버전은 현재 App Store 심사 중입니다."
-      },
-      "app": "remote"
-    },
     {
       "version": "1.6.0",
       "platforms": {
@@ -555,29 +532,6 @@
         "ko": "iPhone·iPad"
       },
       "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"7\" y=\"2\" width=\"10\" height=\"20\" rx=\"2.5\"/><path d=\"M11 19h2\"/></svg>"
-    },
-    {
-      "id": "remote",
-      "name": {
-        "en": "OpenAB Remote",
-        "zh": "OpenAB Remote",
-        "ja": "OpenAB Remote",
-        "ko": "OpenAB Remote"
-      },
-      "tagline": {
-        "en": "OpenAB Connect companion for iPhone and iPad",
-        "zh": "OpenAB Connect 的 iPhone 與 iPad 伴侶",
-        "ja": "OpenAB Connect の iPhone・iPad コンパニオン",
-        "ko": "OpenAB Connect용 iPhone·iPad 컴패니언"
-      },
-      "store": "https://apps.apple.com/app/id6805733009",
-      "toggle": {
-        "en": "Remote",
-        "zh": "Remote",
-        "ja": "Remote",
-        "ko": "Remote"
-      },
-      "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"2\" width=\"14\" height=\"20\" rx=\"3\"/><path d=\"M9 8h6M9 12h4M11 18h2\"/></svg>"
     }
   ]
 }
