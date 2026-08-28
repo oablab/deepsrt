@@ -389,12 +389,12 @@
         "ja": "iPhone、iPad",
         "ko": "iPhone, iPad"
       },
-      "status": "review",
+      "status": "latest",
       "date": {
-        "en": "Submitted August 27, 2026",
-        "zh": "2026 年 8 月 27 日送審",
-        "ja": "2026年8月27日 申請",
-        "ko": "2026년 8월 27일 제출"
+        "en": "August 28, 2026",
+        "zh": "2026 年 8 月 28 日",
+        "ja": "2026年8月28日",
+        "ko": "2026년 8월 28일"
       },
       "blurb": {
         "en": "Live caption controls now match DeepSRT PRO.",
@@ -434,7 +434,7 @@
         "ja": "iPhone、iPad",
         "ko": "iPhone, iPad"
       },
-      "status": "latest",
+      "status": null,
       "date": {
         "en": "August 26, 2026",
         "zh": "2026 年 8 月 26 日",
