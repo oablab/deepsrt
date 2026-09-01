@@ -382,7 +382,7 @@
       "app": "pro"
     },
     {
-      "version": "1.2",
+      "version": "1.2.1",
       "platforms": {
         "en": "iPhone, iPad",
         "zh": "iPhone、iPad",
@@ -390,6 +390,55 @@
         "ko": "iPhone, iPad"
       },
       "status": "latest",
+      "date": {
+        "en": "September 1, 2026",
+        "zh": "2026 年 9 月 1 日",
+        "ja": "2026年9月1日",
+        "ko": "2026년 9월 1일"
+      },
+      "blurb": {
+        "en": "Copy complete summaries and transcripts with a long press, and summaries now follow your preferred language more reliably.",
+        "zh": "現在可長按複製完整摘要與逐字稿，跨語言摘要也會更確實依照偏好語言輸出。",
+        "ja": "長押しで要約と文字起こしの全文をコピーでき、異なる言語の動画でも要約が優先言語により確実に従うようになりました。",
+        "ko": "길게 눌러 전체 요약과 스크립트를 복사할 수 있으며, 다른 언어의 영상에서도 요약이 선호 언어를 더 정확하게 따릅니다."
+      },
+      "bullets": {
+        "en": [
+          "Long-press the Summary/Transcript selector to copy the full summary or transcript.",
+          "Copied transcripts are clean plain text without timestamps.",
+          "Summaries now follow your preferred language more reliably when the source video uses another language.",
+          "The Traditional Chinese interface now correctly labels Summary as 摘要."
+        ],
+        "zh": [
+          "長按「摘要／逐字稿」切換器，即可複製完整摘要或逐字稿。",
+          "複製的逐字稿是乾淨的純文字，不含時間軸。",
+          "來源影片使用日文等其他語言時，摘要現在會更確實依照偏好語言輸出。",
+          "修正繁體中文介面的「摘要」標籤。"
+        ],
+        "ja": [
+          "「要約／文字起こし」切り替えを長押しすると、要約または文字起こしの全文をコピーできます。",
+          "コピーした文字起こしは、タイムスタンプのない読みやすいプレーンテキストになります。",
+          "元の動画が別の言語でも、要約が選択した優先言語により確実に従うよう改善しました。",
+          "繁体字中国語インターフェースの「要約」ラベルを修正しました。"
+        ],
+        "ko": [
+          "요약/스크립트 전환 버튼을 길게 눌러 전체 요약 또는 스크립트를 복사할 수 있습니다.",
+          "복사된 스크립트는 타임스탬프가 없는 깔끔한 일반 텍스트로 제공됩니다.",
+          "원본 영상이 다른 언어여도 요약이 선택한 선호 언어를 더 정확하게 따르도록 개선했습니다.",
+          "번체 중국어 인터페이스의 요약 레이블을 수정했습니다."
+        ]
+      },
+      "app": "mobile"
+    },
+    {
+      "version": "1.2",
+      "platforms": {
+        "en": "iPhone, iPad",
+        "zh": "iPhone、iPad",
+        "ja": "iPhone、iPad",
+        "ko": "iPhone, iPad"
+      },
+      "status": null,
       "date": {
         "en": "August 28, 2026",
         "zh": "2026 年 8 月 28 日",
