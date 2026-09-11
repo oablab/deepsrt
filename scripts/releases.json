@@ -148,7 +148,56 @@
   },
   "releases": [
     {
-      "version": "1.6.0",
+      "version": "1.6.2",
+      "platforms": {
+        "en": "Mac",
+        "zh": "Mac",
+        "ja": "Mac",
+        "ko": "Mac"
+      },
+      "status": "review",
+      "date": {
+        "en": "September 11, 2026",
+        "zh": "2026 年 9 月 11 日",
+        "ja": "2026年9月11日",
+        "ko": "2026년 9월 11일"
+      },
+      "blurb": {
+        "en": "AI provider refresh: Gemini 3.8 Flash, DeepSeek V4.1 Flash and the openrouter/free router join the pickers, new installs default to Gemini Flash-Lite, and OpenCode Zen's rate-limited free models are gone.",
+        "zh": "AI 供應商更新：新增 Gemini 3.8 Flash、DeepSeek V4.1 Flash 與 openrouter/free 路由，全新安裝預設改用 Gemini Flash-Lite，並移除會被限流的 OpenCode Zen 免費模型。",
+        "ja": "AI プロバイダの更新：Gemini 3.8 Flash、DeepSeek V4.1 Flash、openrouter/free ルーターを追加。新規インストールの初期設定は Gemini Flash-Lite になり、レート制限される OpenCode Zen の無料モデルは削除しました。",
+        "ko": "AI 공급자 업데이트: Gemini 3.8 Flash, DeepSeek V4.1 Flash, openrouter/free 라우터를 추가했고, 새 설치의 기본값은 Gemini Flash-Lite로 바뀌었으며, 속도 제한을 받는 OpenCode Zen 무료 모델은 제거했습니다."
+      },
+      "bullets": {
+        "en": [
+          "Gemini 3.8 Flash is available; new installs default to Gemini Flash-Lite for captions and summaries — the tier Google positions for translation, at a fraction of the cost.",
+          "DeepSeek preset now uses DeepSeek V4.1 Flash; OpenRouter gains DeepSeek V4.1 Flash and the openrouter/free router.",
+          "OpenCode Zen free models removed: Zen throttles them for third-party apps, which caused rate-limit errors. Paid Zen models remain.",
+          "The model list shows current prices and upcoming retirement dates."
+        ],
+        "zh": [
+          "新增 Gemini 3.8 Flash；全新安裝的字幕與摘要預設改用 Gemini Flash-Lite——Google 定位為翻譯用途的等級，費用只有原本的一小部分。",
+          "DeepSeek 預設改用 DeepSeek V4.1 Flash；OpenRouter 新增 DeepSeek V4.1 Flash 與 openrouter/free 路由。",
+          "移除 OpenCode Zen 免費模型：Zen 對第三方 App 限流，導致速率限制錯誤。Zen 付費模型維持可用。",
+          "模型清單會顯示目前價格與即將退役的日期。"
+        ],
+        "ja": [
+          "Gemini 3.8 Flash を追加。新規インストールでは字幕と要約の初期設定が Gemini Flash-Lite になります。Google が翻訳向けと位置づけるティアで、コストは大幅に低くなります。",
+          "DeepSeek プリセットは DeepSeek V4.1 Flash を使用。OpenRouter に DeepSeek V4.1 Flash と openrouter/free ルーターを追加。",
+          "OpenCode Zen の無料モデルを削除：Zen はサードパーティ製アプリを制限しており、レート制限エラーの原因になっていました。有料モデルは引き続き利用できます。",
+          "モデル一覧に現在の価格と提供終了予定日を表示。"
+        ],
+        "ko": [
+          "Gemini 3.8 Flash 추가. 새로 설치하면 자막과 요약의 기본값이 Gemini Flash-Lite로 설정됩니다. Google이 번역용으로 제시하는 등급으로, 비용이 크게 낮습니다.",
+          "DeepSeek 프리셋이 DeepSeek V4.1 Flash를 사용합니다. OpenRouter에 DeepSeek V4.1 Flash와 openrouter/free 라우터를 추가했습니다.",
+          "OpenCode Zen 무료 모델 제거: Zen이 서드파티 앱을 제한해 속도 제한 오류가 발생했습니다. 유료 모델은 계속 사용할 수 있습니다.",
+          "모델 목록에 현재 가격과 예정된 종료 날짜를 표시합니다."
+        ]
+      },
+      "app": "pro"
+    },
+    {
+      "version": "1.6.1",
       "platforms": {
         "en": "Mac",
         "zh": "Mac",
@@ -156,6 +205,29 @@
         "ko": "Mac"
       },
       "status": "latest",
+      "date": {
+        "en": "September 6, 2026",
+        "zh": "2026 年 9 月 6 日",
+        "ja": "2026年9月6日",
+        "ko": "2026년 9월 6일"
+      },
+      "blurb": {
+        "en": "Maintenance release with refreshed localized App Store screenshots. DeepSRT PRO moved to a new Apple developer team, so after updating you may need to re-enter your AI API keys and re-enable the Safari extension.",
+        "zh": "維護更新，重新製作各語系的 App Store 截圖。DeepSRT PRO 已移轉至新的 Apple 開發者團隊，更新後可能需要重新輸入 AI API 金鑰並重新啟用 Safari 擴充功能。",
+        "ja": "各言語の App Store スクリーンショットを刷新したメンテナンスリリース。DeepSRT PRO は新しい Apple デベロッパチームに移行したため、更新後に AI の API キーの再入力と Safari 拡張機能の再有効化が必要になる場合があります。",
+        "ko": "현지화된 App Store 스크린샷을 새로 만든 유지 관리 릴리스입니다. DeepSRT PRO가 새 Apple 개발자 팀으로 이전되어, 업데이트 후 AI API 키를 다시 입력하고 Safari 확장 프로그램을 다시 활성화해야 할 수 있습니다."
+      },
+      "app": "pro"
+    },
+    {
+      "version": "1.6.0",
+      "platforms": {
+        "en": "Mac",
+        "zh": "Mac",
+        "ja": "Mac",
+        "ko": "Mac"
+      },
+      "status": null,
       "date": {
         "en": "August 14, 2026",
         "zh": "2026 年 8 月 14 日",
@@ -382,7 +454,56 @@
       "app": "pro"
     },
     {
-      "version": "1.2.1",
+      "version": "1.2.3",
+      "platforms": {
+        "en": "iPhone, iPad",
+        "zh": "iPhone、iPad",
+        "ja": "iPhone、iPad",
+        "ko": "iPhone, iPad"
+      },
+      "status": "review",
+      "date": {
+        "en": "September 11, 2026",
+        "zh": "2026 年 9 月 11 日",
+        "ja": "2026年9月11日",
+        "ko": "2026년 9월 11일"
+      },
+      "blurb": {
+        "en": "AI provider refresh: Gemini 3.8 Flash, DeepSeek V4.1 Flash and the openrouter/free router join the pickers, new installs default to Gemini Flash-Lite, and OpenCode Zen's rate-limited free models are gone.",
+        "zh": "AI 供應商更新：新增 Gemini 3.8 Flash、DeepSeek V4.1 Flash 與 openrouter/free 路由，全新安裝預設改用 Gemini Flash-Lite，並移除會被限流的 OpenCode Zen 免費模型。",
+        "ja": "AI プロバイダの更新：Gemini 3.8 Flash、DeepSeek V4.1 Flash、openrouter/free ルーターを追加。新規インストールの初期設定は Gemini Flash-Lite になり、レート制限される OpenCode Zen の無料モデルは削除しました。",
+        "ko": "AI 공급자 업데이트: Gemini 3.8 Flash, DeepSeek V4.1 Flash, openrouter/free 라우터를 추가했고, 새 설치의 기본값은 Gemini Flash-Lite로 바뀌었으며, 속도 제한을 받는 OpenCode Zen 무료 모델은 제거했습니다."
+      },
+      "bullets": {
+        "en": [
+          "Gemini 3.8 Flash is available; new installs default to Gemini Flash-Lite for captions and summaries — the tier Google positions for translation, at a fraction of the cost.",
+          "DeepSeek preset now uses DeepSeek V4.1 Flash; OpenRouter gains DeepSeek V4.1 Flash and the openrouter/free router.",
+          "OpenCode Zen free models removed: Zen throttles them for third-party apps, which caused rate-limit errors. Paid Zen models remain.",
+          "The model list shows current prices and upcoming retirement dates."
+        ],
+        "zh": [
+          "新增 Gemini 3.8 Flash；全新安裝的字幕與摘要預設改用 Gemini Flash-Lite——Google 定位為翻譯用途的等級，費用只有原本的一小部分。",
+          "DeepSeek 預設改用 DeepSeek V4.1 Flash；OpenRouter 新增 DeepSeek V4.1 Flash 與 openrouter/free 路由。",
+          "移除 OpenCode Zen 免費模型：Zen 對第三方 App 限流，導致速率限制錯誤。Zen 付費模型維持可用。",
+          "模型清單會顯示目前價格與即將退役的日期。"
+        ],
+        "ja": [
+          "Gemini 3.8 Flash を追加。新規インストールでは字幕と要約の初期設定が Gemini Flash-Lite になります。Google が翻訳向けと位置づけるティアで、コストは大幅に低くなります。",
+          "DeepSeek プリセットは DeepSeek V4.1 Flash を使用。OpenRouter に DeepSeek V4.1 Flash と openrouter/free ルーターを追加。",
+          "OpenCode Zen の無料モデルを削除：Zen はサードパーティ製アプリを制限しており、レート制限エラーの原因になっていました。有料モデルは引き続き利用できます。",
+          "モデル一覧に現在の価格と提供終了予定日を表示。"
+        ],
+        "ko": [
+          "Gemini 3.8 Flash 추가. 새로 설치하면 자막과 요약의 기본값이 Gemini Flash-Lite로 설정됩니다. Google이 번역용으로 제시하는 등급으로, 비용이 크게 낮습니다.",
+          "DeepSeek 프리셋이 DeepSeek V4.1 Flash를 사용합니다. OpenRouter에 DeepSeek V4.1 Flash와 openrouter/free 라우터를 추가했습니다.",
+          "OpenCode Zen 무료 모델 제거: Zen이 서드파티 앱을 제한해 속도 제한 오류가 발생했습니다. 유료 모델은 계속 사용할 수 있습니다.",
+          "모델 목록에 현재 가격과 예정된 종료 날짜를 표시합니다."
+        ]
+      },
+      "app": "mobile"
+    },
+    {
+      "version": "1.2.2",
       "platforms": {
         "en": "iPhone, iPad",
         "zh": "iPhone、iPad",
@@ -390,6 +511,29 @@
         "ko": "iPhone, iPad"
       },
       "status": "latest",
+      "date": {
+        "en": "September 6, 2026",
+        "zh": "2026 年 9 月 6 日",
+        "ja": "2026年9月6日",
+        "ko": "2026년 9월 6일"
+      },
+      "blurb": {
+        "en": "Maintenance release with refreshed localized App Store screenshots. App functionality is unchanged.",
+        "zh": "維護更新，重新製作各語系的 App Store 截圖；App 功能維持不變。",
+        "ja": "各言語の App Store スクリーンショットを刷新したメンテナンスリリース。アプリの機能は変わりません。",
+        "ko": "현지화된 App Store 스크린샷을 새로 만든 유지 관리 릴리스입니다. 앱 기능은 변경되지 않았습니다."
+      },
+      "app": "mobile"
+    },
+    {
+      "version": "1.2.1",
+      "platforms": {
+        "en": "iPhone, iPad",
+        "zh": "iPhone、iPad",
+        "ja": "iPhone、iPad",
+        "ko": "iPhone, iPad"
+      },
+      "status": null,
       "date": {
         "en": "September 1, 2026",
         "zh": "2026 年 9 月 1 日",
