@@ -148,6 +148,55 @@
  },
  "releases": [
   {
+   "version": "1.7.0",
+   "platforms": {
+    "en": "Mac",
+    "zh": "Mac",
+    "ja": "Mac",
+    "ko": "Mac"
+   },
+   "status": "review",
+   "date": {
+    "en": "September 15, 2026",
+    "zh": "2026 年 9 月 15 日",
+    "ja": "2026年9月15日",
+    "ko": "2026년 9월 15일"
+   },
+   "blurb": {
+    "en": "DeepSRT PRO becomes free to download with a 7-day free trial of every AI feature, then Monthly, Yearly or a one-time Lifetime purchase. Everyone who bought the app before this release keeps everything unlocked forever.",
+    "zh": "DeepSRT PRO 改為免費下載，所有 AI 功能免費試用 7 天，之後可選月付、年付或一次購買的永久方案。在這次更新前購買的用戶，所有功能永久解鎖。",
+    "ja": "DeepSRT PRO は無料ダウンロードになり、すべての AI 機能を 7 日間無料で試せます。その後は月額・年額・買い切りから選択。今回のリリース前に購入した方は、すべての機能が永久にアンロックされたままです。",
+    "ko": "DeepSRT PRO이 무료 다운로드로 바뀌고 모든 AI 기능을 7일간 무료로 체험할 수 있습니다. 이후 월간, 연간 또는 1회 구입의 평생 요금제 중 선택하세요. 이번 릴리스 전에 구입한 분은 모든 기능이 영구적으로 잠금 해제된 상태로 유지됩니다."
+   },
+   "bullets": {
+    "en": [
+     "Free download; 7-day free trial of AI summaries, bilingual live captions, AI transcription and the MCP server.",
+     "After the trial: Monthly, Yearly, or a one-time Lifetime purchase. Playback, search and YouTube's own captions stay free.",
+     "Bought DeepSRT PRO before this update? Nothing changes — everything remains unlocked forever, no purchase needed.",
+     "Restore Purchases and your plan status live in Settings."
+    ],
+    "zh": [
+     "免費下載；AI 摘要、雙語即時字幕、AI 轉錄與 MCP 伺服器免費試用 7 天。",
+     "試用結束後可選擇月付、年付，或一次購買的永久方案。播放、搜尋與 YouTube 原始字幕維持免費。",
+     "在這次更新前就購買 DeepSRT PRO？完全不受影響——所有功能永久解鎖，無需再購買。",
+     "「恢復購買」與方案狀態都在設定中。"
+    ],
+    "ja": [
+     "無料ダウンロード。AI 要約、バイリンガルのライブ字幕、AI 文字起こし、MCP サーバーを 7 日間無料で試せます。",
+     "トライアル後は月額・年額・買い切りから選択。再生、検索、YouTube の元字幕は引き続き無料です。",
+     "アップデート前に購入済みの方は何も変わりません。すべての機能が永久にアンロックされたままで、追加購入は不要です。",
+     "「購入を復元」とプランの状態は設定にあります。"
+    ],
+    "ko": [
+     "무료 다운로드. AI 요약, 이중 언어 실시간 자막, AI 전사, MCP 서버를 7일간 무료로 체험할 수 있습니다.",
+     "체험 후에는 월간, 연간 또는 1회 구입의 평생 요금제 중 선택하세요. 재생, 검색, YouTube 원본 자막은 계속 무료입니다.",
+     "이번 업데이트 전에 구입하셨다면 아무것도 바뀌지 않습니다. 모든 기능이 영구적으로 잠금 해제된 상태로 유지되며 추가 구입이 필요 없습니다.",
+     "구입 항목 복원과 요금제 상태는 설정에 있습니다."
+    ]
+   },
+   "app": "pro"
+  },
+  {
    "version": "1.6.2",
    "platforms": {
     "en": "Mac",
