@@ -510,12 +510,12 @@
     "ja": "iPhone、iPad",
     "ko": "iPhone, iPad"
    },
-   "status": "review",
+   "status": "latest",
    "date": {
-    "en": "September 14, 2026",
-    "zh": "2026 年 9 月 14 日",
-    "ja": "2026年9月14日",
-    "ko": "2026년 9월 14일"
+    "en": "September 17, 2026",
+    "zh": "2026 年 9 月 17 日",
+    "ja": "2026年9月17日",
+    "ko": "2026년 9월 17일"
    },
    "blurb": {
     "en": "DeepSRT Mobile becomes free to download with a 7-day free trial of every AI feature, then Monthly, Yearly or a one-time Lifetime purchase. Everyone who bought the app before this release keeps everything unlocked forever.",
@@ -559,7 +559,6 @@
     "ja": "iPhone、iPad",
     "ko": "iPhone, iPad"
    },
-   "status": "latest",
    "date": {
     "en": "September 11, 2026",
     "zh": "2026 年 9 月 11 日",
