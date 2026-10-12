@@ -148,7 +148,7 @@
  },
  "releases": [
   {
-   "version": "1.7.0",
+   "version": "1.8.0",
    "platforms": {
     "en": "Mac",
     "zh": "Mac",
@@ -156,6 +156,55 @@
     "ko": "Mac"
    },
    "status": "review",
+   "date": {
+    "en": "October 13, 2026",
+    "zh": "2026 年 10 月 13 日",
+    "ja": "2026年10月13日",
+    "ko": "2026년 10월 13일"
+   },
+   "blurb": {
+    "en": "OpenAI joins as a built-in AI provider, and every model in the picker now shows its price per million tokens.",
+    "zh": "新增 OpenAI 為內建 AI 提供者，模型選單中的每個模型現在都會顯示每百萬 token 的價格。",
+    "ja": "OpenAI を AI プロバイダとして標準搭載。モデル選択メニューでは各モデルの 100 万トークンあたりの料金を表示するようになりました。",
+    "ko": "OpenAI가 기본 AI 공급자로 추가되었고, 모델 선택 메뉴의 모든 모델에 100만 토큰당 가격이 표시됩니다."
+   },
+   "bullets": {
+    "en": [
+     "Add an OpenAI API key in Settings to use GPT-6 Luna, GPT-6.1 Sol, GPT-5 mini/nano, GPT-4.1 mini or GPT-4o mini for captions and summaries, with a link to set a spending cap.",
+     "Model menus show input / output prices per million tokens for Gemini, OpenAI, OpenRouter and DeepSeek picks.",
+     "Refreshed model lists: OpenCode Zen adds DeepSeek V4.1 Flash; a withdrawn OpenRouter free model is removed.",
+     "Transcribing videos without captions still requires a Google Gemini key."
+    ],
+    "zh": [
+     "在設定中加入 OpenAI API 金鑰，即可為字幕與摘要選用 GPT-6 Luna、GPT-6.1 Sol、GPT-5 mini/nano、GPT-4.1 mini 或 GPT-4o mini，並附設定支出上限的連結。",
+     "模型選單會顯示 Gemini、OpenAI、OpenRouter 與 DeepSeek 模型每百萬 token 的輸入 / 輸出價格。",
+     "更新模型清單：OpenCode Zen 新增 DeepSeek V4.1 Flash，並移除 OpenRouter 已下架的免費模型。",
+     "轉錄沒有字幕的影片仍需 Google Gemini 金鑰。"
+    ],
+    "ja": [
+     "設定で OpenAI の API キーを追加すると、字幕と要約に GPT-6 Luna、GPT-6.1 Sol、GPT-5 mini/nano、GPT-4.1 mini、GPT-4o mini を使えます。利用上限を設定するリンクも用意しました。",
+     "モデルメニューに Gemini、OpenAI、OpenRouter、DeepSeek の各モデルの 100 万トークンあたりの入力 / 出力料金を表示します。",
+     "モデル一覧を更新：OpenCode Zen に DeepSeek V4.1 Flash を追加し、提供終了した OpenRouter の無料モデルを削除しました。",
+     "字幕のない動画の文字起こしには、引き続き Google Gemini のキーが必要です。"
+    ],
+    "ko": [
+     "설정에서 OpenAI API 키를 추가하면 자막과 요약에 GPT-6 Luna, GPT-6.1 Sol, GPT-5 mini/nano, GPT-4.1 mini 또는 GPT-4o mini를 사용할 수 있으며, 지출 한도를 설정하는 링크도 제공합니다.",
+     "모델 메뉴에 Gemini, OpenAI, OpenRouter, DeepSeek 모델의 100만 토큰당 입력 / 출력 가격이 표시됩니다.",
+     "모델 목록 업데이트: OpenCode Zen에 DeepSeek V4.1 Flash를 추가하고, 서비스가 종료된 OpenRouter 무료 모델을 제거했습니다.",
+     "자막이 없는 동영상을 전사하려면 여전히 Google Gemini 키가 필요합니다."
+    ]
+   },
+   "app": "pro"
+  },
+  {
+   "version": "1.7.0",
+   "platforms": {
+    "en": "Mac",
+    "zh": "Mac",
+    "ja": "Mac",
+    "ko": "Mac"
+   },
+   "status": "latest",
    "date": {
     "en": "September 15, 2026",
     "zh": "2026 年 9 月 15 日",
@@ -204,7 +253,7 @@
     "ja": "Mac",
     "ko": "Mac"
    },
-   "status": "latest",
+   "status": null,
    "date": {
     "en": "September 11, 2026",
     "zh": "2026 年 9 月 11 日",
@@ -501,6 +550,55 @@
     "ko": "Mac App Store 첫 릴리스. 직접 준비한 Gemini 키로 YouTube의 AI 요약과 클릭 가능한 자막을 만들고, 이중 언어 자막이 어긋나지 않는 '척추+주석' 구조를 사용합니다."
    },
    "app": "pro"
+  },
+  {
+   "version": "1.4.0",
+   "platforms": {
+    "en": "iPhone, iPad",
+    "zh": "iPhone、iPad",
+    "ja": "iPhone、iPad",
+    "ko": "iPhone, iPad"
+   },
+   "status": "review",
+   "date": {
+    "en": "October 13, 2026",
+    "zh": "2026 年 10 月 13 日",
+    "ja": "2026年10月13日",
+    "ko": "2026년 10월 13일"
+   },
+   "blurb": {
+    "en": "OpenAI joins as a built-in AI provider, and every model in the picker now shows its price per million tokens.",
+    "zh": "新增 OpenAI 為內建 AI 提供者，模型選單中的每個模型現在都會顯示每百萬 token 的價格。",
+    "ja": "OpenAI を AI プロバイダとして標準搭載。モデル選択メニューでは各モデルの 100 万トークンあたりの料金を表示するようになりました。",
+    "ko": "OpenAI가 기본 AI 공급자로 추가되었고, 모델 선택 메뉴의 모든 모델에 100만 토큰당 가격이 표시됩니다."
+   },
+   "bullets": {
+    "en": [
+     "Add an OpenAI API key in Settings to use GPT-6 Luna, GPT-6.1 Sol, GPT-5 mini/nano, GPT-4.1 mini or GPT-4o mini for captions and summaries, with a link to set a spending cap.",
+     "Model menus show input / output prices per million tokens for Gemini, OpenAI, OpenRouter and DeepSeek picks.",
+     "Refreshed model lists: OpenCode Zen adds DeepSeek V4.1 Flash; a withdrawn OpenRouter free model is removed.",
+     "Transcribing videos without captions still requires a Google Gemini key."
+    ],
+    "zh": [
+     "在設定中加入 OpenAI API 金鑰，即可為字幕與摘要選用 GPT-6 Luna、GPT-6.1 Sol、GPT-5 mini/nano、GPT-4.1 mini 或 GPT-4o mini，並附設定支出上限的連結。",
+     "模型選單會顯示 Gemini、OpenAI、OpenRouter 與 DeepSeek 模型每百萬 token 的輸入 / 輸出價格。",
+     "更新模型清單：OpenCode Zen 新增 DeepSeek V4.1 Flash，並移除 OpenRouter 已下架的免費模型。",
+     "轉錄沒有字幕的影片仍需 Google Gemini 金鑰。"
+    ],
+    "ja": [
+     "設定で OpenAI の API キーを追加すると、字幕と要約に GPT-6 Luna、GPT-6.1 Sol、GPT-5 mini/nano、GPT-4.1 mini、GPT-4o mini を使えます。利用上限を設定するリンクも用意しました。",
+     "モデルメニューに Gemini、OpenAI、OpenRouter、DeepSeek の各モデルの 100 万トークンあたりの入力 / 出力料金を表示します。",
+     "モデル一覧を更新：OpenCode Zen に DeepSeek V4.1 Flash を追加し、提供終了した OpenRouter の無料モデルを削除しました。",
+     "字幕のない動画の文字起こしには、引き続き Google Gemini のキーが必要です。"
+    ],
+    "ko": [
+     "설정에서 OpenAI API 키를 추가하면 자막과 요약에 GPT-6 Luna, GPT-6.1 Sol, GPT-5 mini/nano, GPT-4.1 mini 또는 GPT-4o mini를 사용할 수 있으며, 지출 한도를 설정하는 링크도 제공합니다.",
+     "모델 메뉴에 Gemini, OpenAI, OpenRouter, DeepSeek 모델의 100만 토큰당 입력 / 출력 가격이 표시됩니다.",
+     "모델 목록 업데이트: OpenCode Zen에 DeepSeek V4.1 Flash를 추가하고, 서비스가 종료된 OpenRouter 무료 모델을 제거했습니다.",
+     "자막이 없는 동영상을 전사하려면 여전히 Google Gemini 키가 필요합니다."
+    ]
+   },
+   "app": "mobile"
   },
   {
    "version": "1.3.0",
