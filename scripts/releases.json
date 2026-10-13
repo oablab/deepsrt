@@ -155,7 +155,7 @@
     "ja": "Mac",
     "ko": "Mac"
    },
-   "status": "review",
+   "status": "latest",
    "date": {
     "en": "October 13, 2026",
     "zh": "2026 年 10 月 13 日",
@@ -204,7 +204,7 @@
     "ja": "Mac",
     "ko": "Mac"
    },
-   "status": "latest",
+   "status": null,
    "date": {
     "en": "September 15, 2026",
     "zh": "2026 年 9 月 15 日",
@@ -559,7 +559,7 @@
     "ja": "iPhone、iPad",
     "ko": "iPhone, iPad"
    },
-   "status": "review",
+   "status": "latest",
    "date": {
     "en": "October 13, 2026",
     "zh": "2026 年 10 月 13 日",
@@ -608,7 +608,7 @@
     "ja": "iPhone、iPad",
     "ko": "iPhone, iPad"
    },
-   "status": "latest",
+   "status": null,
    "date": {
     "en": "September 17, 2026",
     "zh": "2026 年 9 月 17 日",
